@@ -21,6 +21,11 @@ public class SQLConnection {
         USERNAME = "KundaiTD";
         PASSWORD = "manage316";
     }
+    public SQLConnection(String dburl) {
+        DBURL = dburl;
+        USERNAME = "KundaiTD";
+        PASSWORD = "manage316";
+    }
     public SQLConnection(String dburl, String username, String password) {
         DBURL = dburl;
         USERNAME = username;
