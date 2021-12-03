@@ -1,3 +1,4 @@
 # Online-PRMS
-Online Property Rental Management System
+Online Property Rental Management System\
+
 Authors: Kundai Dziwa, Tommy Dinh, Tien Dat Johny Do, Stalin D Cunha 
