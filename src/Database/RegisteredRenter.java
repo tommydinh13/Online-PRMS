@@ -6,7 +6,7 @@ import java.sql.Statement;
 
 public class RegisteredRenter {
     private String name;
-    private String phone_number;
+    private String password;
     private String email;
     private int idNum;
     private SQLConnection db;
@@ -14,14 +14,14 @@ public class RegisteredRenter {
     // Constructors
     public RegisteredRenter(String n, String pn, String em) throws SQLException {
         name = n;
-        phone_number = pn;
+        password = pn;
         email = em;
         db = new SQLConnection();
 
         db.initializeConnection();
         try (Statement stmt = db.getConnection().createStatement();) {
-            String insertSql = "INSERT INTO Renters(name, phone_number, email) " 
-            + "SELECT * FROM ( SELECT '" + name + "' AS name, '" + phone_number + "' AS phone_number, '" + email + "' AS email) AS temp "
+            String insertSql = "INSERT INTO Renters(name, password, email) " 
+            + "SELECT * FROM ( SELECT '" + name + "' AS name, '" + password + "' AS password, '" + email + "' AS email) AS temp "
             + "WHERE NOT EXISTS (SELECT name FROM Renters WHERE name = '" + name + "') LIMIT 1;";
 
             stmt.executeUpdate(insertSql);
@@ -33,7 +33,7 @@ public class RegisteredRenter {
         db.initializeConnection();
         Statement myStmt = db.getConnection().createStatement();
         ResultSet results = myStmt.executeQuery("SELECT * FROM Renters WHERE name ='" 
-        + name + "' AND phone_number ='" + phone_number + "' AND email ='" + email + "';");
+        + name + "' AND password ='" + password + "' AND email ='" + email + "';");
         
         if (results.next()) {
             idNum = Integer.parseInt(results.getString(1));
@@ -44,8 +44,8 @@ public class RegisteredRenter {
     public String getName() {
         return name;
     }
-    public String getPhoneNumber() {
-        return phone_number;
+    public String getPassword() {
+        return password;
     }
     public String getEmail() {
         return email;
@@ -59,7 +59,7 @@ public class RegisteredRenter {
         db.initializeConnection();
         try (Statement stmt = db.getConnection().createStatement();) {
             String insertSql = "DELETE FROM Renters WHERE " 
-            + "name='" + name + "' AND phone_number='" + phone_number + "' AND email='" + email + "';";
+            + "name='" + name + "' AND password='" + password + "' AND email='" + email + "';";
 
             stmt.executeUpdate(insertSql);
             db.closeConn();

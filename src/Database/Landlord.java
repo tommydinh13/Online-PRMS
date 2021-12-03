@@ -7,7 +7,7 @@ import java.sql.Statement;
 public class Landlord {
     private Property property;
     private String name;
-    private String phone_number;
+    private String password;
     private String email;
     private int idNum;
     private SQLConnection db;
@@ -16,14 +16,14 @@ public class Landlord {
     public Landlord(Property p, String n, String pn, String em) throws SQLException {
         property = p;
         name = n;
-        phone_number = pn;
+        password = pn;
         email = em;
         db = new SQLConnection();
 
         db.initializeConnection();
         try (Statement stmt = db.getConnection().createStatement();) {
-            String insertSql = "INSERT INTO Landlords (name, phone_number, email) " 
-            + "SELECT * FROM (SELECT '" + name + "' AS name, '" + phone_number + "' AS phone_number, '" + email + "' AS email) AS temp "
+            String insertSql = "INSERT INTO Landlords (name, password, email) " 
+            + "SELECT * FROM (SELECT '" + name + "' AS name, '" + password + "' AS password, '" + email + "' AS email) AS temp "
             + "WHERE NOT EXISTS (SELECT name FROM Landlords WHERE name = '" + name + "') LIMIT 1;";
 
             stmt.executeUpdate(insertSql);
@@ -34,7 +34,7 @@ public class Landlord {
 
         Statement myStmt = db.getConnection().createStatement();
         ResultSet results = myStmt.executeQuery("SELECT * FROM Landlords WHERE name ='" 
-        + name + "' AND phone_number ='" + phone_number + "' AND email ='" + email + ";");
+        + name + "' AND password ='" + password + "' AND email ='" + email + ";");
         
         if (results.next()) {
             idNum = Integer.parseInt(results.getString(1));
@@ -45,8 +45,8 @@ public class Landlord {
     public String getName() {
         return name;
     }
-    public String getPhoneNumber() {
-        return phone_number;
+    public String getPassword() {
+        return password;
     }
     public String getEmail() {
         return email;
