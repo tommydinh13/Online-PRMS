@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-
 // https://beginnersbook.com/2015/07/java-swing-tutorial/
 public class LoginForm implements ActionListener {
 
@@ -113,10 +112,10 @@ public class LoginForm implements ActionListener {
 
     if (e.getSource() == loginButton) {
       //			// need another if statement that checks the
-      //login and password after login
+      // login and password after login
       //			// button
       //			// to ensure user is in database and go to
-      //respected page
+      // respected page
       //
       userController loginCheck = userController();
       boolean check = userController.checkUser(email, password, role);
@@ -135,14 +134,14 @@ public class LoginForm implements ActionListener {
       //			else if(check && role.equals("Manager")) {
       //
       //				ManagerForm manger = new
-      //NanagerForm(String id);
+      // NanagerForm(String id);
       //
       //			}
       //			else if(check && role.equals("Registered
-      //Renter")) {
+      // Renter")) {
       //
       //				RegisteredRenterForm renter = new
-      //RegisteredRenterForm(String id);
+      // RegisteredRenterForm(String id);
       //
       //			}
       //			else{
