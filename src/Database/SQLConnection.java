@@ -17,7 +17,7 @@ public class SQLConnection {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        DBURL = "jdbc:mysql://localhost/Management";
+        DBURL = "jdbc:mysql://127.0.0.1/RPMS";
         USERNAME = "KundaiTD";
         PASSWORD = "manage316";
     }
