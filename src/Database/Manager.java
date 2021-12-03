@@ -11,9 +11,9 @@ public class Manager {
     private SQLConnection db;
     
     // Constructors
-    public Manager(String n, String pn, String em) {
+    public Manager(String n, String p, String em) {
         name = n;
-        password = pn;
+        password = p;
         email = em;
         db = new SQLConnection();
 

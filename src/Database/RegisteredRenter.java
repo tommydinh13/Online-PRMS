@@ -12,9 +12,9 @@ public class RegisteredRenter {
     private SQLConnection db;
     
     // Constructors
-    public RegisteredRenter(String n, String pn, String em) throws SQLException {
+    public RegisteredRenter(String n, String p, String em) throws SQLException {
         name = n;
-        password = pn;
+        password = p;
         email = em;
         db = new SQLConnection();
 

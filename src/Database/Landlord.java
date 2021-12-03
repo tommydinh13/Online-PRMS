@@ -13,10 +13,10 @@ public class Landlord {
     private SQLConnection db;
 
     // Constructors
-    public Landlord(Property p, String n, String pn, String em) throws SQLException {
+    public Landlord(Property p, String n, String ps, String em) throws SQLException {
         property = p;
         name = n;
-        password = pn;
+        password = ps;
         email = em;
         db = new SQLConnection();
 

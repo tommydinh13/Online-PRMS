@@ -14,13 +14,35 @@ public class UserController {
     
     // Method Functions 
     public int checkUser(String email, String password, String role) throws SQLException {
-        db.initializeConnection();
-        Statement myStmt = db.getConnection().createStatement();
-        ResultSet results = myStmt.executeQuery("SELECT * FROM Renters WHERE email ='" 
-        + email + "' AND password ='" + password + "';");
-        
-        if (results.next()) {
-            return Integer.parseInt(results.getString(1));
+        if (role.equals("Landlord")) {
+            db.initializeConnection();
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery("SELECT * FROM Landlords WHERE email ='" 
+            + email + "' AND password ='" + password + "';");
+            
+            if (results.next()) {
+                return Integer.parseInt(results.getString(1));
+            }
+        }
+        if (role.equals("Manager")) {
+            db.initializeConnection();
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery("SELECT * FROM Managers WHERE email ='" 
+            + email + "' AND password ='" + password + "';");
+            
+            if (results.next()) {
+                return Integer.parseInt(results.getString(1));
+            }
+        }
+        if (role.equals("Registered Renter")) {
+            db.initializeConnection();
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery("SELECT * FROM Renters WHERE email ='" 
+            + email + "' AND password ='" + password + "';");
+            
+            if (results.next()) {
+                return Integer.parseInt(results.getString(1));
+            }
         }
 
         return 0;
