@@ -2,12 +2,16 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import Database.*;
 
 // https://beginnersbook.com/2015/07/java-swing-tutorial/
 public class LoginForm implements ActionListener {
@@ -98,8 +102,7 @@ public class LoginForm implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     String email = emailText.getText();
     String password = passwordText.getText();
-    String role = roleComboBox.getSelectedItem()
-                      .toString(); // get the value of the combo box
+    String role = userComboBox.getSelectedItem().toString();
     if (e.getSource() == searchPropButton) {
       frame.dispose();
       SearchCriteriaForm mySearchCriteria = new SearchCriteriaForm();
@@ -117,8 +120,13 @@ public class LoginForm implements ActionListener {
       //			// to ensure user is in database and go to
       // respected page
       //
-      userController loginCheck = userController();
-      boolean check = userController.checkUser(email, password, role);
+      UserController loginCheck = new UserController();
+      int check = 0;
+      try {
+        check = loginCheck.checkUser(email, password, role);
+      } catch (SQLException e1) {
+        e1.printStackTrace();
+      }
       //
       //			if(!check) {
       //				// error message saying not registered
@@ -126,8 +134,7 @@ public class LoginForm implements ActionListener {
       //
       //			//role == landlord
       //			// if landlord exist
-      if (check && role.equals("Manager")) {
-
+      if (check > 0 && role.equals("Manager")) {
         ManagerForm manager = new ManagerForm();
       }
       //
