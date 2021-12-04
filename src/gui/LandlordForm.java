@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,6 +17,7 @@ public class LandlordForm implements ActionListener {
 	private static int idLL;
 
 	LandlordForm(int id) {
+		idLL = id;
 
 		sofButton = new JButton("Change State of Listing");
 		sofButton.setBounds(80, 40, 200, 40);
@@ -54,7 +56,11 @@ public class LandlordForm implements ActionListener {
 		}
 
 		else if (e.getSource() == regisButton) {
-			RegisterPropertyForm newProperty = new RegisterPropertyForm(idLL);
+			try {
+				RegisterPropertyForm newProperty = new RegisterPropertyForm(idLL);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 
 		else if (e.getSource() == payFeeButton) {

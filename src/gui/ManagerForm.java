@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -88,8 +90,11 @@ public class ManagerForm implements ActionListener {
     }
 
     else if (e.getSource() == perSumButton) {
-      // create new periodic summary objecct???
-      // method to display the info (probably needs a new window)
+    try {
+      PeriodicSummaryForm form = new PeriodicSummaryForm();
+    } catch (SQLException e1) {
+      e1.printStackTrace();
+    }
     }
 
     else if (e.getSource() == searchButton) {

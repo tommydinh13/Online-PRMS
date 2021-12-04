@@ -2,19 +2,24 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import Database.RegisteredRenter;
 
 public class RegisteredRenterForm implements ActionListener {
 	JFrame frame = new JFrame();
 	private static JButton searchButton;
 	private static JButton unsubButton;
 
-	private static int idRenter;
+	private static RegisteredRenter renter;
 
-	RegisteredRenterForm(int id) {
-		idRenter = id;
+	RegisteredRenterForm(int id) throws SQLException {
+		renter = new RegisteredRenter(id);
+
 
 		searchButton = new JButton("Search Properties");
 		searchButton.setBounds(80, 150, 200, 40);
@@ -45,7 +50,10 @@ public class RegisteredRenterForm implements ActionListener {
 		}
 
 		if (e.getSource() == unsubButton) {
-			// unsub the user
+			renter.unsubscribe();
+			frame.dispose();
+			        JOptionPane.showMessageDialog(null, "You have been successfully Unsubscribed",
+                                      "Unsubscribe", JOptionPane.INFORMATION_MESSAGE);
 		}
 
 	}

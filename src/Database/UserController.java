@@ -34,7 +34,7 @@ public class UserController {
                 return Integer.parseInt(results.getString(1));
             }
         }
-        if (role.equals("Renter")) {
+        if (role.equals("Registered Renter")) {
             db.initializeConnection();
             Statement myStmt = db.getConnection().createStatement();
             ResultSet results = myStmt.executeQuery("SELECT * FROM Renters WHERE email ='" 

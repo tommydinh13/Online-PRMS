@@ -9,3 +9,7 @@ public class RPMS {
 	}
 
 }
+
+// some@email.com pass12
+// a@email.com pass1
+// example@email.com pass123

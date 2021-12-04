@@ -1,9 +1,5 @@
 package Database;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 public class Property {
     private String address;
     private String houseType;
@@ -16,7 +12,7 @@ public class Property {
     private int idNum;
 
     // Constructors
-    public Property(String a, String ht, int ba, int be, String fs, String cq, double p, String sol) throws SQLException {
+    public Property(String a, String ht, int ba, int be, String fs, String cq, double p) {
         address = a;
         houseType = ht;
         numBathrooms = ba;
@@ -24,7 +20,6 @@ public class Property {
         furnishedStatus = fs;
         cityQuadrant = cq;
         price = p;
-        stateofListing = sol;
     }
 
     // Getters and Setters
@@ -54,5 +49,14 @@ public class Property {
     }
     public int getID() {
         return idNum;
+    }
+    public void setSOL(String sol) {
+        stateofListing = sol;
+    }
+    public void setPrice(double p) {
+        price = p;
+    }
+    public void setID(int id) {
+        idNum = id;
     }
 }

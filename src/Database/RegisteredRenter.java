@@ -39,6 +39,21 @@ public class RegisteredRenter {
             idNum = Integer.parseInt(results.getString(1));
         }
     }
+    public RegisteredRenter(int id) throws SQLException {
+        db = new SQLConnection();
+
+        db.initializeConnection();
+        Statement myStmt = db.getConnection().createStatement();
+        ResultSet results = myStmt.executeQuery("SELECT * FROM Renters WHERE rID ='" 
+        + id + "';");
+        
+        if (results.next()) {
+            idNum = id;
+            name = results.getString("name");
+            email = results.getString("email");
+            password = results.getString("password");
+        }
+    }
 
     // Getters and Setters
     public String getName() {
