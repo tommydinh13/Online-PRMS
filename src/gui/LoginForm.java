@@ -6,8 +6,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
 
 // https://beginnersbook.com/2015/07/java-swing-tutorial/
 public class LoginForm implements ActionListener {
@@ -36,6 +38,7 @@ public class LoginForm implements ActionListener {
     String[] users = {"Manager", "Landlord", "Registered Renter"};
     userComboBox = new JComboBox(users);
     userComboBox.setBounds(275, 50, 105, 25);
+    userComboBox.addActionListener(this);
     frame.add(userComboBox);
 
     registerButton = new JButton("Register");
@@ -84,6 +87,7 @@ public class LoginForm implements ActionListener {
     frame.setVisible(true);
   }
 
+  // dont need this funtion but confirm with group
   // check to see if passwords match
   public boolean checkUser(String username, String password, String role) {
 
@@ -98,54 +102,70 @@ public class LoginForm implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     String email = emailText.getText();
     String password = passwordText.getText();
-    String role = roleComboBox.getSelectedItem()
+    String role = userComboBox.getSelectedItem()
                       .toString(); // get the value of the combo box
+    int id;
+
     if (e.getSource() == searchPropButton) {
       frame.dispose();
       SearchCriteriaForm mySearchCriteria = new SearchCriteriaForm();
     }
 
-    if (e.getSource() == registerButton) {
+    else if (e.getSource() == registerButton) {
       frame.dispose();
       RegisterUserForm registerUser = new RegisterUserForm();
     }
 
-    if (e.getSource() == loginButton) {
+    // THIS IS ONLY FOR TOMMY TESTING. COMMENT OUT WHEN WORKING WITH GROUP
+    //		else if (e.getSource() == loginButton) {
+    //			frame.dispose();
+    //			LandlordForm test = new LandlordForm(5);
+    //
+    //		}
+
+    else if (e.getSource() == loginButton) {
       //			// need another if statement that checks the
-      // login and password after login
+      //login and password after login
       //			// button
       //			// to ensure user is in database and go to
-      // respected page
+      //respected page
       //
       userController loginCheck = userController();
       boolean check = userController.checkUser(email, password, role);
-      //
-      //			if(!check) {
-      //				// error message saying not registered
-      //			}
-      //
-      //			//role == landlord
-      //			// if landlord exist
-      if (check && role.equals("Manager")) {
 
-        ManagerForm manager = new ManagerForm();
+      // need a method that gets id
+      //
+      if (!check) {
+        //				// error message saying not registered
+        JOptionPane.showMessageDialog(null, "Incorrect Email or Password",
+                                      "Login Error", JOptionPane.ERROR_MESSAGE);
       }
       //
-      //			else if(check && role.equals("Manager")) {
+      //			//if account exists in database & role is
+      //manager
+      // goto manager form
+      else if (check && role.equals("Manager")) {
+        frame.dispose();
+        ManagerForm manager = new ManagerForm();
+
+      }
       //
-      //				ManagerForm manger = new
-      // NanagerForm(String id);
-      //
-      //			}
-      //			else if(check && role.equals("Registered
-      // Renter")) {
-      //
-      //				RegisteredRenterForm renter = new
-      // RegisteredRenterForm(String id);
-      //
-      //			}
+      // if account exists in database & role is landlord
+      // goto landlord form
+      else if (check && role.equals("Landlord")) {
+        frame.dispose();
+        LandlordForm landlord = new LandlordForm(String id);
+
+      }
+      // if account exists in database & role is renter
+      // goto renter form
+      else if (check && role.equals("Registered Renter")) {
+        frame.dispose();
+        RegisteredRenterForm renter = new RegisteredRenterForm(String id);
+      }
       //			else{
       //				// return error saying wrong User Type
+      //		}
     }
   }
 }

@@ -1,67 +1,107 @@
 package gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Box;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPasswordField;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class ManagerForm {
 
-	JFrame frame = new JFrame();
-	private static JLabel emailLabel;
-	private static JTextField emailText;
-	private static JLabel passwordLabel;
-	private static JPasswordField passwordText;
+public class ManagerForm implements ActionListener {
 
-	private static JButton loginButton;
-	private static JButton searchPropButton;
-	private static JButton registerButton;
+  JFrame frame = new JFrame();
+  private static JButton sofButton;
+  private static JButton perSumButton;
+  private static JButton propFeeButton;
+  private static JButton searchButton;
 
-	private static JComboBox roleComboBox;
+  ManagerForm() {
+    sofButton = new JButton("Change State of Listing");
+    sofButton.setBounds(80, 40, 200, 40);
+    sofButton.setFocusable(false);
+    sofButton.addActionListener(this);
+    frame.add(sofButton);
 
-	ManagerForm() {
-		loginButton = new JButton("Login");
-		loginButton.setBounds(150, 80, 110, 30);
-		loginButton.setFocusable(false);
+    propFeeButton = new JButton("Change Property Fee");
+    propFeeButton.setBounds(80, 120, 200, 40);
+    propFeeButton.setFocusable(false);
+    propFeeButton.addActionListener(this);
+    frame.add(propFeeButton);
 
-		frame.add(loginButton);
+    perSumButton = new JButton("Periodical Summary Report");
+    perSumButton.setBounds(80, 200, 200, 40);
+    perSumButton.setFocusable(false);
+    perSumButton.addActionListener(this);
+    frame.add(perSumButton);
 
-		registerButton = new JButton("Register");
-		registerButton.setBounds(150, 120, 110, 30);
-		registerButton.setFocusable(false);
+    searchButton = new JButton("Search Database");
+    searchButton.setBounds(80, 280, 200, 40);
+    searchButton.setFocusable(false);
+    searchButton.addActionListener(this);
+    frame.add(searchButton);
 
-		frame.add(registerButton);
+    frame.setDefaultCloseOperation(
+        JFrame.EXIT_ON_CLOSE); // exiting window will close window
+    frame.setSize(400, 400);   // setting size of window
+    frame.setLayout(null);     // no layout
+    frame.setTitle("Rental Property Management System");
+    frame.setVisible(true);
+  }
 
-		searchPropButton = new JButton("Search For Properties");
-		searchPropButton.setBounds(65, 200, 200, 40);
-		searchPropButton.setFocusable(false);
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    if (e.getSource() == sofButton) {
+      // should pull up all active properties
+      // select one and change the listing
+      // method should have 2 constructors, one with no args and one that takes
+      // in id
+    }
 
-		frame.add(searchPropButton);
+    else if (e.getSource() == propFeeButton) {
+      // changing method should have a check method that checks
+      // values entered are correct since it will be taking in a string
 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exiting window will close window
-		frame.setSize(400, 400); // setting size of window
-		frame.setLayout(null); // no layout
-		frame.setTitle("Rental Property Management System");
+      JTextField periodField = new JTextField(5);
+      JTextField feeField = new JTextField(5);
 
-		emailLabel = new JLabel("Email"); // label that goes beside textbox to tell user what to enter
-		emailLabel.setBounds(30, 20, 100, 20); // where the label will go on the panel (x,y,width,height)
-		frame.add(emailLabel);
+      JPanel myPanel = new JPanel();
+      myPanel.add(new JLabel("Period:"));
+      myPanel.add(periodField);
+      myPanel.add(Box.createHorizontalStrut(15)); // a spacer
+      myPanel.add(new JLabel("Fee:"));
+      myPanel.add(feeField);
 
-		emailText = new JTextField(20); // creating box that lets user enter chars that takes in length argument
-		emailText.setBounds(100, 20, 165, 25); // setting bounds (x,y,width,height)
-		frame.add(emailText);
+      int result = JOptionPane.showConfirmDialog(
+          null, myPanel, "Please Enter Period and Fee Values",
+          JOptionPane.OK_CANCEL_OPTION);
 
-		passwordLabel = new JLabel("Password"); // label that goes beside Password to tell user what to enter
-		passwordLabel.setBounds(30, 50, 100, 20); // where the label will go on the panel (x,y,width,height)
-		frame.add(passwordLabel);
+      if (result == JOptionPane.OK_OPTION) {
 
-		passwordText = new JPasswordField(20); // creating box that lets user enter chars that are hidden
-		passwordText.setBounds(100, 50, 165, 25); // setting bounds (x,y,width,height)
-		frame.add(passwordText);
+        // create property fee object that passes through
+        // periodField.getText() and feeField.getText()
+        // constructor for property fee should update database
+      }
+    }
 
-		frame.setVisible(true);
-	}
+    else if (e.getSource() == perSumButton) {
+      // create new periodic summary objecct???
+      // method to display the info (probably needs a new window)
+    }
 
+    else if (e.getSource() == searchButton) {
+      // joption pane to choose landlord, registered renter, property
+      // use choice to open up form with info displaying category
+      String[] responses = {"Landlords", "Renters", "Properties"};
+      int choice = JOptionPane.showOptionDialog(
+          null, "Select Database to Search", "Search Database",
+          JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE,
+          null, responses, 0);
+
+      // want one form that brings up info of category
+    }
+  }
 }
