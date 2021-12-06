@@ -3,4 +3,5 @@ Online Property Rental Management System
 
 Authors: Kundai Dziwa, Tommy Dinh, Tien Dat Johny Do, Stalin D Cunha 
 
-ENSF480
+Steps to run:
+1. 
