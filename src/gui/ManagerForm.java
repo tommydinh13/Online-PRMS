@@ -106,6 +106,33 @@ public class ManagerForm implements ActionListener {
           JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE,
           null, responses, 0);
 
+          // System.out.println(choice);
+          if(choice == 2 ){
+            frame.dispose();
+            try {
+              DatabaseForm myform =  new DatabaseForm (choice);
+            } catch (SQLException e1) {
+              e1.printStackTrace();
+            }
+          }
+          else if(choice == 1){
+            frame.dispose();
+              try {
+                DatabaseForm myform = new DatabaseForm (choice);
+              } catch (SQLException e1) {
+                e1.printStackTrace();
+              }
+
+          }
+          else if( choice == 0){
+              frame.dispose();
+              try {
+                DatabaseForm myform = new DatabaseForm (choice);
+              } catch (SQLException e1) {
+                e1.printStackTrace();
+              }
+          }
+
       // want one form that brings up info of category
     }
   }

@@ -9,7 +9,6 @@ public class Manager {
     private String name;
     private String password;
     private String email;
-    private int idNum;
     
     private SQLConnection db;
     
@@ -44,7 +43,7 @@ public class Manager {
         + id + "';");
         
         if (results.next()) {
-            idNum = id;
+            int idNum = id;
             name = results.getString("name");
             email = results.getString("email");
             password = results.getString("password");
@@ -52,9 +51,6 @@ public class Manager {
     }
 
     // Getters and Setters
-    public int getId() {
-        return idNum;
-    }
     public String getName() {
         return name;
     }
@@ -75,8 +71,9 @@ public class Manager {
             ResultSet results = myStmt.executeQuery("SELECT * FROM Landlords;");
             
             while (results.next()) {
-                idNum = Integer.parseInt(results.getString(1));
+                int idNum = Integer.parseInt(results.getString(1));
                 Landlord l = new Landlord(results.getString("name"), results.getString("email"), results.getString("password"));
+                l.setID(idNum);
                 landlords.add(l);
             }
         } catch (SQLException e) {
@@ -94,8 +91,9 @@ public class Manager {
             ResultSet results = myStmt.executeQuery("SELECT * FROM Renters;");
             
             while (results.next()) {
-                idNum = Integer.parseInt(results.getString(1));
+                int idNum = Integer.parseInt(results.getString(1));
                 RegisteredRenter rr = new RegisteredRenter(results.getString("name"), results.getString("email"), results.getString("password"));
+                rr.setID(idNum);
                 renters.add(rr);
             }
         } catch (SQLException e) {
@@ -113,10 +111,12 @@ public class Manager {
             ResultSet results = myStmt.executeQuery("SELECT * FROM Properties WHERE state_of_listing='"+sol+"';");
             
             while (results.next()) {
-                idNum = Integer.parseInt(results.getString(1));
+                int idNum = Integer.parseInt(results.getString(1));
                 Property prop = new Property(results.getString("address"), results.getString("p_type"), Integer.parseInt(results.getString("bathrooms")), Integer.parseInt(results.getString("bedrooms")), results.getString("furnished"), results.getString("city_quadrant"), Double.parseDouble(results.getString("price")));
                 prop.setSOL(sol);
                 prop.setID(Integer.parseInt(results.getString("pID")));
+                Landlord l = new Landlord(Integer.parseInt(results.getString("landlord")));
+                prop.setLandlord(l);
                 properties.add(prop);
             }
         } catch (SQLException e) {
@@ -134,10 +134,12 @@ public class Manager {
             ResultSet results = myStmt.executeQuery("SELECT * FROM Properties;");
             
             while (results.next()) {
-                idNum = Integer.parseInt(results.getString(1));
+                int idNum = Integer.parseInt(results.getString(1));
                 Property prop = new Property(results.getString("address"), results.getString("p_type"), Integer.parseInt(results.getString("bathrooms")), Integer.parseInt(results.getString("bedrooms")), results.getString("furnished"), results.getString("city_quadrant"), Double.parseDouble(results.getString("price")));
                 prop.setSOL(results.getString("state_of_listing"));
                 prop.setID(Integer.parseInt(results.getString("pID")));
+                Landlord l = new Landlord(Integer.parseInt(results.getString("landlord")));
+                prop.setLandlord(l);
                 properties.add(prop);
             }
         } catch (SQLException e) {

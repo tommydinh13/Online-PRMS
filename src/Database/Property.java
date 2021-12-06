@@ -10,6 +10,7 @@ public class Property {
     private double price;
     private String stateofListing;
     private int idNum;
+    private Landlord landlord;
 
     // Constructors
     public Property(String a, String ht, int ba, int be, String fs, String cq, double p) {
@@ -50,6 +51,9 @@ public class Property {
     public int getID() {
         return idNum;
     }
+    public Landlord getLandlord() {
+        return landlord;
+    }
     public void setSOL(String sol) {
         stateofListing = sol;
     }
@@ -58,5 +62,8 @@ public class Property {
     }
     public void setID(int id) {
         idNum = id;
+    }
+    public void setLandlord(Landlord l) {
+        landlord = l;
     }
 }

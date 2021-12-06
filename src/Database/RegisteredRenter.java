@@ -69,6 +69,9 @@ public class RegisteredRenter implements Observer{
     public int getID() {
         return idNum;
     }
+    public void setID(int id) {
+        idNum = id;
+    }
 
     // Method Functions
     public void unsubscribe() {

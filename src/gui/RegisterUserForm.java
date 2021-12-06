@@ -165,4 +165,8 @@ public class RegisterUserForm implements ActionListener {
       LoginForm login = new LoginForm();
     }
   }
+
+  // FOR ALL
+  // Landlord myLandlord = new Landlord (name, email, Password)
+  
 }

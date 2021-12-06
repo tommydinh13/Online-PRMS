@@ -13,7 +13,7 @@ public class Landlord {
     private SQLConnection db;
 
     // Constructors
-    public Landlord(String n, String ps, String em) throws SQLException {
+    public Landlord(String n, String em, String ps) throws SQLException {
         name = n;
         password = ps;
         email = em;
@@ -31,9 +31,10 @@ public class Landlord {
             e.printStackTrace();
         }
 
+        db.initializeConnection();
         Statement myStmt = db.getConnection().createStatement();
         ResultSet results = myStmt.executeQuery("SELECT * FROM Landlords WHERE name ='" 
-        + name + "' AND password ='" + password + "' AND email ='" + email + ";");
+        + name + "' AND password ='" + password + "' AND email ='" + email + "';");
         
         if (results.next()) {
             idNum = Integer.parseInt(results.getString(1));
@@ -67,6 +68,9 @@ public class Landlord {
     }
     public int getID() {
         return idNum;
+    }
+    public void setID(int id) {
+        idNum = id;
     }
     
     // Method Functions
