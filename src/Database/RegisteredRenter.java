@@ -3,8 +3,9 @@ package Database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
-public class RegisteredRenter {
+public class RegisteredRenter implements Observer{
     private String name;
     private String password;
     private String email;
@@ -81,5 +82,10 @@ public class RegisteredRenter {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    @Override
+    public void update(ArrayList<Property> properties) {
+        // Email landlord or etc help Tommy pls IluvU <3
+        
     }
 }
