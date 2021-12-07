@@ -111,6 +111,7 @@ public class LoginForm implements ActionListener {
     if (e.getSource() == searchPropButton) {
       frame.dispose();
       SearchCriteriaForm mySearchCriteria = new SearchCriteriaForm();
+
     }
 
     else if (e.getSource() == registerButton) {
@@ -168,7 +169,6 @@ public class LoginForm implements ActionListener {
         try {
           RegisteredRenterForm renter = new RegisteredRenterForm(check);
         } catch (SQLException e1) {
-          // TODO Auto-generated catch block
           e1.printStackTrace();
         }
       }
