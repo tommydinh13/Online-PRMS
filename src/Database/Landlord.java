@@ -3,6 +3,7 @@ package Database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class Landlord {
     private Property property;
@@ -126,6 +127,26 @@ public class Landlord {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public ArrayList<Email> viewInbox() {
+        ArrayList<Email> emails = new ArrayList<Email>();
+
+        db.initializeConnection();
+        try {
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery("SELECT * FROM Emails WHERE landlord=" + idNum + ";");
+            
+            while (results.next()) {
+                int idNum = Integer.parseInt(results.getString(1));
+                Email em = new Email(Integer.parseInt(results.getString("landlord")), Integer.parseInt(results.getString("property")), results.getString("renter_email"), results.getString("subject"), results.getString("body"));
+                em.setID(idNum);
+                emails.add(em);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return emails;
     }
     public void check(){}
 }

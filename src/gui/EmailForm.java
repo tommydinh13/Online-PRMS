@@ -1,5 +1,8 @@
 package gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,7 +14,9 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class EmailForm {
+import Database.Email;
+
+public class EmailForm implements ActionListener {
 	JFrame frame = new JFrame();
 	private static JPanel titlePanel;
 	private static JLabel titleLabel;
@@ -23,6 +28,10 @@ public class EmailForm {
 	private static JTextArea display;
 	private static JScrollPane scroll;
 	private static JButton sendButton;
+
+	private static JPanel eaPanel;
+	private static JLabel eaLabel;
+	private static JTextField eaText;
 
 	private static int propID;
 
@@ -38,9 +47,19 @@ public class EmailForm {
 		titleLabel = new JLabel("Email Form"); // label that goes beside textbox to tell user what to enter
 		titlePanel.add(titleLabel);
 
+		// *********** EMAIL ADDRESSS ***************/
+		eaPanel = new JPanel();
+		eaPanel.setBounds(0, 50, 700, 50);
+
+		eaLabel = new JLabel("From:");
+		eaPanel.add(eaLabel);
+
+		eaText = new JTextField(50);
+		eaPanel.add(eaText);
+
 		subjectPanel = new JPanel();
 //		subjectPanel.setBackground(Color.red);
-		subjectPanel.setBounds(0, 50, 700, 100);
+		subjectPanel.setBounds(0, 100, 700, 50);
 
 		subjectLabel = new JLabel("Subject:"); // label that goes beside textbox to tell user what to enter
 		subjectPanel.add(subjectLabel);
@@ -50,18 +69,23 @@ public class EmailForm {
 
 		bodyPanel = new JPanel();
 //		bodyPanel.setBackground(Color.blue);
-		bodyPanel.setBounds(0, 150, 700, 400);
+		bodyPanel.setBounds(0, 175, 700, 400);
 		bodyPanel.setBorder(new TitledBorder(new EtchedBorder(), "List of Houses Rented This Period"));
 
-		display = new JTextArea(22, 60);
+		display = new JTextArea(22, 55);
 		display.setEditable(true); // set textArea non-editable
 		scroll = new JScrollPane(display);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		bodyPanel.add(scroll);
 
 		sendButton = new JButton("Send");
+		sendButton.setBounds(500, 575, 110, 30);
+		sendButton.setFocusable(false);
+		sendButton.addActionListener(this);
+		frame.add(sendButton);
 
 		frame.add(titlePanel);
+		frame.add(eaPanel);
 		frame.add(subjectPanel);
 		frame.add(bodyPanel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exiting window will close window
@@ -71,6 +95,21 @@ public class EmailForm {
 
 		frame.setVisible(true);
 
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+		if (e.getSource() == sendButton) {
+			String emailAddress = eaText.getText();
+			String subject = subjectText.getText();
+			String body = display.getText();
+
+			// INSTEAD OF PRINTING JUST SEND TO METHODS
+			Email myEmail = new Email(propID);
+			myEmail.draft(emailAddress, subject, body);
+			myEmail.sendEmail();
+		}
 	}
 
 }

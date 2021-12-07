@@ -14,13 +14,13 @@ public class PropertyDatabaseController {
     }
 
     // Method Functions
-    public ArrayList<Property> performSearch(String ht, int bed, int bath, String furnished, String cityQ, String sol, double pLow, double pHigh) {
+    public ArrayList<Property> performSearch(String[] ht, int bathMin, int bathMax, int bedMin, int bedMax, String furnished, String cityQ, double pLow, double pHigh) {
         ArrayList<Property> properties = new ArrayList<Property>();
 
         db.initializeConnection();
         try {
             String search = "SELECT * FROM Properties WHERE " 
-            + "p_type='" + ht + "' AND bedrooms=" + Integer.toString(bed) + " AND bathrooms=" + Integer.toString(bath) + " AND furnished='" + furnished + "' AND city_quadrant='" + cityQ + "' AND state_of_listing='" + sol + "' AND "
+            + "p_type='" + ht[0] + "' AND bedrooms>=" + Integer.toString(bedMin) + " AND bedrooms<=" + Integer.toString(bedMax) + " AND bathrooms>=" + Integer.toString(bathMin) + " AND bathrooms<=" + Integer.toString(bathMax) + " AND furnished='" + furnished + "' AND city_quadrant='" + cityQ + "' AND state_of_listing='Active' AND "
             + "price>=" + Double.toString(pLow) + " AND price<=" + Double.toString(pHigh) + ";";
 
             Statement myStmt = db.getConnection().createStatement();
@@ -40,17 +40,6 @@ public class PropertyDatabaseController {
         }
 
         return properties;
-    }
-    public void emailLandlord(int landlord, String subject, String body) {
-        db.initializeConnection();
-        try (Statement stmt = db.getConnection().createStatement();) {
-            String insertSql = "INSERT INTO Emails (landlord, subject, body) VALUES (" + Integer.toString(landlord) + ", '" + subject + "', '" + body + "');";
-
-            stmt.executeUpdate(insertSql);
-            db.closeConn();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void main(String []s) throws SQLException {
