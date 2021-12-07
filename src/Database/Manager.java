@@ -111,7 +111,6 @@ public class Manager {
             ResultSet results = myStmt.executeQuery("SELECT * FROM Properties WHERE state_of_listing='"+sol+"';");
             
             while (results.next()) {
-                int idNum = Integer.parseInt(results.getString(1));
                 Property prop = new Property(results.getString("address"), results.getString("p_type"), Integer.parseInt(results.getString("bathrooms")), Integer.parseInt(results.getString("bedrooms")), results.getString("furnished"), results.getString("city_quadrant"), Double.parseDouble(results.getString("price")));
                 prop.setSOL(sol);
                 prop.setID(Integer.parseInt(results.getString("pID")));
@@ -134,7 +133,6 @@ public class Manager {
             ResultSet results = myStmt.executeQuery("SELECT * FROM Properties;");
             
             while (results.next()) {
-                int idNum = Integer.parseInt(results.getString(1));
                 Property prop = new Property(results.getString("address"), results.getString("p_type"), Integer.parseInt(results.getString("bathrooms")), Integer.parseInt(results.getString("bedrooms")), results.getString("furnished"), results.getString("city_quadrant"), Double.parseDouble(results.getString("price")));
                 prop.setSOL(results.getString("state_of_listing"));
                 prop.setID(Integer.parseInt(results.getString("pID")));
@@ -180,7 +178,25 @@ public class Manager {
 
         return count;
     }
-    public void changeSOL(int propID) {
-        
+    public void changeSOL(int propID, String sol) {
+        db.initializeConnection();
+        try (Statement stmt = db.getConnection().createStatement();) {
+            String insertSql = "UPDATE Properties SET state_of_listing='" + sol + "' WHERE pID=" + Integer.toString(propID) + ";";
+
+            stmt.executeUpdate(insertSql);
+            db.closeConn();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void changePFees(int propID, double fee) {
+        db.initializeConnection();
+        try (Statement stmt = db.getConnection().createStatement();) {
+            String insertSql = "UPDATE PropertyFee SET fee=" + Double.toString(fee) + " WHERE pID=" + Integer.toString(propID) + ";";
+            stmt.executeUpdate(insertSql);
+            db.closeConn();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
