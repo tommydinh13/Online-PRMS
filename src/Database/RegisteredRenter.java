@@ -99,6 +99,7 @@ public class RegisteredRenter implements Observer{
                 String hTypes[] = results.getString("p_type").split("-", -1);
                 String furnish[] = results.getString("furnished").split("-", -1);
                 String cityQuad[] = results.getString("city_q").split("-", -1);
+                db.closeConn();
                 PropertyDatabaseController pd = new PropertyDatabaseController();
                 properties = pd.performSearch(hTypes, Integer.parseInt(results.getString("bath_min")), Integer.parseInt(results.getString("bath_max")), Integer.parseInt(results.getString("bed_min")), Integer.parseInt(results.getString("bath_max")), furnish, cityQuad, Double.parseDouble(results.getString("price_min")), Double.parseDouble(results.getString("price_max")));
             }
