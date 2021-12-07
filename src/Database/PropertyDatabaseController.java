@@ -14,13 +14,44 @@ public class PropertyDatabaseController {
     }
 
     // Method Functions
-    public ArrayList<Property> performSearch(String[] ht, int bathMin, int bathMax, int bedMin, int bedMax, String furnished, String cityQ, double pLow, double pHigh) {
+    public ArrayList<Property> performSearch(String[] ht, int bathMin, int bathMax, int bedMin, int bedMax, String[] furnished, String[] cityQ, double pLow, double pHigh) {
         ArrayList<Property> properties = new ArrayList<Property>();
+        String hTypes = "";
+        String furnish = "";
+        String cityQuad = "";
+
+        for (int i = 0; i < ht.length; i++) {
+            hTypes += "p_type='";
+            hTypes += ht[i];
+            if (i+1 == ht.length) {
+                hTypes += "' AND ";
+            } else {
+                hTypes += "' OR ";
+            }
+        }
+        for (int i = 0; i < furnished.length; i++) {
+            furnish += "furnished='";
+            furnish += furnished[i];
+            if (i+1 == furnished.length) {
+                furnish += "' AND ";
+            } else {
+                furnish += "' OR ";
+            }
+        }
+        for (int i = 0; i < cityQ.length; i++) {
+            cityQuad += "city_quadrant='";
+            cityQuad += cityQ[i];
+            if (i+1 == cityQ.length) {
+                cityQuad += "' AND ";
+            } else {
+                cityQuad += "' OR ";
+            }
+        }
 
         db.initializeConnection();
         try {
             String search = "SELECT * FROM Properties WHERE " 
-            + "p_type='" + ht[0] + "' AND bedrooms>=" + Integer.toString(bedMin) + " AND bedrooms<=" + Integer.toString(bedMax) + " AND bathrooms>=" + Integer.toString(bathMin) + " AND bathrooms<=" + Integer.toString(bathMax) + " AND furnished='" + furnished + "' AND city_quadrant='" + cityQ + "' AND state_of_listing='Active' AND "
+            + hTypes + "bedrooms>=" + Integer.toString(bedMin) + " AND bedrooms<=" + Integer.toString(bedMax) + " AND bathrooms>=" + Integer.toString(bathMin) + " AND bathrooms<=" + Integer.toString(bathMax) + " AND " + furnish + cityQuad + "state_of_listing='Active' AND "
             + "price>=" + Double.toString(pLow) + " AND price<=" + Double.toString(pHigh) + ";";
 
             Statement myStmt = db.getConnection().createStatement();

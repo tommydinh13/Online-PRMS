@@ -86,6 +86,94 @@ public class RegisteredRenter implements Observer{
             e.printStackTrace();
         }
     }
+    public ArrayList<Property> performSearch() {
+        ArrayList<Property> properties = new ArrayList<Property>();
+
+        db.initializeConnection();
+        try {
+            String search = "SELECT * FROM Search_Criteria WHERE renter=" + idNum + ";";
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery(search);
+            
+            if (results.next()) {
+                String hTypes[] = results.getString("p_type").split("-", -1);
+                String furnish[] = results.getString("furnished").split("-", -1);
+                String cityQuad[] = results.getString("city_q").split("-", -1);
+                PropertyDatabaseController pd = new PropertyDatabaseController();
+                properties = pd.performSearch(hTypes, Integer.parseInt(results.getString("bath_min")), Integer.parseInt(results.getString("bath_max")), Integer.parseInt(results.getString("bed_min")), Integer.parseInt(results.getString("bath_max")), furnish, cityQuad, Double.parseDouble(results.getString("price_min")), Double.parseDouble(results.getString("price_max")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return properties;
+    }
+    public void saveCriteria(String[] ht, int bathMin, int bathMax, int bedMin, int bedMax, String[] furnished, String[] cityQ, double pLow, double pHigh) {
+        String hTypes = "";
+        String furnish = "";
+        String cityQuad = "";
+        boolean exists = false;
+
+        for (int i = 0; i < ht.length; i++) {
+            hTypes += ht[i];
+            if (i+1 != ht.length) {
+                hTypes += "-";
+            }
+        }
+        for (int i = 0; i < furnished.length; i++) {
+            furnish += furnished[i];
+            if (i+1 != furnished.length) {
+                furnish += "-";
+            }
+        }
+        for (int i = 0; i < cityQ.length; i++) {
+            cityQuad += cityQ[i];
+            if (i+1 != cityQ.length) {
+                cityQuad += "-";
+            }
+        }
+
+        db.initializeConnection();
+        try {
+            String search = "SELECT * FROM Search_Criteria WHERE renter=" + idNum + ";";
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery(search);
+            
+            if (results.next()) {
+                exists = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (exists) {
+            changeCriteria(hTypes, bathMin, bathMax, bedMin, bedMax, furnish, cityQuad, pLow, pHigh);
+        } else {
+            db.initializeConnection();
+            try (Statement stmt = db.getConnection().createStatement();) {
+                String insertSql = "INSERT INTO Search_Criteria (renter, p_type, bath_min, bath_max, bed_min, bed_max, furnished, city_q, price_min, price_max) VALUES ('" 
+                + hTypes + "', " + Integer.toString(bathMin) + ", " + Integer.toString(bathMax) + ", " + Integer.toString(bedMin) + ", " + Integer.toString(bedMax) + ", '" + furnish + "', '" + cityQuad + "', " + Double.toString(pLow) + ", " + Double.toString(pHigh) + ");";
+
+                stmt.executeUpdate(insertSql);
+                db.closeConn();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public void changeCriteria(String hTypes, int bathMin, int bathMax, int bedMin, int bedMax, String furnish, String cityQuad, double pLow, double pHigh) {
+        db.initializeConnection();
+        try (Statement stmt = db.getConnection().createStatement();) {
+            String insertSql = "UPDATE Search_Criteria SET " 
+            + "p_type='" + hTypes + "', bath_min=" + Integer.toString(bathMin) + ", bath_max=" + Integer.toString(bathMax) + ", bed_min=" + Integer.toString(bedMin) + ", bed_max=" + Integer.toString(bedMax) + ", furnished='" + furnish + "', city_q='" + cityQuad + "', price_min=" + Double.toString(pLow) + ", price_max=" + Double.toString(pHigh)
+            + " WHERE renter=" + idNum + ";";
+
+            stmt.executeUpdate(insertSql);
+            db.closeConn();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void update(ArrayList<Property> properties) {
         // Email landlord or etc help Tommy pls IluvU <3
