@@ -41,6 +41,17 @@ public class PropertyDatabaseController {
 
         return properties;
     }
+    public void emailLandlord(int landlord, String subject, String body) {
+        db.initializeConnection();
+        try (Statement stmt = db.getConnection().createStatement();) {
+            String insertSql = "INSERT INTO Emails (landlord, subject, body) VALUES (" + Integer.toString(landlord) + ", '" + subject + "', '" + body + "');";
+
+            stmt.executeUpdate(insertSql);
+            db.closeConn();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String []s) throws SQLException {
     }
