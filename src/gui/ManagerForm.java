@@ -3,7 +3,6 @@ package gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,7 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
 public class ManagerForm implements ActionListener {
 
   JFrame frame = new JFrame();
@@ -20,6 +18,7 @@ public class ManagerForm implements ActionListener {
   private static JButton perSumButton;
   private static JButton propFeeButton;
   private static JButton searchButton;
+  private static JButton logoutButton;
 
   ManagerForm() {
     sofButton = new JButton("Change State of Listing");
@@ -45,6 +44,12 @@ public class ManagerForm implements ActionListener {
     searchButton.setFocusable(false);
     searchButton.addActionListener(this);
     frame.add(searchButton);
+
+    logoutButton = new JButton("Logout");
+    logoutButton.setBounds(275, 10, 100, 20);
+    logoutButton.setFocusable(false);
+    logoutButton.addActionListener(this);
+    frame.add(logoutButton);
 
     frame.setDefaultCloseOperation(
         JFrame.EXIT_ON_CLOSE); // exiting window will close window
@@ -90,11 +95,11 @@ public class ManagerForm implements ActionListener {
     }
 
     else if (e.getSource() == perSumButton) {
-    try {
-      PeriodicSummaryForm form = new PeriodicSummaryForm();
-    } catch (SQLException e1) {
-      e1.printStackTrace();
-    }
+      try {
+        PeriodicSummaryForm form = new PeriodicSummaryForm();
+      } catch (SQLException e1) {
+        e1.printStackTrace();
+      }
     }
 
     else if (e.getSource() == searchButton) {
@@ -106,34 +111,35 @@ public class ManagerForm implements ActionListener {
           JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE,
           null, responses, 0);
 
-          // System.out.println(choice);
-          if(choice == 2 ){
-            frame.dispose();
-            try {
-              DatabaseForm myform =  new DatabaseForm (choice);
-            } catch (SQLException e1) {
-              e1.printStackTrace();
-            }
-          }
-          else if(choice == 1){
-            frame.dispose();
-              try {
-                DatabaseForm myform = new DatabaseForm (choice);
-              } catch (SQLException e1) {
-                e1.printStackTrace();
-              }
+      // System.out.println(choice);
+      if (choice == 2) {
+        frame.dispose();
+        try {
+          DatabaseForm myform = new DatabaseForm(choice);
+        } catch (SQLException e1) {
+          e1.printStackTrace();
+        }
+      } else if (choice == 1) {
+        frame.dispose();
+        try {
+          DatabaseForm myform = new DatabaseForm(choice);
+        } catch (SQLException e1) {
+          e1.printStackTrace();
+        }
 
-          }
-          else if( choice == 0){
-              frame.dispose();
-              try {
-                DatabaseForm myform = new DatabaseForm (choice);
-              } catch (SQLException e1) {
-                e1.printStackTrace();
-              }
-          }
+      } else if (choice == 0) {
+        frame.dispose();
+        try {
+          DatabaseForm myform = new DatabaseForm(choice);
+        } catch (SQLException e1) {
+          e1.printStackTrace();
+        }
+      }
 
       // want one form that brings up info of category
+    } else if (e.getSource() == logoutButton) {
+      frame.dispose();
+      LoginForm login = new LoginForm();
     }
   }
 }
