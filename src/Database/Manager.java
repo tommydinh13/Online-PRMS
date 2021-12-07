@@ -180,4 +180,7 @@ public class Manager {
 
         return count;
     }
+    public void changeSOL(int propID) {
+        
+    }
 }
