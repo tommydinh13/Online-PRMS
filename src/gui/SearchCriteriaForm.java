@@ -1,9 +1,11 @@
 package gui;
 
-// import Database.PropertyDatabaseController;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -11,6 +13,9 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import Database.PropertyDatabaseController;
+import Database.RegisteredRenter;
 
 
 public class SearchCriteriaForm implements ActionListener {
@@ -515,7 +520,6 @@ public class SearchCriteriaForm implements ActionListener {
       String[] htSelected = new String[counter];
       for (int i = 0; i < htSelected.length; i++) {
         htSelected[i] = possible[i];
-        System.out.println(htSelected[i]);
       }
 
       // clear array for furniture
@@ -531,7 +535,6 @@ public class SearchCriteriaForm implements ActionListener {
       String[] furSelected = new String[counter];
       for (int i = 0; i < furSelected.length; i++) {
         furSelected[i] = possible[i];
-        System.out.println(furSelected[i]);
       }
 
       // clear array for quadrant
@@ -547,14 +550,13 @@ public class SearchCriteriaForm implements ActionListener {
       String[] quadSelected = new String[counter];
       for (int i = 0; i < quadSelected.length; i++) {
         quadSelected[i] = possible[i];
-        System.out.println(quadSelected[i]);
       }
 
-      //      PropertyDatabaseController propertyDB = new
-      //      PropertyDatabaseController(); propertyDB.performSearch(htSelected,
-      //      minBath, maxBath, minBed, maxBed,
-      //                               furSelected, quadSelected, minPrice,
-      //                               maxPrice);
+      PropertyDatabaseController propertyDB = new PropertyDatabaseController(); 
+
+
+     PropertiesDisplayForm list = new PropertiesDisplayForm(propertyDB.performSearch(htSelected,
+           minBath, maxBath, minBed, maxBed, furSelected, quadSelected, minPrice, maxPrice));
     }
 
     else if (e.getSource() == searchButton2) {
@@ -571,7 +573,6 @@ public class SearchCriteriaForm implements ActionListener {
       String[] htSelected = new String[counter];
       for (int i = 0; i < htSelected.length; i++) {
         htSelected[i] = possible[i];
-        System.out.println(htSelected[i]);
       }
 
       // clear array for furniture
@@ -587,7 +588,6 @@ public class SearchCriteriaForm implements ActionListener {
       String[] furSelected = new String[counter];
       for (int i = 0; i < furSelected.length; i++) {
         furSelected[i] = possible[i];
-        System.out.println(furSelected[i]);
       }
 
       // clear array for quadrant
@@ -603,15 +603,18 @@ public class SearchCriteriaForm implements ActionListener {
       String[] quadSelected = new String[counter];
       for (int i = 0; i < quadSelected.length; i++) {
         quadSelected[i] = possible[i];
-        System.out.println(quadSelected[i]);
       }
 
-      //			RegisteredRenter renterSearch = new
-      //RegisteredRenter(takes in something here);
-      //			renterSearch.performSearch(htSelected, minBath,
-      //maxBath, minBed, maxBed,
-      //                               furSelected, quadSelected, minPrice,
-      //                               maxPrice);
+      RegisteredRenter renterSearch;
+      try {
+        renterSearch = new RegisteredRenter(renterID);
+        renterSearch.saveCriteria(htSelected, 
+              minBath, maxBath, minBed, maxBed,  
+              furSelected, quadSelected, minPrice,maxPrice);
+        PropertiesDisplayForm list = new PropertiesDisplayForm(renterSearch.performSearch());
+      } catch (SQLException e1) {
+        e1.printStackTrace();
+      }
     }
   }
 }

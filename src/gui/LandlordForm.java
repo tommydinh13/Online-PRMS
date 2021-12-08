@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -69,27 +71,31 @@ public class LandlordForm implements ActionListener {
       // in id
     }
 
-    //    else if (e.getSource() == regisButton) {
-    //      try {
-    //        RegisterPropertyForm newProperty = new RegisterPropertyForm(idLL);
-    //      } catch (SQLException e1) {
-    //        e1.printStackTrace();
-    //      }
-    //    }
-    //
-    //    else if (e.getSource() == payFeeButton) {
-    //
-    //      // have to pull up landlord's properties that are not active
-    //      // should just be one button after that says pay that updates
-    //      database
-    //      // saying property is active
-    //    } else if (e.getSource() == logoutButton) {
-    //      frame.dispose();
-    //      LoginForm login = new LoginForm();
-    //    }
+       else if (e.getSource() == regisButton) {
+         try {
+           RegisterPropertyForm newProperty = new RegisterPropertyForm(idLL);
+         } catch (SQLException e1) {
+           e1.printStackTrace();
+         }
+       }
+    
+       else if (e.getSource() == payFeeButton) {
+    
+         // have to pull up landlord's properties that are not active
+         // should just be one button after that says pay that updates
+        //  database
+         // saying property is active
+       } else if (e.getSource() == logoutButton) {
+         frame.dispose();
+         LoginForm login = new LoginForm();
+       }
 
     if (e.getSource() == inboxButton) {
-      InboxForm myInbox = new InboxForm(idLL);
+      try {
+        InboxForm myInbox = new InboxForm(idLL);
+      } catch (SQLException e1) {
+        e1.printStackTrace();
+      }
     }
   }
 }

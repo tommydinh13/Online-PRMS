@@ -25,8 +25,30 @@ public class Email {
         body = b;
         db = new SQLConnection();
     }
-    public Email(int propID){
-        property = propID;
+    public Email(int id){
+        idNum = id;
+        db = new SQLConnection();
+
+        db.initializeConnection();
+        try {
+            String search = "SELECT * FROM Emails WHERE " 
+            + "eID=" + idNum + ";";
+
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery(search);
+            if (results.next()) {
+                landlord = Integer.parseInt(results.getString("landlord"));
+                property = Integer.parseInt(results.getString("property"));
+                rEmail = results.getString("renter_email");
+                subject = results.getString("subject");
+                body = results.getString("body");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public Email(String propID){
+        property = Integer.parseInt(propID);
         db = new SQLConnection();
 
         db.initializeConnection();
@@ -53,6 +75,9 @@ public class Email {
     public int getLandlord() {
         return landlord;
     }
+    public int getProperty() {
+        return property;
+    }
     public String getRenter() {
         return rEmail;
     }
@@ -70,10 +95,27 @@ public class Email {
     }
 
     // Method Functions
-    public void draft(String r, String s, String b) {
+    public void draft(int propID, String r, String s, String b) {
         rEmail = r;
         subject = s;
         body = b;
+        property = propID;
+
+        db.initializeConnection();
+        try {
+            String search = "SELECT * FROM Properties WHERE " 
+            + "pID=" + property + ";";
+
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery(search);
+            
+            if (results.next()) {
+                int l = Integer.parseInt(results.getString("landlord"));
+                landlord = l;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     public void sendEmail() {
         db.initializeConnection();
