@@ -14,38 +14,31 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class EmailForm implements ActionListener {
-	JFrame frame = new JFrame();
-	private static JPanel titlePanel;
-	private static JLabel titleLabel;
-	private static JPanel subjectPanel;
-	private static JLabel subjectLabel;
-	private static JTextField subjectText;
-	private static JPanel bodyPanel;
-	private static JLabel bodyLabel;
-	private static JTextArea display;
-	private static JScrollPane scroll;
-	private static JButton sendButton;
+public class DisplayEmail implements ActionListener {
 
+	JFrame frame = new JFrame();
 	private static JPanel eaPanel;
 	private static JLabel eaLabel;
 	private static JTextField eaText;
 
-	private static int propID;
+	private static JPanel subjectPanel;
+	private static JLabel subjectLabel;
+	private static JTextField subjectText;
 
-	EmailForm(int id) {
-		propID = id;
+	private static JPanel bodyPanel;
+	private static JLabel bodyLabel;
+	private static JTextArea display;
+	private static JScrollPane scroll;
 
-		// takes in property id to get landlord email and send email
+	private static JButton deleteButton;
 
-		titlePanel = new JPanel();
-//		titlePanel.setBackground(Color.green);
-		titlePanel.setBounds(0, 0, 700, 50);
+	private static int emailID;
 
-		titleLabel = new JLabel("Email Form"); // label that goes beside textbox to tell user what to enter
-		titlePanel.add(titleLabel);
+	DisplayEmail(int id) {
 
-		// *********** EMAIL ADDRESSS ***************/
+		emailID = id;
+		System.out.println(emailID);
+
 		eaPanel = new JPanel();
 		eaPanel.setBounds(0, 50, 700, 50);
 
@@ -53,6 +46,8 @@ public class EmailForm implements ActionListener {
 		eaPanel.add(eaLabel);
 
 		eaText = new JTextField(50);
+		eaText.setEditable(false);
+//		eaText.setText(call method to get email of sender);
 		eaPanel.add(eaText);
 
 		subjectPanel = new JPanel();
@@ -63,6 +58,8 @@ public class EmailForm implements ActionListener {
 		subjectPanel.add(subjectLabel);
 
 		subjectText = new JTextField(50); // creating box that lets user enter chars that takes in length argument
+		subjectText.setEditable(false);
+//		subjectText.setText(call method to get the subject);
 		subjectPanel.add(subjectText);
 
 		bodyPanel = new JPanel();
@@ -71,18 +68,18 @@ public class EmailForm implements ActionListener {
 		bodyPanel.setBorder(new TitledBorder(new EtchedBorder(), "List of Houses Rented This Period"));
 
 		display = new JTextArea(22, 60);
-		display.setEditable(true); // set textArea non-editable
+		display.setEditable(false);
+//		display.append(call method to get body of email);
 		scroll = new JScrollPane(display);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		bodyPanel.add(scroll);
 
-		sendButton = new JButton("Send");
-		sendButton.setBounds(500, 575, 110, 30);
-		sendButton.setFocusable(false);
-		sendButton.addActionListener(this);
-		frame.add(sendButton);
+		deleteButton = new JButton("Delete");
+		deleteButton.setBounds(500, 575, 110, 30);
+		deleteButton.setFocusable(false);
+		deleteButton.addActionListener(this);
+		frame.add(deleteButton);
 
-		frame.add(titlePanel);
 		frame.add(eaPanel);
 		frame.add(subjectPanel);
 		frame.add(bodyPanel);
@@ -98,14 +95,9 @@ public class EmailForm implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if (e.getSource() == sendButton) {
-			String subject = subjectText.getText();
-			String body = display.getText();
-
-			// INSTEAD OF PRINTING JUST SEND TO METHODS
-			System.out.println(subject);
-			System.out.println(body);
-
+		if (e.getSource() == deleteButton) {
+			frame.dispose();
+			// delete from database method
 		}
 
 	}
