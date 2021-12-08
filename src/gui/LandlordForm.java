@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -13,6 +12,7 @@ public class LandlordForm implements ActionListener {
   private static JButton payFeeButton;
   private static JButton regisButton;
   private static JButton searchButton;
+  private static JButton inboxButton;
   private static JButton logoutButton;
 
   private static int idLL;
@@ -37,6 +37,12 @@ public class LandlordForm implements ActionListener {
     payFeeButton.setFocusable(false);
     payFeeButton.addActionListener(this);
     frame.add(payFeeButton);
+
+    inboxButton = new JButton("Email Inbox");
+    inboxButton.setBounds(80, 280, 200, 40);
+    inboxButton.setFocusable(false);
+    inboxButton.addActionListener(this);
+    frame.add(inboxButton);
 
     logoutButton = new JButton("Logout");
     logoutButton.setBounds(275, 10, 100, 20);
@@ -63,22 +69,27 @@ public class LandlordForm implements ActionListener {
       // in id
     }
 
-    else if (e.getSource() == regisButton) {
-      try {
-        RegisterPropertyForm newProperty = new RegisterPropertyForm(idLL);
-      } catch (SQLException e1) {
-        e1.printStackTrace();
-      }
-    }
+    //    else if (e.getSource() == regisButton) {
+    //      try {
+    //        RegisterPropertyForm newProperty = new RegisterPropertyForm(idLL);
+    //      } catch (SQLException e1) {
+    //        e1.printStackTrace();
+    //      }
+    //    }
+    //
+    //    else if (e.getSource() == payFeeButton) {
+    //
+    //      // have to pull up landlord's properties that are not active
+    //      // should just be one button after that says pay that updates
+    //      database
+    //      // saying property is active
+    //    } else if (e.getSource() == logoutButton) {
+    //      frame.dispose();
+    //      LoginForm login = new LoginForm();
+    //    }
 
-    else if (e.getSource() == payFeeButton) {
-
-      // have to pull up landlord's properties that are not active
-      // should just be one button after that says pay that updates database
-      // saying property is active
-    } else if (e.getSource() == logoutButton) {
-      frame.dispose();
-      LoginForm login = new LoginForm();
+    if (e.getSource() == inboxButton) {
+      InboxForm myInbox = new InboxForm(idLL);
     }
   }
 }
