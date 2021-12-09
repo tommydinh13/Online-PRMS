@@ -1,21 +1,21 @@
 package gui;
 
-
+import Database.PropertyDatabaseController;
+import Database.RegisteredRenter;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
-
-import Database.PropertyDatabaseController;
-import Database.RegisteredRenter;
+import javax.swing.ListCellRenderer;
 
 
 public class SearchCriteriaForm implements ActionListener {
@@ -147,12 +147,18 @@ public class SearchCriteriaForm implements ActionListener {
 
     // comboBox for min for
     minBathComboBox = new JComboBox(min);
+    minBathComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
+    minBathComboBox.setSelectedIndex(-1);
+    minBathComboBox.setPrototypeDisplayValue("MIN");
     minBathComboBox.addActionListener(this);
     bathPanel.add(minBathComboBox);
     bathPanel.add(Box.createHorizontalStrut(20));
 
     // comboBox for max
     maxBathComboBox = new JComboBox(max);
+    maxBathComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
+    maxBathComboBox.setSelectedIndex(-1);
+    maxBathComboBox.setPrototypeDisplayValue("MAX");
     minBathComboBox.addActionListener(this);
     bathPanel.add(maxBathComboBox);
     bathPanel.add(Box.createHorizontalStrut(190));
@@ -166,14 +172,20 @@ public class SearchCriteriaForm implements ActionListener {
     bedLabel.setFont(new Font("Courier", Font.PLAIN, 20));
     bedPanel.add(bedLabel);
 
-    // comboBox for min for
+    // bed comboBox for min for
     minBedComboBox = new JComboBox(min);
+    minBedComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
+    minBedComboBox.setSelectedIndex(-1);
+    minBedComboBox.setPrototypeDisplayValue("MIN");
     minBedComboBox.addActionListener(this);
     bedPanel.add(minBedComboBox);
     bedPanel.add(Box.createHorizontalStrut(20));
 
-    // comboBox for max
+    // bed comboBox for max
     maxBedComboBox = new JComboBox(max);
+    maxBedComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
+    maxBedComboBox.setSelectedIndex(-1);
+    maxBedComboBox.setPrototypeDisplayValue("MAX");
     maxBedComboBox.addActionListener(this);
     bedPanel.add(maxBedComboBox);
     bedPanel.add(Box.createHorizontalStrut(200));
@@ -248,11 +260,15 @@ public class SearchCriteriaForm implements ActionListener {
     pricePanel.add(priceLabel);
 
     minPriceComboBox = new JComboBox(minPriceRange);
+    minPriceComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
+    minPriceComboBox.setSelectedIndex(-1);
     minPriceComboBox.addActionListener(this);
     pricePanel.add(minPriceComboBox);
     pricePanel.add(Box.createHorizontalStrut(20));
 
     maxPriceComboBox = new JComboBox(maxPriceRange);
+    maxPriceComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
+    maxPriceComboBox.setSelectedIndex(-1);
     maxPriceComboBox.addActionListener(this);
     pricePanel.add(maxPriceComboBox);
     pricePanel.add(Box.createHorizontalStrut(20));
@@ -344,12 +360,18 @@ public class SearchCriteriaForm implements ActionListener {
 
     // comboBox for min for
     minBathComboBox = new JComboBox(min);
+    minBathComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
+    minBathComboBox.setSelectedIndex(-1);
+    minBathComboBox.setPrototypeDisplayValue("MIN");
     minBathComboBox.addActionListener(this);
     bathPanel.add(minBathComboBox);
     bathPanel.add(Box.createHorizontalStrut(20));
 
     // comboBox for max
     maxBathComboBox = new JComboBox(max);
+    maxBathComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
+    maxBathComboBox.setSelectedIndex(-1);
+    maxBathComboBox.setPrototypeDisplayValue("MAX");
     minBathComboBox.addActionListener(this);
     bathPanel.add(maxBathComboBox);
     bathPanel.add(Box.createHorizontalStrut(190));
@@ -363,14 +385,20 @@ public class SearchCriteriaForm implements ActionListener {
     bedLabel.setFont(new Font("Courier", Font.PLAIN, 20));
     bedPanel.add(bedLabel);
 
-    // comboBox for min for
+    // bed comboBox for min for
     minBedComboBox = new JComboBox(min);
+    minBedComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
+    minBedComboBox.setSelectedIndex(-1);
+    minBedComboBox.setPrototypeDisplayValue("MIN");
     minBedComboBox.addActionListener(this);
     bedPanel.add(minBedComboBox);
     bedPanel.add(Box.createHorizontalStrut(20));
 
-    // comboBox for max
+    // bed comboBox for max
     maxBedComboBox = new JComboBox(max);
+    maxBedComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
+    maxBedComboBox.setSelectedIndex(-1);
+    maxBedComboBox.setPrototypeDisplayValue("MAX");
     maxBedComboBox.addActionListener(this);
     bedPanel.add(maxBedComboBox);
     bedPanel.add(Box.createHorizontalStrut(200));
@@ -445,11 +473,15 @@ public class SearchCriteriaForm implements ActionListener {
     pricePanel.add(priceLabel);
 
     minPriceComboBox = new JComboBox(minPriceRange);
+    minPriceComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
+    minPriceComboBox.setSelectedIndex(-1);
     minPriceComboBox.addActionListener(this);
     pricePanel.add(minPriceComboBox);
     pricePanel.add(Box.createHorizontalStrut(20));
 
     maxPriceComboBox = new JComboBox(maxPriceRange);
+    maxPriceComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
+    maxPriceComboBox.setSelectedIndex(-1);
     maxPriceComboBox.addActionListener(this);
     pricePanel.add(maxPriceComboBox);
     pricePanel.add(Box.createHorizontalStrut(20));
@@ -552,11 +584,12 @@ public class SearchCriteriaForm implements ActionListener {
         quadSelected[i] = possible[i];
       }
 
-      PropertyDatabaseController propertyDB = new PropertyDatabaseController(); 
+      PropertyDatabaseController propertyDB = new PropertyDatabaseController();
 
-
-     PropertiesDisplayForm list = new PropertiesDisplayForm(propertyDB.performSearch(htSelected,
-           minBath, maxBath, minBed, maxBed, furSelected, quadSelected, minPrice, maxPrice));
+      PropertiesDisplayForm list =
+          new PropertiesDisplayForm(propertyDB.performSearch(
+              htSelected, minBath, maxBath, minBed, maxBed, furSelected,
+              quadSelected, minPrice, maxPrice));
     }
 
     else if (e.getSource() == searchButton2) {
@@ -608,13 +641,31 @@ public class SearchCriteriaForm implements ActionListener {
       RegisteredRenter renterSearch;
       try {
         renterSearch = new RegisteredRenter(renterID);
-        renterSearch.saveCriteria(htSelected, 
-              minBath, maxBath, minBed, maxBed,  
-              furSelected, quadSelected, minPrice,maxPrice);
-        PropertiesDisplayForm list = new PropertiesDisplayForm(renterSearch.performSearch());
+        renterSearch.saveCriteria(htSelected, minBath, maxBath, minBed, maxBed,
+                                  furSelected, quadSelected, minPrice,
+                                  maxPrice);
+        PropertiesDisplayForm list =
+            new PropertiesDisplayForm(renterSearch.performSearch());
       } catch (SQLException e1) {
         e1.printStackTrace();
       }
+    }
+  }
+
+  class MyComboBoxRenderer extends JLabel implements ListCellRenderer {
+    private String _title;
+
+    public MyComboBoxRenderer(String title) { _title = title; }
+
+    @Override
+    public Component getListCellRendererComponent(JList list, Object value,
+                                                  int index, boolean isSelected,
+                                                  boolean hasFocus) {
+      if (index == -1 && value == null)
+        setText(_title);
+      else
+        setText(value.toString());
+      return this;
     }
   }
 }
