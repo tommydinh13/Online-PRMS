@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -13,6 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+
+import Database.Email;
 
 public class EmailForm implements ActionListener {
 	JFrame frame = new JFrame();
@@ -33,8 +36,9 @@ public class EmailForm implements ActionListener {
 
 	private static int propID;
 
-	EmailForm(int id) {
-		propID = id;
+	EmailForm(String id) {
+
+		propID = Integer.parseInt(id);
 
 		// takes in property id to get landlord email and send email
 
@@ -70,7 +74,7 @@ public class EmailForm implements ActionListener {
 		bodyPanel.setBounds(0, 175, 700, 400);
 		bodyPanel.setBorder(new TitledBorder(new EtchedBorder(), "List of Houses Rented This Period"));
 
-		display = new JTextArea(22, 60);
+		display = new JTextArea(22, 53);
 		display.setEditable(true); // set textArea non-editable
 		scroll = new JScrollPane(display);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -99,12 +103,17 @@ public class EmailForm implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == sendButton) {
+			// must do a check if strings are null 
+			String email = eaText.getText();
 			String subject = subjectText.getText();
 			String body = display.getText();
 
 			// INSTEAD OF PRINTING JUST SEND TO METHODS
-			System.out.println(subject);
-			System.out.println(body);
+			Email newEmail = new Email();
+			newEmail.draft(propID, email, subject, body);
+			newEmail.sendEmail();
+			JOptionPane.showMessageDialog(null, "Message has been sent!", "Succesful Message", JOptionPane.PLAIN_MESSAGE);
+			frame.dispose();
 
 		}
 

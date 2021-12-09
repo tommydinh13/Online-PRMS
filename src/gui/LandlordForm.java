@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -62,34 +64,38 @@ public class LandlordForm implements ActionListener {
   public void actionPerformed(ActionEvent e) {
 
     if (e.getSource() == sofButton) {
-
-      // should pull up all active properties landlord specific
-      // select one and change the listing
-      // method should have 2 constructors, one with no args and one that takes
-      // in id
+      try {
+        SOLForm myForm = new SOLForm(idLL);
+      } catch (SQLException e1) {
+        e1.printStackTrace();
+      }
     }
 
-    //    else if (e.getSource() == regisButton) {
-    //      try {
-    //        RegisterPropertyForm newProperty = new RegisterPropertyForm(idLL);
-    //      } catch (SQLException e1) {
-    //        e1.printStackTrace();
-    //      }
-    //    }
-    //
-    //    else if (e.getSource() == payFeeButton) {
-    //
-    //      // have to pull up landlord's properties that are not active
-    //      // should just be one button after that says pay that updates
-    //      database
-    //      // saying property is active
-    //    } else if (e.getSource() == logoutButton) {
-    //      frame.dispose();
-    //      LoginForm login = new LoginForm();
-    //    }
+       else if (e.getSource() == regisButton) {
+         try {
+           RegisterPropertyForm newProperty = new RegisterPropertyForm(idLL);
+         } catch (SQLException e1) {
+           e1.printStackTrace();
+         }
+       }
+    
+       else if (e.getSource() == payFeeButton) {
+    
+         // have to pull up landlord's properties that are not active
+         // should just be one button after that says pay that updates
+        //  database
+         // saying property is active
+       } else if (e.getSource() == logoutButton) {
+         frame.dispose();
+         LoginForm login = new LoginForm();
+       }
 
     if (e.getSource() == inboxButton) {
-      InboxForm myInbox = new InboxForm(idLL);
+      try {
+        InboxForm myInbox = new InboxForm(idLL);
+      } catch (SQLException e1) {
+        e1.printStackTrace();
+      }
     }
   }
 }

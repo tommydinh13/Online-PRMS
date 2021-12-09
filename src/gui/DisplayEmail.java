@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,6 +14,9 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+
+import Database.Email;
+import Database.Landlord;
 
 public class DisplayEmail implements ActionListener {
 
@@ -33,11 +37,18 @@ public class DisplayEmail implements ActionListener {
 	private static JButton deleteButton;
 
 	private static int emailID;
+	private static int landlordID;
+	private Email email;
+	private Landlord mylandlord;
 
-	DisplayEmail(int id) {
 
-		emailID = id;
-		System.out.println(emailID);
+	DisplayEmail(int eid, int lID) {
+
+		emailID = eid;
+		landlordID = lID;
+		email = new Email(emailID);
+
+		// System.out.println(emailID);
 
 		eaPanel = new JPanel();
 		eaPanel.setBounds(0, 50, 700, 50);
@@ -47,7 +58,7 @@ public class DisplayEmail implements ActionListener {
 
 		eaText = new JTextField(50);
 		eaText.setEditable(false);
-//		eaText.setText(call method to get email of sender);
+		eaText.setText(email.getRenter());
 		eaPanel.add(eaText);
 
 		subjectPanel = new JPanel();
@@ -59,7 +70,7 @@ public class DisplayEmail implements ActionListener {
 
 		subjectText = new JTextField(50); // creating box that lets user enter chars that takes in length argument
 		subjectText.setEditable(false);
-//		subjectText.setText(call method to get the subject);
+		subjectText.setText(email.getSubject());
 		subjectPanel.add(subjectText);
 
 		bodyPanel = new JPanel();
@@ -67,9 +78,9 @@ public class DisplayEmail implements ActionListener {
 		bodyPanel.setBounds(0, 175, 700, 400);
 		bodyPanel.setBorder(new TitledBorder(new EtchedBorder(), "List of Houses Rented This Period"));
 
-		display = new JTextArea(22, 60);
+		display = new JTextArea(22, 53);
 		display.setEditable(false);
-//		display.append(call method to get body of email);
+		display.append(email.getBody());
 		scroll = new JScrollPane(display);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		bodyPanel.add(scroll);
@@ -97,7 +108,17 @@ public class DisplayEmail implements ActionListener {
 
 		if (e.getSource() == deleteButton) {
 			frame.dispose();
-			// delete from database method
+			
+			try {
+				mylandlord = new Landlord(landlordID);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			mylandlord.deleteEmail(emailID);
+
+			//display email delete success
+
 		}
 
 	}

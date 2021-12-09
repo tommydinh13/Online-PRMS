@@ -9,6 +9,6 @@ public class RPMS {
 
 }
 
-// some@email.com pass12
-// a@email.com pass1
-// example@email.com pass123
+// some@email.com pass12	- Landlord
+// jd@mail.com p123		- rrenter
+// example@email.com pass123	- Manager

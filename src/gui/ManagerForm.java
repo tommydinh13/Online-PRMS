@@ -62,10 +62,11 @@ public class ManagerForm implements ActionListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == sofButton) {
-      // should pull up all active properties
-      // select one and change the listing
-      // method should have 2 constructors, one with no args and one that takes
-      // in id
+      try {
+        SOLForm myForm = new SOLForm();
+      } catch (SQLException e1) {
+        e1.printStackTrace();
+      }
     }
 
     else if (e.getSource() == propFeeButton) {

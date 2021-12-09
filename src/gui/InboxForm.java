@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,6 +15,9 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import Database.Email;
+import Database.Landlord;
+
 public class InboxForm implements ActionListener {
 	JFrame frame = new JFrame();
 	private static JPanel bodyPanel;
@@ -23,12 +28,11 @@ public class InboxForm implements ActionListener {
 	private static JButton viewButton;
 
 	private static int landlordID;
+	private Landlord myLandlord;
 
-	InboxForm(int id) {
+	InboxForm(int id) throws SQLException {
 		landlordID = id;
-		// dont know if calling landlord or calling email db
-//		Email myEmail = new Email(id);
-//		Landlord myLandlord = new Landlord(id);
+		myLandlord = new Landlord(id);
 
 		bodyPanel = new JPanel();
 		bodyPanel.setBorder(new TitledBorder(new EtchedBorder(), "Inbox"));
@@ -48,19 +52,19 @@ public class InboxForm implements ActionListener {
 		display.append("Subject\n\n");
 
 		// create an arraylist of emails
-//		ArrayList<Email> emails = myLandlord.searchEmails();
-//		for (int i = 0; i < emails.size(); i++) {
+		ArrayList<Email> emails = myLandlord.viewInbox();
+		for (int i = 0; i < emails.size(); i++) {
 
-//			String emailID = Integer.toString(emails.get(i).getID()) + " \t \t";
-//			String propID = Integer.toString(emails.get(i).getID()) + " \t \t";
-//			String from = myRenters.get(i).getEmail() + " \t \t";
-//			String subject = myRenters.get(i).getPassword() + " \n\n";
-//
-//			display.append(emailID);
-//			display.append(propID);
-//			display.append(from);
-//			display.append(subject);
-//		}
+			String emailID = Integer.toString(emails.get(i).getID()) + " \t ";
+			String propID = Integer.toString(emails.get(i).getProperty()) + " \t ";
+			String from = emails.get(i).getRenter() + " \t\t";
+			String subject = emails.get(i).getSubject() + " \n\n";
+
+			display.append(emailID);
+			display.append(propID);
+			display.append(from);
+			display.append(subject);
+		}
 
 		viewButton = new JButton("View Email");
 		viewButton.setBounds(600, 475, 100, 50);
@@ -83,9 +87,9 @@ public class InboxForm implements ActionListener {
 		if (e.getSource() == viewButton) {
 			// pop up window that user inputs email id
 			// need a check to make sure that email id entered was in the landlord email db
-			int insert = Integer.parseInt(JOptionPane.showInputDialog("Please Enter Email ID:"));
-			System.out.println(insert);
-			DisplayEmail viewEmail = new DisplayEmail(insert);
+			int emailID = Integer.parseInt(JOptionPane.showInputDialog("Please Enter Email ID:"));
+			System.out.println(emailID);
+			DisplayEmail viewEmail = new DisplayEmail(emailID,landlordID);
 		}
 
 	}
