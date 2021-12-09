@@ -153,7 +153,7 @@ public class RegisteredRenter implements Observer{
             db.initializeConnection();
             try (Statement stmt = db.getConnection().createStatement();) {
                 String insertSql = "INSERT INTO Search_Criteria (renter, p_type, bath_min, bath_max, bed_min, bed_max, furnished, city_q, price_min, price_max) VALUES ('" 
-                + hTypes + "', " + Integer.toString(bathMin) + ", " + Integer.toString(bathMax) + ", " + Integer.toString(bedMin) + ", " + Integer.toString(bedMax) + ", '" + furnish + "', '" + cityQuad + "', " + Double.toString(pLow) + ", " + Double.toString(pHigh) + ");";
+                + idNum + ", '" + hTypes + "', " + Integer.toString(bathMin) + ", " + Integer.toString(bathMax) + ", " + Integer.toString(bedMin) + ", " + Integer.toString(bedMax) + ", '" + furnish + "', '" + cityQuad + "', " + Double.toString(pLow) + ", " + Double.toString(pHigh) + ");";
 
                 stmt.executeUpdate(insertSql);
                 db.closeConn();

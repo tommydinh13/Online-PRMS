@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +16,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import Database.Email;
+import Database.Landlord;
 
 public class DisplayEmail implements ActionListener {
 
@@ -35,11 +37,15 @@ public class DisplayEmail implements ActionListener {
 	private static JButton deleteButton;
 
 	private static int emailID;
+	private static int landlordID;
 	private Email email;
+	private Landlord mylandlord;
 
-	DisplayEmail(int id) {
 
-		emailID = id;
+	DisplayEmail(int eid, int lID) {
+
+		emailID = eid;
+		landlordID = lID;
 		email = new Email(emailID);
 
 		// System.out.println(emailID);
@@ -102,7 +108,17 @@ public class DisplayEmail implements ActionListener {
 
 		if (e.getSource() == deleteButton) {
 			frame.dispose();
-			// delete from database method
+			
+			try {
+				mylandlord = new Landlord(landlordID);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			mylandlord.deleteEmail(emailID);
+
+			//display email delete success
+
 		}
 
 	}
