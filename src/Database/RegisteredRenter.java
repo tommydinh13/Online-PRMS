@@ -213,7 +213,7 @@ public class RegisteredRenter implements Observer{
         if (notify) {
             db.initializeConnection();
             try (Statement stmt = db.getConnection().createStatement();) {
-                String insertSql = "UPDATE Renters SET " + "notify='YES' WHERE rID=" + idNum + ";";
+                String insertSql = "UPDATE Renters SET notify='YES' WHERE rID=" + idNum + ";";
                 stmt.executeUpdate(insertSql);
                 db.closeConn();
             } catch (SQLException e) {
@@ -223,7 +223,6 @@ public class RegisteredRenter implements Observer{
     }
     @Override
     public void update(Property prop) {
-        // TODO Auto-generated method stub
         updateNotify(prop);
     }
 }

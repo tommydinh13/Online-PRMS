@@ -1,11 +1,12 @@
 package Database;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PropertyList implements Subject{
     
     private ArrayList<Observer> observers;
-    public ArrayList<Property> props;
+    public ArrayList<Property> properties;
 	public Property property;
 
     public PropertyList(){
@@ -17,24 +18,15 @@ public class PropertyList implements Subject{
     }
 
     public void addProperty(Property p){
-        props.add(p);
+        properties.add(p);
         notifyObservers();
-    }
-
-    public void removeRenter(Observer o){
-        for (int i = 0; i < observers.size(); i++) {
-			if (observers.get(i) == o) {
-				observers.remove(i);
-				break;
-			}
-		}
     }
 
     public void updateRenter(Property r) 
 	{
-		for (int i = 0; i < props.size(); i++) {
-			if (props.get(i) == r) {
-				props.remove(i);
+		for (int i = 0; i < properties.size(); i++) {
+			if (properties.get(i) == r) {
+				properties.remove(i);
 				break;
 			}
 		}
@@ -51,8 +43,10 @@ public class PropertyList implements Subject{
 	}
 
 	public void register(Observer observer) {
-		observers.add(observer);
-		// observer.update(renters);
+		PropertyDatabaseController pdc = new PropertyDatabaseController();
+		ArrayList<RegisteredRenter> ros = pdc.getRenters();
+
+		for (int i = 0; i < ros.size(); i++) observers.add(ros.get(i));
 	}
 
 	public void notifyObservers() {

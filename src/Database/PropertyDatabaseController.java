@@ -78,6 +78,26 @@ public class PropertyDatabaseController {
 
         return properties;
     }
+    public ArrayList<RegisteredRenter> getRenters() {
+        ArrayList<RegisteredRenter> rrs = new ArrayList<RegisteredRenter>();
+
+        db.initializeConnection();
+        try {
+            String search = "SELECT * FROM Renters;";
+
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery(search);
+            
+            while (results.next()) {
+                RegisteredRenter r = new RegisteredRenter(Integer.parseInt(results.getString("rID")));
+                rrs.add(r);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rrs;
+    }
 
     public static void main(String []s) throws SQLException {
     }
