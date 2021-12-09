@@ -113,6 +113,27 @@ public class Landlord {
             e.printStackTrace();
         }
     }
+    public ArrayList<Property> searchProperties(String sol){
+        ArrayList<Property> properties = new ArrayList<Property>();
+
+        db.initializeConnection();
+        try {
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery("SELECT * FROM Properties WHERE state_of_listing='"+ sol + "' AND landlord=" + idNum + ";");
+            
+            while (results.next()) {
+                Property prop = new Property(results.getString("address"), results.getString("p_type"), Integer.parseInt(results.getString("bathrooms")), Integer.parseInt(results.getString("bedrooms")), results.getString("furnished"), results.getString("city_quadrant"), Double.parseDouble(results.getString("price")));
+                prop.setSOL(sol);
+                prop.setID(Integer.parseInt(results.getString("pID")));
+                prop.setLandlord(this);
+                properties.add(prop);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return properties;
+    }
     public void changeSOL(Property prop) {
         property = prop;
         db = new SQLConnection();
@@ -121,6 +142,20 @@ public class Landlord {
         // Entering in the state of listing data into the database
         try (Statement stmt = db.getConnection().createStatement();) {
             String insertSql = "UPDATE Properties SET state_of_listing='" + property.getStateofListing() + "' WHERE pID=" + Integer.toString(property.getID()) + ";";
+
+            stmt.executeUpdate(insertSql);
+            db.closeConn();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void changeSOL(int propID, String sol) {
+        db = new SQLConnection();
+
+        db.initializeConnection();
+        // Entering in the state of listing data into the database
+        try (Statement stmt = db.getConnection().createStatement();) {
+            String insertSql = "UPDATE Properties SET state_of_listing='" + sol + "' WHERE pID=" + Integer.toString(propID) + ";";
 
             stmt.executeUpdate(insertSql);
             db.closeConn();
@@ -148,5 +183,18 @@ public class Landlord {
 
         return emails;
     }
+    public void deleteEmail(int id) {
+        db.initializeConnection();
+        // Entering in the state of listing data into the database
+        try (Statement stmt = db.getConnection().createStatement();) {
+            String insertSql = "DELETE FROM Emails WHERE eID=" + id + ";";
+
+            stmt.executeUpdate(insertSql);
+            db.closeConn();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public void check(){}
+    //  + " AND landlord=" + idNum
 }

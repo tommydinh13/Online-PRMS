@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,6 +14,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import Database.Landlord;
+import Database.Manager;
+import Database.RegisteredRenter;
 
 public class RegisterUserForm implements ActionListener {
 	JFrame frame = new JFrame();
@@ -203,6 +208,26 @@ public class RegisterUserForm implements ActionListener {
 			}
 			// if successful
 			else {
+				
+				if(user == "Manager"){
+					Manager myManager = new Manager(fname + " " + lname, email, password);
+				}
+				else if(user == "Landlord"){
+					try {
+						Landlord myLandlord = new Landlord(fname + " " + lname, email, password);
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+
+				}
+				else if(user == "Registered Renter"){
+					try {
+						RegisteredRenter myRenter = new RegisteredRenter(fname + " " + lname, email, password);
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+
 				signupButton.setVisible(false); // remove signup button
 				loginButton.setVisible(true); // add login button that goes to loginForm
 				success.setText("Succesfully Registered!"); // set message

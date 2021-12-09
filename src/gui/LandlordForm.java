@@ -64,11 +64,11 @@ public class LandlordForm implements ActionListener {
   public void actionPerformed(ActionEvent e) {
 
     if (e.getSource() == sofButton) {
-
-      // should pull up all active properties landlord specific
-      // select one and change the listing
-      // method should have 2 constructors, one with no args and one that takes
-      // in id
+      try {
+        SOLForm myForm = new SOLForm(idLL);
+      } catch (SQLException e1) {
+        e1.printStackTrace();
+      }
     }
 
        else if (e.getSource() == regisButton) {
