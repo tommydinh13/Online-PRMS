@@ -19,6 +19,9 @@ public class PropertyDatabaseController {
         String hTypes = "";
         String furnish = "";
         String cityQuad = "";
+        String bathMaximum = " AND bedrooms<=" + Integer.toString(bedMax);
+        String bedMaximum = " AND bathrooms<=" + Integer.toString(bathMax);
+        String priceMax = " AND price<=" + Double.toString(pHigh);
 
         for (int i = 0; i < ht.length; i++) {
             hTypes += "p_type='";
@@ -47,12 +50,15 @@ public class PropertyDatabaseController {
                 cityQuad += "' OR ";
             }
         }
+        if (bathMax == -1) bathMaximum = "";
+        if (bedMax == -1) bedMaximum = "";
+        if (pHigh == -1) priceMax = "";
 
         db.initializeConnection();
         try {
             String search = "SELECT * FROM Properties WHERE " 
-            + hTypes + "bedrooms>=" + Integer.toString(bedMin) + " AND bedrooms<=" + Integer.toString(bedMax) + " AND bathrooms>=" + Integer.toString(bathMin) + " AND bathrooms<=" + Integer.toString(bathMax) + " AND " + furnish + cityQuad + "state_of_listing='Active' AND "
-            + "price>=" + Double.toString(pLow) + " AND price<=" + Double.toString(pHigh) + ";";
+            + hTypes + "bedrooms>=" + Integer.toString(bedMin) + bedMaximum + " AND bathrooms>=" + Integer.toString(bathMin) + bathMaximum + " AND " + furnish + cityQuad + "state_of_listing='Active' AND "
+            + "price>=" + Double.toString(pLow) + priceMax + ";";
 
             Statement myStmt = db.getConnection().createStatement();
             ResultSet results = myStmt.executeQuery(search);

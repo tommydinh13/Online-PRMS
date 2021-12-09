@@ -113,12 +113,15 @@ public class DisplayEmail implements ActionListener {
       try {
         mylandlord = new Landlord(landlordID);
       } catch (SQLException e1) {
-        // TODO Auto-generated catch block
         e1.printStackTrace();
       }
       mylandlord.deleteEmail(emailID);
       frame.dispose();
-      InboxForm updated = new InboxForm(landlordID);
+      try {
+        InboxForm updated = new InboxForm(landlordID);
+      } catch (SQLException e1) {
+        e1.printStackTrace();
+      }
 
       // display email delete success
       JOptionPane.showMessageDialog(null, "Message Deleted Successfully",

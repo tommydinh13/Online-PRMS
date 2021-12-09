@@ -72,6 +72,34 @@ public class RegisteredRenter implements Observer{
     public void setID(int id) {
         idNum = id;
     }
+    public String getNotify() {
+        String notify = "NO";
+
+        db.initializeConnection();
+        try {
+            String search = "SELECT * FROM Renters WHERE rID=" + idNum + ";";
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery(search);
+            
+            if (results.next()) {
+                notify = results.getString("notify");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return notify;
+    }
+    public void setNotify() {
+        db.initializeConnection();
+        try (Statement stmt = db.getConnection().createStatement();) {
+            String insertSql = "UPDATE Renters SET " + "notify='NO' WHERE rID=" + idNum + ";";
+            stmt.executeUpdate(insertSql);
+            db.closeConn();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     // Method Functions
     public void unsubscribe() {
@@ -174,9 +202,28 @@ public class RegisteredRenter implements Observer{
             e.printStackTrace();
         }
     }
+    public void updateNotify(Property prop) {
+        ArrayList<Property> searched = performSearch();
+        boolean notify = false;
+
+        for (int i = 0; i < searched.size(); i++) {
+            if (searched.get(i).getID() == prop.getID()) notify = true;
+        }
+
+        if (notify) {
+            db.initializeConnection();
+            try (Statement stmt = db.getConnection().createStatement();) {
+                String insertSql = "UPDATE Renters SET " + "notify='YES' WHERE rID=" + idNum + ";";
+                stmt.executeUpdate(insertSql);
+                db.closeConn();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     @Override
-    public void update(ArrayList<Property> properties) {
-        // Email landlord or etc help Tommy pls IluvU <3
-        
+    public void update(Property prop) {
+        // TODO Auto-generated method stub
+        updateNotify(prop);
     }
 }
