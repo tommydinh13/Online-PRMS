@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 
 import Database.Landlord;
 import Database.Property;
+import Database.PropertyList;
 
 public class RegisterPropertyForm implements ActionListener {
 	JFrame frame = new JFrame();
@@ -146,6 +147,8 @@ public class RegisterPropertyForm implements ActionListener {
 				if(answer == 0) {
 					// yes answer changes listing to active
 					newProp.setSOL("Active");
+					PropertyList myList = new PropertyList();
+					// PropertyList.addProperty(newProp);
 					System.out.println(answer);
 
 				}else if(answer == 1){

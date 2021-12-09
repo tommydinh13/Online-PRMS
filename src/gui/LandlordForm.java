@@ -85,7 +85,9 @@ public class LandlordForm implements ActionListener {
          // should just be one button after that says pay that updates
         //  database
          // saying property is active
-       } else if (e.getSource() == logoutButton) {
+         PayForm pay= new PayForm(idLL);
+       } 
+       else if (e.getSource() == logoutButton) {
          frame.dispose();
          LoginForm login = new LoginForm();
        }

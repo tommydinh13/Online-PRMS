@@ -43,7 +43,7 @@ public class RegisteredRenterForm implements ActionListener {
 		logoutButton.addActionListener(this);
 		frame.add(logoutButton);
 
-		ImageIcon icon = new ImageIcon("bell.png");
+		ImageIcon icon = new ImageIcon("src/gui/Images/bell.png");
 		Image img = icon.getImage();
 		Image newimg = img.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 		icon = new ImageIcon(newimg);
@@ -78,6 +78,20 @@ public class RegisteredRenterForm implements ActionListener {
    } else if (e.getSource() == logoutButton) {
      frame.dispose();
      LoginForm login = new LoginForm();
+   }
+   else if(e.getSource() == notifButton){
+	   try {
+		renter = new RegisteredRenter(renterID);
+	} catch (SQLException e1) {
+		e1.printStackTrace();
+	}
+	   if(renter.getNotify() == "YES"){
+		   JOptionPane.showConfirmDialog(null, "There are new listing(s) matching your Search Criteria!", "Notification", JOptionPane.INFORMATION_MESSAGE);
+		   renter.setNotify();
+	   }
+	   else{
+		   JOptionPane.showConfirmDialog(null, "There are NO new listing(s) matching your Search Criteria", "Notification", JOptionPane.INFORMATION_MESSAGE);
+	   }
    }
 	}
 }

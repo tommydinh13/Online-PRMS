@@ -1,50 +1,36 @@
 package Database;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PropertyList implements Subject{
     
     private ArrayList<Observer> observers;
-    private ArrayList<Property> property;
+    public ArrayList<Property> properties;
+	public Property property;
 
-    private PropertyList(){
+    public PropertyList(){
         observers = new ArrayList<Observer>();
-        property = new ArrayList<Property>();
     }
-
-    public void setProperty(ArrayList<Property> prop){
-        property = prop;
-    }
-
 
     public void setObservers(ArrayList<Observer> obs){
         observers = obs;
     }
 
-    public void addProperty(Property prop){
-        property.add(prop);
+    public void addProperty(Property p){
+        properties.add(p);
         notifyObservers();
     }
 
-    public void removeProperty(Property prop){
-        for (int i = 0; i < property.size(); i++) {
-			if (property.get(i) == prop) {
-				property.remove(i);
-				break;
-			}
-		}
-		notifyObservers();
-    }
-
-    public void updateProperty(Property prop) 
+    public void updateRenter(Property r) 
 	{
-		for (int i = 0; i < property.size(); i++) {
-			if (property.get(i) == prop) {
-				property.remove(i);
+		for (int i = 0; i < properties.size(); i++) {
+			if (properties.get(i) == r) {
+				properties.remove(i);
 				break;
 			}
 		}
-		addProperty(prop);
+		addProperty(r);
 	}
 
 	public void remove(Observer observer) {
@@ -57,8 +43,10 @@ public class PropertyList implements Subject{
 	}
 
 	public void register(Observer observer) {
-		observers.add(observer);
-		observer.update(property);
+		PropertyDatabaseController pdc = new PropertyDatabaseController();
+		ArrayList<RegisteredRenter> ros = pdc.getRenters();
+
+		for (int i = 0; i < ros.size(); i++) observers.add(ros.get(i));
 	}
 
 	public void notifyObservers() {

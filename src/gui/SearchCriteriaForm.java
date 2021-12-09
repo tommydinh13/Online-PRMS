@@ -21,7 +21,7 @@ import javax.swing.ListCellRenderer;
 public class SearchCriteriaForm implements ActionListener {
 
   JFrame frame = new JFrame();
-  // title
+  // all components on title panel
   private static JPanel titlePanel;
   private static JLabel titleLabel;
 
@@ -36,26 +36,26 @@ public class SearchCriteriaForm implements ActionListener {
   private static JCheckBox bungalowCheckBox;
   private static JCheckBox condoCheckBox;
 
-  // bath panel
+  // all components on bath panel
   private static JPanel bathPanel;
   private static JLabel bathLabel;
   private static JComboBox minBathComboBox;
   private static JComboBox maxBathComboBox;
 
-  // bed panel
+  // all components on bed panel
   private static JPanel bedPanel;
   private static JLabel bedLabel;
   private static JComboBox minBedComboBox;
   private static JComboBox maxBedComboBox;
 
-  // furnish panel
+  // all components on furnish panel
   private static JPanel furnishPanel;
   private static JLabel furnishLabel;
   private static JCheckBox furnishedCheckBox;
   private static JCheckBox unfurnishedCheckBox;
   private String[] furnish = {"Furnished", "Unfurnished"};
 
-  // quadrant panel
+  // all components on quadrant panel
   private static JPanel quadrantPanel;
   private static JLabel quadrantLabel;
   private static JCheckBox neCheckBox;
@@ -64,15 +64,15 @@ public class SearchCriteriaForm implements ActionListener {
   private static JCheckBox swCheckBox;
   private String[] quadrants = {"NE", "NW", "SE", "SW"};
 
-  // price panel
+  // all components on price panel
   private static JPanel pricePanel;
   private static JLabel priceLabel;
   private static JComboBox minPriceComboBox;
   private static JComboBox maxPriceComboBox;
-  private String[] minPriceRange = {"0.00",   "200.00", "400.00",
-                                    "600.00", "800.00", "1000.00"};
+  private String[] minPriceRange = {"MIN",   "200.00", "400.00",
+                                    "600.00", "800.00", "1000.00", "1400.00", "1800.00", "2200.00", "2600.00"};
   private String[] maxPriceRange = {"200.00", "800.00", "1400.00", "2000.00",
-                                    "2600.00"};
+                                    "2600.00", "2600.00+"};
 
   // SERACH BUTTON FOR REGULAR RENTER
   private static JButton searchButton;
@@ -81,24 +81,22 @@ public class SearchCriteriaForm implements ActionListener {
   private static JButton searchButton2;
 
   // comboBox for min and max bath/bed
-  private String[] min = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-  private String[] max = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+  private String[] min = {"MIN","1" ,"2", "3", "4", "5", "6", "7", "8", "9", "10", "11"};
+  private String[] max = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11+"};
 
   private static int renterID;
 
   SearchCriteriaForm() {
 
     // ********* TITLE *********
-    titlePanel = new JPanel();
-    // titlePanel.setBackground(Color.green);
-    titlePanel.setBounds(0, 0, 700, 50);
-    titleLabel = new JLabel("Please Fill in Search Criteria");
-    titleLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 20));
-    titlePanel.add(titleLabel);
+    titlePanel = new JPanel();  // create title panel
+    titlePanel.setBounds(0, 0, 700, 50);  // setting bounds for panel
+    titleLabel = new JLabel("Please Fill in Search Criteria");  // creating the label for the title
+    titleLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 20));  // setting font for title
+    titlePanel.add(titleLabel); // add the label to the panel
 
     // ******** HOUSE TYPE *********
-    htPanel = new JPanel();
-    // htPanel.setBackground(Color.blue);
+    htPanel = new JPanel(); //
     htPanel.setBounds(0, 50, 700, 50);
     htLabel = new JLabel("House Type: ");
     htLabel.setFont(new Font("Courier", Font.PLAIN, 20));
@@ -106,11 +104,12 @@ public class SearchCriteriaForm implements ActionListener {
 
     // check box for house type( num of boxs for num of types)
     // making checkbox for apartment
-    apartmentCheckBox = new JCheckBox();
-    apartmentCheckBox.setText("Apartment");
-    apartmentCheckBox.addActionListener(this);
-    htPanel.add(apartmentCheckBox);
+    apartmentCheckBox = new JCheckBox();  // creating checkbox
+    apartmentCheckBox.setText("Apartment"); // name of checkbox
+    apartmentCheckBox.addActionListener(this); // give checkbox ability to make an action
+    htPanel.add(apartmentCheckBox); // add the checkbox to the panel for housetypes
 
+    // same steps for all checkboxes
     // making checkbox for bungalow
     bungalowCheckBox = new JCheckBox();
     bungalowCheckBox.setText("Bungalow");
@@ -147,18 +146,18 @@ public class SearchCriteriaForm implements ActionListener {
 
     // comboBox for min for
     minBathComboBox = new JComboBox(min);
-    minBathComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
-    minBathComboBox.setSelectedIndex(-1);
-    minBathComboBox.setPrototypeDisplayValue("MIN");
-    minBathComboBox.addActionListener(this);
+    // minBathComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
+    // minBathComboBox.setSelectedIndex(-1);
+    // minBathComboBox.setPrototypeDisplayValue("MIN");
+    // minBathComboBox.addActionListener(this);
     bathPanel.add(minBathComboBox);
     bathPanel.add(Box.createHorizontalStrut(20));
 
     // comboBox for max
     maxBathComboBox = new JComboBox(max);
-    maxBathComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
-    maxBathComboBox.setSelectedIndex(-1);
-    maxBathComboBox.setPrototypeDisplayValue("MAX");
+    // maxBathComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
+    maxBathComboBox.setSelectedIndex(10);
+    // maxBathComboBox.setPrototypeDisplayValue("MAX");
     minBathComboBox.addActionListener(this);
     bathPanel.add(maxBathComboBox);
     bathPanel.add(Box.createHorizontalStrut(190));
@@ -174,18 +173,18 @@ public class SearchCriteriaForm implements ActionListener {
 
     // bed comboBox for min for
     minBedComboBox = new JComboBox(min);
-    minBedComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
-    minBedComboBox.setSelectedIndex(-1);
-    minBedComboBox.setPrototypeDisplayValue("MIN");
+    // minBedComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
+    // minBedComboBox.setSelectedIndex(-1);
+    // minBedComboBox.setPrototypeDisplayValue("MIN");
     minBedComboBox.addActionListener(this);
     bedPanel.add(minBedComboBox);
     bedPanel.add(Box.createHorizontalStrut(20));
 
     // bed comboBox for max
     maxBedComboBox = new JComboBox(max);
-    maxBedComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
-    maxBedComboBox.setSelectedIndex(-1);
-    maxBedComboBox.setPrototypeDisplayValue("MAX");
+    // maxBedComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
+    maxBedComboBox.setSelectedIndex(10);
+    // maxBedComboBox.setPrototypeDisplayValue("MAX");
     maxBedComboBox.addActionListener(this);
     bedPanel.add(maxBedComboBox);
     bedPanel.add(Box.createHorizontalStrut(200));
@@ -260,15 +259,15 @@ public class SearchCriteriaForm implements ActionListener {
     pricePanel.add(priceLabel);
 
     minPriceComboBox = new JComboBox(minPriceRange);
-    minPriceComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
-    minPriceComboBox.setSelectedIndex(-1);
+    // minPriceComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
+    // minPriceComboBox.setSelectedIndex(-1);
     minPriceComboBox.addActionListener(this);
     pricePanel.add(minPriceComboBox);
     pricePanel.add(Box.createHorizontalStrut(20));
 
     maxPriceComboBox = new JComboBox(maxPriceRange);
-    maxPriceComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
-    maxPriceComboBox.setSelectedIndex(-1);
+    // maxPriceComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
+    maxPriceComboBox.setSelectedIndex(5);
     maxPriceComboBox.addActionListener(this);
     pricePanel.add(maxPriceComboBox);
     pricePanel.add(Box.createHorizontalStrut(20));
@@ -360,18 +359,18 @@ public class SearchCriteriaForm implements ActionListener {
 
     // comboBox for min for
     minBathComboBox = new JComboBox(min);
-    minBathComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
-    minBathComboBox.setSelectedIndex(-1);
-    minBathComboBox.setPrototypeDisplayValue("MIN");
+    // minBathComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
+    // minBathComboBox.setSelectedIndex(-1);
+    // minBathComboBox.setPrototypeDisplayValue("MIN");
     minBathComboBox.addActionListener(this);
     bathPanel.add(minBathComboBox);
     bathPanel.add(Box.createHorizontalStrut(20));
 
     // comboBox for max
     maxBathComboBox = new JComboBox(max);
-    maxBathComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
-    maxBathComboBox.setSelectedIndex(-1);
-    maxBathComboBox.setPrototypeDisplayValue("MAX");
+    // maxBathComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
+    maxBathComboBox.setSelectedIndex(10);
+    // maxBathComboBox.setPrototypeDisplayValue("MAX");
     minBathComboBox.addActionListener(this);
     bathPanel.add(maxBathComboBox);
     bathPanel.add(Box.createHorizontalStrut(190));
@@ -387,18 +386,18 @@ public class SearchCriteriaForm implements ActionListener {
 
     // bed comboBox for min for
     minBedComboBox = new JComboBox(min);
-    minBedComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
-    minBedComboBox.setSelectedIndex(-1);
-    minBedComboBox.setPrototypeDisplayValue("MIN");
+    // minBedComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
+    // minBedComboBox.setSelectedIndex(-1);
+    // minBedComboBox.setPrototypeDisplayValue("MIN");
     minBedComboBox.addActionListener(this);
     bedPanel.add(minBedComboBox);
     bedPanel.add(Box.createHorizontalStrut(20));
 
     // bed comboBox for max
     maxBedComboBox = new JComboBox(max);
-    maxBedComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
-    maxBedComboBox.setSelectedIndex(-1);
-    maxBedComboBox.setPrototypeDisplayValue("MAX");
+    // maxBedComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
+    maxBedComboBox.setSelectedIndex(10);
+    // maxBedComboBox.setPrototypeDisplayValue("MAX");
     maxBedComboBox.addActionListener(this);
     bedPanel.add(maxBedComboBox);
     bedPanel.add(Box.createHorizontalStrut(200));
@@ -473,15 +472,15 @@ public class SearchCriteriaForm implements ActionListener {
     pricePanel.add(priceLabel);
 
     minPriceComboBox = new JComboBox(minPriceRange);
-    minPriceComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
-    minPriceComboBox.setSelectedIndex(-1);
+    // minPriceComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
+    // minPriceComboBox.setSelectedIndex(-1);
     minPriceComboBox.addActionListener(this);
     pricePanel.add(minPriceComboBox);
     pricePanel.add(Box.createHorizontalStrut(20));
 
     maxPriceComboBox = new JComboBox(maxPriceRange);
-    maxPriceComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
-    maxPriceComboBox.setSelectedIndex(-1);
+    // maxPriceComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
+    maxPriceComboBox.setSelectedIndex(5);
     maxPriceComboBox.addActionListener(this);
     pricePanel.add(maxPriceComboBox);
     pricePanel.add(Box.createHorizontalStrut(20));
@@ -519,16 +518,40 @@ public class SearchCriteriaForm implements ActionListener {
     // regular does not need to pass in anything
 
     // CheckBox.isSelected() to get bool value of selected
-    int minBath =
-        Integer.parseInt(minBathComboBox.getSelectedItem().toString());
-    int maxBath =
-        Integer.parseInt(maxBathComboBox.getSelectedItem().toString());
-    int minBed = Integer.parseInt(minBedComboBox.getSelectedItem().toString());
-    int maxBed = Integer.parseInt(maxBedComboBox.getSelectedItem().toString());
-    double minPrice =
-        Double.parseDouble(minPriceComboBox.getSelectedItem().toString());
-    double maxPrice =
-        Double.parseDouble(maxPriceComboBox.getSelectedItem().toString());
+
+       int[] localmin = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+   int[] localmax = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, -1};
+
+      double[] localMinRange = {0,   200.00, 400.00,
+                                    600.00, 800.00, 1000.00, 1400.00, 1800.00, 2200.00,2600.00};
+  double[] localMaxRange = {200.00, 800.00, 1400.00, 2000.00,
+                                    2600.00, -1};
+
+  int minBathIndex =minBathComboBox.getSelectedIndex();
+  int maxBathIndex =maxBathComboBox.getSelectedIndex();
+  int minBedIndex =minBedComboBox.getSelectedIndex();
+  int maxBedIndex =maxBedComboBox.getSelectedIndex();
+  int minPriceIndex =minPriceComboBox.getSelectedIndex();
+  int maxPriceIndex =maxPriceComboBox.getSelectedIndex();
+
+    int minBath = localmin[minBathIndex];
+    int maxBath = localmax[maxBathIndex];
+    int minBed = localmin[minBedIndex];
+    int maxBed = localmax[maxBedIndex];
+    double minPrice = localMinRange[minPriceIndex];
+    double maxPrice = localMaxRange[maxPriceIndex];
+
+
+    // int minBath =
+    //     Integer.parseInt(minBathComboBox.getSelectedItem().toString());
+    // int maxBath =
+    //     Integer.parseInt(maxBathComboBox.getSelectedItem().toString());
+    // int minBed = Integer.parseInt(minBedComboBox.getSelectedItem().toString());
+    // int maxBed = Integer.parseInt(maxBedComboBox.getSelectedItem().toString());
+    // double minPrice =
+    //     Double.parseDouble(minPriceComboBox.getSelectedItem().toString());
+    // double maxPrice =
+    //     Double.parseDouble(maxPriceComboBox.getSelectedItem().toString());
     boolean[] htBool = {apartmentCheckBox.isSelected(),
                         bungalowCheckBox.isSelected(),
                         condoCheckBox.isSelected(), duplexCheckBox.isSelected(),

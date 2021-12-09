@@ -202,8 +202,6 @@ public class SOLForm implements ActionListener {
 		
 		 
 
-		 
-
 
 		// for manager
 		if (e.getSource() == applyButton) {
