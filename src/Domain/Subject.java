@@ -5,7 +5,7 @@
 *@author Tommy Dinh <a href="mailto:tommy.dinh@ucalgary.ca">
  *         tommy.dinh@ucalgary.ca</a>
  * 
-*@author Tien Dat Johny Do <ahref ="tiendat.do@ucalgary.ca">
+*@author Tien Dat Johny Do <a href ="tiendat.do@ucalgary.ca">
  *        tiendat.do@ucalgary.ca</a>
  * 
  *@author Stalin D Cunha<a href="mailto:stalin.dcunha@ucalgary.ca">
@@ -15,7 +15,7 @@
  * @since 1.0
  */ 
 
-package Database;
+package Domain;
 
 //Subject interface, which holds methods for the Observer Design Pattern
 public interface Subject {   

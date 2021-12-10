@@ -1,8 +1,24 @@
+/**
+ * @author Kundai Dziwa <a href="mailto:kundai.dziwa@ucalgary.ca">
+ *         kundai.dziwa@ucalgary.ca</a>
+ *
+*@author Tommy Dinh <a href="mailto:tommy.dinh@ucalgary.ca">
+ *         tommy.dinh@ucalgary.ca</a>
+ * 
+*@author Tien Dat Johny Do <a href ="tiendat.do@ucalgary.ca">
+ *        tiendat.do@ucalgary.ca</a>
+ * 
+ *@author Stalin D Cunha<a href="mailto:stalin.dcunha@ucalgary.ca">
+ *         stalin.dcunha@ucalgary.ca</a>
+ * 
+ * @version 1.1
+ * @since 1.0
+ */ 
 package gui;
 
+import Domain.*;
 import Database.PropertyDatabaseController;
-import Database.RegisteredRenter;
-import java.awt.Component;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -77,6 +93,9 @@ public class SearchCriteriaForm implements ActionListener {
 
   // SEARCH BUTTON FOR REGISTERED RENTER
   private static JButton searchButton2;
+
+  // Previous Search Button
+  private static JButton previousButton;
 
   // comboBox for min and max bath/bed
   private String[] min = {"MIN", "1", "2", "3", "4",  "5",
@@ -267,7 +286,7 @@ public class SearchCriteriaForm implements ActionListener {
 
     // button for search
     searchButton = new JButton("Search");
-    searchButton.setFont(new Font("Dialog", Font.BOLD, 30));
+    searchButton.setFont(new Font("Dialog", Font.BOLD, 15));
     searchButton.setBounds(350, 400, 150, 50);
     searchButton.setFocusable(false);
     searchButton.addActionListener(this);
@@ -471,13 +490,19 @@ public class SearchCriteriaForm implements ActionListener {
     // ********* SUBMIT BUTTON ***********
     // button for search
     searchButton2 = new JButton("Search");
-    searchButton2.setFont(new Font("Dialog", Font.BOLD, 30));
+    searchButton2.setFont(new Font("Dialog", Font.BOLD, 15));
     searchButton2.setBounds(350, 400, 150, 50);
     searchButton2.setFocusable(false);
     searchButton2.addActionListener(this);
     frame.add(searchButton2);
 
     // PREVIOUS SEARCH BUTTON GOES HERE
+        previousButton = new JButton("Previous Search");
+    previousButton.setFont(new Font("Dialog", Font.BOLD, 15));
+    previousButton.setBounds(100, 400, 150, 50);
+    previousButton.setFocusable(false);
+    previousButton.addActionListener(this);
+    frame.add(previousButton);
 
     // frame for search criteria form
     frame.add(titlePanel);
@@ -668,6 +693,17 @@ public class SearchCriteriaForm implements ActionListener {
                                 furSelected, quadSelected, minPrice, maxPrice);
       PropertiesDisplayForm list =
           new PropertiesDisplayForm(renterSearch.performSearch());
+    }
+
+    // if registered renter has a saved criteria, clicking this button
+    // will display properties of their search criteria
+    else if(e.getSource() == previousButton){
+      RegisteredRenter myRenter = new RegisteredRenter(renterID);
+      
+      if(myRenter.checkCriteria()){
+        
+        PropertiesDisplayForm myDisplay = new PropertiesDisplayForm(myRenter.performSearch());
+      }
     }
   }
 }

@@ -1,8 +1,22 @@
+/**
+ * @author Kundai Dziwa <a href="mailto:kundai.dziwa@ucalgary.ca">
+ *         kundai.dziwa@ucalgary.ca</a>
+ *
+*@author Tommy Dinh <a href="mailto:tommy.dinh@ucalgary.ca">
+ *         tommy.dinh@ucalgary.ca</a>
+ * 
+*@author Tien Dat Johny Do <a href ="tiendat.do@ucalgary.ca">
+ *        tiendat.do@ucalgary.ca</a>
+ * 
+ *@author Stalin D Cunha<a href="mailto:stalin.dcunha@ucalgary.ca">
+ *         stalin.dcunha@ucalgary.ca</a>
+ * 
+ * @version 1.1
+ * @since 1.0
+ */ 
 package gui;
 
-import Database.Property;
-import Database.PropertyList;
-import Database.RegisteredRenter;
+import Domain.*;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,12 +62,7 @@ private static JButton thisButton;
     logoutButton.addActionListener(this);
     frame.add(logoutButton);
 
-	// JUST FOR TESTING
-	thisButton = new JButton("test"); // create button and give label
-    thisButton.setBounds(10, 300, 125, 30);
-    thisButton.setFocusable(false);
-    thisButton.addActionListener(this);
-    frame.add(thisButton);
+
 
     // image icon used to upload image to button
     ImageIcon icon =
@@ -118,11 +127,5 @@ private static JButton thisButton;
             "Notification", JOptionPane.INFORMATION_MESSAGE);
       }
     }
-	else if(e.getSource()  == thisButton){
-    Property newProp = new Property("134", "afd", 2, 4, "adsf", "sad", 92);
-    newProp.setID(37);
-    PropertyList myList = new PropertyList();
-		myList.addProperty(newProp);
-	}
   }
 }

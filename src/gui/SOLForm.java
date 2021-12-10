@@ -1,5 +1,22 @@
+/**
+ * @author Kundai Dziwa <a href="mailto:kundai.dziwa@ucalgary.ca">
+ *         kundai.dziwa@ucalgary.ca</a>
+ *
+*@author Tommy Dinh <a href="mailto:tommy.dinh@ucalgary.ca">
+ *         tommy.dinh@ucalgary.ca</a>
+å * 
+*@author Tien Dat Johny Do <a href ="tiendat.do@ucalgary.ca">
+ *        tiendat.do@ucalgary.ca</a>
+ * 
+ *@author Stalin D Cunha<a href="mailto:stalin.dcunha@ucalgary.ca">
+ *         stalin.dcunha@ucalgary.ca</a>
+ * 
+ * @version 1.1
+ * @since 1.0
+ */ 
 package gui;
-
+import Domain.*;
+import Database.*;
 import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -20,9 +37,6 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import Database.Landlord;
-import Database.Manager;
-import Database.Property;
 
 public class SOLForm implements ActionListener {
 	JFrame frame = new JFrame();
@@ -99,16 +113,18 @@ public class SOLForm implements ActionListener {
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		displayPanel.add(scroll);
 
-		// must display listings here
+		// creating columns Id and address for the active properties
 		display.append("ID\t\t");
 		display.append("Address\n\n");
 
+		// loop that goes through the active properties list for the
+		// and gets id and address for the property
 		for (int i = 0; i<activeProperty.size(); i++){
-			String propID = Integer.toString(activeProperty.get(i).getID());
-			String address = activeProperty.get(i).getAddress();
+			String propID = Integer.toString(activeProperty.get(i).getID());	// get id
+			String address = activeProperty.get(i).getAddress();	// get address
 
-			display.append(propID + "\t\t");
-			display.append(address + "\n\n");
+			display.append(propID + "\t\t");	// display id
+			display.append(address + "\n\n");	// display address
 
 		}
 
@@ -151,10 +167,11 @@ public class SOLForm implements ActionListener {
 		buttonPanel.add(idText);
 		buttonPanel.add(Box.createHorizontalStrut(60));
 
-		// 
+		// combobox for different states of listings
 		stateComboBox = new JComboBox(states);
 		buttonPanel.add(stateComboBox);
 
+		// apply button for landlord
 		applyButton2 = new JButton("Apply");
 		applyButton2.setBounds(new Rectangle(300, 500));
 		applyButton2.addActionListener(this);
@@ -171,16 +188,17 @@ public class SOLForm implements ActionListener {
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		displayPanel.add(scroll);
 
-		// must display listings here
+		// creating columns Id and address for the active properties
 		display.append("ID\t\t");
 		display.append("Address\n\n");
-
+		// loop that goes through the active properties list for the
+		// landlord and gets id and address for the property
 		for (int i = 0; i<activeProperty.size(); i++){
-			String propID = Integer.toString(activeProperty.get(i).getID());
-			String address = activeProperty.get(i).getAddress();
+			String propID = Integer.toString(activeProperty.get(i).getID());	// get id
+			String address = activeProperty.get(i).getAddress();	// get address
 
-			display.append(propID + "\t\t");
-			display.append(address + "\n\n");
+			display.append(propID + "\t\t");	// display id
+			display.append(address + "\n\n");	// display address
 
 		}
 
@@ -188,7 +206,7 @@ public class SOLForm implements ActionListener {
 		frame.add(titlePanel);
 		frame.add(buttonPanel);
 		frame.add(displayPanel);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exiting window will close window
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // exiting window will close window
 		frame.setSize(800, 600); // setting size of window
 		frame.setLayout(null); // no layout
 		frame.setTitle("Rental Property Management System");
@@ -198,17 +216,27 @@ public class SOLForm implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		int propID = Integer.parseInt(idText.getText());
-		String myState = stateComboBox.getSelectedItem().toString();
 		
-		 
+		String stringId = idText.getText();
+		String myState = stateComboBox.getSelectedItem().toString();
 
+		if(!isInteger(stringId)){
+						        JOptionPane.showMessageDialog(
+            null, "Property ID must be an Integer!",
+            "PropertyID Error", JOptionPane.ERROR_MESSAGE);
+		}
 
 		// for manager
-		if (e.getSource() == applyButton) {
+		else if (e.getSource() == applyButton) {
+			// if button is pressed
+			int propID = Integer.parseInt(idText.getText());
 			Manager myManager;
-			myManager = new Manager();
-			myManager.changeSOL(propID, myState);
+			myManager = new Manager();	// create new manager
+			myManager.changeSOL(propID, myState);	// manager change state of listing for a property
+						//display success messge 
+			        JOptionPane.showMessageDialog(
+            null, "State of Listing has been changed!",
+            "Notification", JOptionPane.INFORMATION_MESSAGE);
 			frame.dispose();
 			SOLForm updated = new SOLForm();
 			// have to call a check to make sure that id entered is within the list
@@ -216,18 +244,52 @@ public class SOLForm implements ActionListener {
 		}
 
 		else if(e.getSource() == applyButton2){
+			int propID = Integer.parseInt(idText.getText());
 			Landlord myLandlord;
 
-			myLandlord= new Landlord(landlordID);
+			myLandlord= new Landlord(landlordID); 	// create new landlord with id
 
 			// have to call a check to make sure that id entered is within the list
 			// if true, change the state
 			
-			myLandlord.changeSOL(propID, myState);
+			myLandlord.changeSOL(propID, myState); // landlord change state of listing for a property
+			
 			//display success messge 
+			        JOptionPane.showMessageDialog(
+            null, "State of Listing has been changed!",
+            "Notification", JOptionPane.INFORMATION_MESSAGE);
+
+						frame.dispose();
+			SOLForm updated = new SOLForm();
+
 
 		}
 
 	}
+
+	/*https://stackoverflow.com/questions/237159/whats-the-best-way-to-check-if-a-string-represents-an-integer-in-java*/
+	public static boolean isInteger(String str) {
+    if (str == null) {
+        return false;
+    }
+    int length = str.length();
+    if (length == 0) {
+        return false;
+    }
+    int i = 0;
+    if (str.charAt(0) == '-') {
+        if (length == 1) {
+            return false;
+        }
+        i = 1;
+    }
+    for (; i < length; i++) {
+        char c = str.charAt(i);
+        if (c < '0' || c > '9') {
+            return false;
+        }
+    }
+    return true;
+}
 
 }

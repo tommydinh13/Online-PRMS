@@ -1,5 +1,22 @@
+/**
+ * @author Kundai Dziwa <a href="mailto:kundai.dziwa@ucalgary.ca">
+ *         kundai.dziwa@ucalgary.ca</a>
+ *
+*@author Tommy Dinh <a href="mailto:tommy.dinh@ucalgary.ca">
+ *         tommy.dinh@ucalgary.ca</a>
+ * 
+*@author Tien Dat Johny Do <a href ="tiendat.do@ucalgary.ca">
+ *        tiendat.do@ucalgary.ca</a>
+ * 
+ *@author Stalin D Cunha<a href="mailto:stalin.dcunha@ucalgary.ca">
+ *         stalin.dcunha@ucalgary.ca</a>
+ * 
+ * @version 1.1
+ * @since 1.0
+ */ 
 package gui;
 
+import Domain.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -8,10 +25,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
-import Database.Landlord;
-import Database.Property;
-import Database.PropertyList;
 
 public class RegisterPropertyForm implements ActionListener {
 	JFrame frame = new JFrame();
@@ -124,6 +137,15 @@ public class RegisterPropertyForm implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == submitButton) {
+			String stringBath = bathText.getText();
+			String stringBed = bedText.getText();
+			if(!isInteger(stringBath) || !isInteger(stringBed)){
+				          						        JOptionPane.showMessageDialog(
+            null, "Bed and Bath must be Integers!",
+            "Input Error", JOptionPane.ERROR_MESSAGE);
+
+			}else{
+				
 			String address = addressText.getText();	// get address user input
 			String ht = houseTypeComboBox.getSelectedItem().toString();	// get housetype user input
 			int numBath = Integer.parseInt(bathText.getText());	// get bath num user input
@@ -134,9 +156,7 @@ public class RegisterPropertyForm implements ActionListener {
 			
 			// create a new property with the user inputs
 			Property newProp = new Property(address, ht, numBath, numRoom, furnish, quadrant, price);
-//			int check = newProp.check();
 
-			// if (check) {
 				landlord.registerProperty(newProp);	// register property
 				int answer = JOptionPane.showOptionDialog(null, "Pay Property Fee for this New Property?", "Pay Property Fee",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, 0);	// ask landlord if they want to pay the fee
@@ -145,8 +165,7 @@ public class RegisterPropertyForm implements ActionListener {
 					newProp.setSOL("Active");	// make property active
 					PropertyList myList = new PropertyList();
 					myList.addProperty(newProp);
-					System.out.println(answer);
-					System.out.println(newProp.getID());
+
 
 				}else if(answer == 1){
 					// no answer change listing to cancelled
@@ -157,7 +176,35 @@ public class RegisterPropertyForm implements ActionListener {
 				landlord.changeSOL(newProp);
 			} 
 
-		// }
+			}
+
+
+
 
 	}
+
+	   /*https://stackoverflow.com/questions/237159/whats-the-best-way-to-check-if-a-string-represents-an-integer-in-java*/
+  public static boolean isInteger(String str) {
+    if (str == null) {
+        return false;
+    }
+    int length = str.length();
+    if (length == 0) {
+        return false;
+    }
+    int i = 0;
+    if (str.charAt(0) == '-') {
+        if (length == 1) {
+            return false;
+        }
+        i = 1;
+    }
+    for (; i < length; i++) {
+        char c = str.charAt(i);
+        if (c < '0' || c > '9') {
+            return false;
+        }
+    }
+    return true;
+}
 }

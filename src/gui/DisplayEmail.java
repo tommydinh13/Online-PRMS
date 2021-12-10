@@ -1,7 +1,22 @@
+/**
+ * @author Kundai Dziwa <a href="mailto:kundai.dziwa@ucalgary.ca">
+ *         kundai.dziwa@ucalgary.ca</a>
+ *
+*@author Tommy Dinh <a href="mailto:tommy.dinh@ucalgary.ca">
+ *         tommy.dinh@ucalgary.ca</a>
+ * 
+*@author Tien Dat Johny Do <a href ="tiendat.do@ucalgary.ca">
+ *        tiendat.do@ucalgary.ca</a>
+ * 
+ *@author Stalin D Cunha<a href="mailto:stalin.dcunha@ucalgary.ca">
+ *         stalin.dcunha@ucalgary.ca</a>
+ * 
+ * @version 1.1
+ * @since 1.0
+ */ 
 package gui;
 
-import Database.Email;
-import Database.Landlord;
+import Domain.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -107,7 +122,7 @@ public class DisplayEmail implements ActionListener {
     frame.add(subjectPanel);
     frame.add(bodyPanel);
     frame.setDefaultCloseOperation(
-        JFrame.EXIT_ON_CLOSE); // exiting window will close window
+        JFrame.DISPOSE_ON_CLOSE); // exiting window will close window
     frame.setSize(720, 700);   // setting size of window
     frame.setLayout(null);     // no layout
     frame.setTitle("Rental Property Management System");

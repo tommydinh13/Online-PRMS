@@ -1,5 +1,22 @@
+/**
+ * @author Kundai Dziwa <a href="mailto:kundai.dziwa@ucalgary.ca">
+ *         kundai.dziwa@ucalgary.ca</a>
+ *
+*@author Tommy Dinh <a href="mailto:tommy.dinh@ucalgary.ca">
+ *         tommy.dinh@ucalgary.ca</a>
+ * 
+*@author Tien Dat Johny Do <a href ="tiendat.do@ucalgary.ca">
+ *        tiendat.do@ucalgary.ca</a>
+ * 
+ *@author Stalin D Cunha<a href="mailto:stalin.dcunha@ucalgary.ca">
+ *         stalin.dcunha@ucalgary.ca</a>
+ * 
+ * @version 1.1
+ * @since 1.0
+ */ 
 package gui;
 
+import Domain.*;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -13,10 +30,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
-import Database.Landlord;
-import Database.Manager;
-import Database.RegisteredRenter;
 
 public class RegisterUserForm implements ActionListener {
 	JFrame frame = new JFrame();
@@ -129,7 +142,7 @@ public class RegisterUserForm implements ActionListener {
 	public boolean checkPassword(String p1, String p2) {
 		// check if passwords match and password is not null
 		
-		if (p1 == null || !p1.equals(p2)) {
+		if (p1.length() == 0|| !p1.equals(p2)) {
 			return false;
 		}
 		return true;
@@ -177,19 +190,9 @@ public class RegisterUserForm implements ActionListener {
 		String password = passwordText.getText();
 		String confirmPass = confirmPassText.getText();
 		String user = userComboBox.getSelectedItem().toString();
-		System.out.println(fname);
-		System.out.println(lname);
 
 		if (e.getSource() == signupButton) {
-			// should check to see if emailText is already registered
-			// call checkPassword() if not registered in database already
-			// if checkPasssword returns true, should enter info into database
-			// use 'userComboBox.getSelectedItem()' to get value of comboBox selected
-			// use 'passwordText.getText()' to get value in textbox
 
-			// if user is good to signup
-			// emailText is not in database + passwords match
-			// THIS IF STATEMENT IS NOT THE REAL ONE JUST USING FOR NOW
 			if (!checkName(fname, lname)) {
 				// if name check fails, send error message
 				JOptionPane.showMessageDialog(null, "Missing First/Last Name or Incorrect Format!", "Name Error",
@@ -204,7 +207,7 @@ public class RegisterUserForm implements ActionListener {
 
 			else if (!checkPassword(password, confirmPass)) {
 				// if password check fails, send error message
-				JOptionPane.showMessageDialog(null, " Password contains Whitespace or Passwords Do Not Match!",
+				JOptionPane.showMessageDialog(null, " Password is null or Passwords Do Not Match!",
 						"Password Error", JOptionPane.ERROR_MESSAGE);
 			}
 			// if successful

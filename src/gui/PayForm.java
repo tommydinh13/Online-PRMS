@@ -1,7 +1,22 @@
+/**
+ * @author Kundai Dziwa <a href="mailto:kundai.dziwa@ucalgary.ca">
+ *         kundai.dziwa@ucalgary.ca</a>
+ *
+*@author Tommy Dinh <a href="mailto:tommy.dinh@ucalgary.ca">
+ *         tommy.dinh@ucalgary.ca</a>
+ * 
+*@author Tien Dat Johny Do <a href ="tiendat.do@ucalgary.ca">
+ *        tiendat.do@ucalgary.ca</a>
+ * 
+ *@author Stalin D Cunha<a href="mailto:stalin.dcunha@ucalgary.ca">
+ *         stalin.dcunha@ucalgary.ca</a>
+ * 
+ * @version 1.1
+ * @since 1.0
+ */ 
 package gui;
 
-import Database.Landlord;
-import Database.Property;
+import Domain.*;
 import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -148,19 +163,56 @@ public class PayForm implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    int propID = Integer.parseInt(idText.getText());
+    String stringID = idText.getText();
+    
 
     if (e.getSource() == payButton) {
       // if landlord clicks pay button
       // the property ID entered will be changed to active
-      Landlord payLandlord;
-      payLandlord = new Landlord(landlordID);
-      payLandlord.changeSOL(propID, "Active");
+      // error check
+      if(!isInteger(stringID)){
+                      JOptionPane.showMessageDialog(
+            null, "Property ID must be an Integer!",
+            "ID Error", JOptionPane.ERROR_MESSAGE);
+      }else{
+      int propID = Integer.parseInt(idText.getText());
+          Landlord payLandlord;
+        payLandlord = new Landlord(landlordID);
+        payLandlord.changeSOL(propID, "Active");
 
-      // display success
-      JOptionPane.showMessageDialog(
+        // display success
+        JOptionPane.showMessageDialog(
           null, " Payment was Successful! Property is now Active.",
           "Payment Success", JOptionPane.INFORMATION_MESSAGE);
+
+
+      }
+
     }
   }
+
+   /*https://stackoverflow.com/questions/237159/whats-the-best-way-to-check-if-a-string-represents-an-integer-in-java*/
+  public static boolean isInteger(String str) {
+    if (str == null) {
+        return false;
+    }
+    int length = str.length();
+    if (length == 0) {
+        return false;
+    }
+    int i = 0;
+    if (str.charAt(0) == '-') {
+        if (length == 1) {
+            return false;
+        }
+        i = 1;
+    }
+    for (; i < length; i++) {
+        char c = str.charAt(i);
+        if (c < '0' || c > '9') {
+            return false;
+        }
+    }
+    return true;
+}
 }
