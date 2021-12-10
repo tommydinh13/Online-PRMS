@@ -15,6 +15,7 @@ public class Landlord {
 
     // Constructors
     public Landlord(String n, String em, String ps) {
+        // 
         name = n;
         password = ps;
         email = em;

@@ -4,7 +4,6 @@ import Database.Landlord;
 import Database.Manager;
 import Database.Property;
 import Database.RegisteredRenter;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;

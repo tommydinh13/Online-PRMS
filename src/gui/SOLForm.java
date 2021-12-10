@@ -4,7 +4,6 @@ import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.Box;
@@ -55,12 +54,12 @@ public class SOLForm implements ActionListener {
 	SOLForm() {
 		
 		Manager myManager = new Manager();
-		activeProperty = myManager.searchProperties("Active");
+		activeProperty = myManager.searchProperties("Active");	// has all of active properties
 		// ********* TITLE ************
 		titlePanel = new JPanel();
 		titlePanel.setBounds(0, 0, 800, 50);
-//		titlePanel.setBackground(Color.green);
 
+		// title label
 		titleLabel = new JLabel("Change State of Lisitng");
 		titleLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 20));
 		titlePanel.add(titleLabel);
@@ -68,19 +67,22 @@ public class SOLForm implements ActionListener {
 		// ********* BUTTON PANEL ************
 		buttonPanel = new JPanel();
 		buttonPanel.setBounds(0, 50, 800, 75);
-//		buttonPanel.setBackground(Color.red);
 
+		// label for property id
 		idLabel = new JLabel("Property ID: ");
 		idLabel.setFont(new Font("Courier", Font.PLAIN, 17));
 		buttonPanel.add(idLabel);
 
+		// user input text id 
 		idText = new JTextField(10);
 		buttonPanel.add(idText);
 		buttonPanel.add(Box.createHorizontalStrut(60));
 
+		// combobox for different states of listings
 		stateComboBox = new JComboBox(states);
 		buttonPanel.add(stateComboBox);
 
+		// button for applying change
 		applyButton = new JButton("Apply");
 		applyButton.setBounds(new Rectangle(300, 500));
 		applyButton.addActionListener(this);
@@ -90,8 +92,7 @@ public class SOLForm implements ActionListener {
 		displayPanel = new JPanel();
 		displayPanel.setBorder(new TitledBorder(new EtchedBorder(), "Active Listings"));
 		displayPanel.setBounds(50, 150, 700, 400);
-//		displayPanel.setBackground(Color.blue);
-
+		
 		display = new JTextArea(22, 52);
 		display.setEditable(false); // set textArea non-editable
 		scroll = new JScrollPane(display);
@@ -131,7 +132,6 @@ public class SOLForm implements ActionListener {
 		// ********* TITLE ************
 		titlePanel = new JPanel();
 		titlePanel.setBounds(0, 0, 800, 50);
-//		titlePanel.setBackground(Color.green);
 
 		titleLabel = new JLabel("Change State of Lisitng");
 		titleLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 20));
@@ -140,16 +140,18 @@ public class SOLForm implements ActionListener {
 		// ********* BUTTON PANEL ************
 		buttonPanel = new JPanel();
 		buttonPanel.setBounds(0, 50, 800, 75);
-//		buttonPanel.setBackground(Color.red);
 
+		// label for Property ID
 		idLabel = new JLabel("Property ID: ");
 		idLabel.setFont(new Font("Courier", Font.PLAIN, 17));
 		buttonPanel.add(idLabel);
 
+		// user input the property ID
 		idText = new JTextField(10);
 		buttonPanel.add(idText);
 		buttonPanel.add(Box.createHorizontalStrut(60));
 
+		// 
 		stateComboBox = new JComboBox(states);
 		buttonPanel.add(stateComboBox);
 
@@ -162,7 +164,6 @@ public class SOLForm implements ActionListener {
 		displayPanel = new JPanel();
 		displayPanel.setBorder(new TitledBorder(new EtchedBorder(), "Active Listings"));
 		displayPanel.setBounds(50, 150, 700, 400);
-//		displayPanel.setBackground(Color.blue);
 
 		display = new JTextArea(22, 52);
 		display.setEditable(false); // set textArea non-editable

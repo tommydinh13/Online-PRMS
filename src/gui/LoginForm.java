@@ -3,7 +3,6 @@ package gui;
 import Database.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -125,13 +124,10 @@ public class LoginForm implements ActionListener {
 
       UserController loginCheck = new UserController();
       int check = 0;
-      try {
         // method to check if user exists in database with inputs given
         // check will return the user ID
         check = loginCheck.checkUser(email, password, role);
-      } catch (SQLException e1) {
-        e1.printStackTrace();
-      }
+
 
       // check == 0 means that user was not in db with inputs given
       if (check == 0) {

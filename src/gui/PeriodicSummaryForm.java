@@ -1,8 +1,8 @@
 package gui;
 
-import java.sql.SQLException;
+import Database.Manager;
+import Database.Property;
 import java.util.ArrayList;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,115 +12,113 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import Database.Manager;
-import Database.Property;
-
 public class PeriodicSummaryForm {
 
-	JFrame frame = new JFrame();
-	private static JPanel housePanel;
-	private static JLabel totalHouseLabel;
-	private static JLabel numTotalLabel;
-	private static JLabel rentedHouseLabel;
-	private static JLabel numRentedLabel;
-	private static JLabel activeHouseLabel;
-	private static JLabel numActiveLabel;
+  JFrame frame = new JFrame();
+  private static JPanel housePanel;
+  private static JLabel totalHouseLabel;
+  private static JLabel numTotalLabel;
+  private static JLabel rentedHouseLabel;
+  private static JLabel numRentedLabel;
+  private static JLabel activeHouseLabel;
+  private static JLabel numActiveLabel;
 
-	private static JPanel rentedHousePanel;
-	private static JTextArea display;
-	private static JScrollPane scroll;
+  private static JPanel rentedHousePanel;
+  private static JTextArea display;
+  private static JScrollPane scroll;
 
-	private ArrayList<Property> rentedProperties;
+  private ArrayList<Property> rentedProperties;
 
-	PeriodicSummaryForm() {
+  PeriodicSummaryForm() {
 
-		housePanel = new JPanel();
-//		housePanel.setBackground(Color.red);
-		housePanel.setBounds(0, 0, 300, 100);
+    // panel for house information
+    housePanel = new JPanel();
+    housePanel.setBounds(0, 0, 300, 100);
 
-		totalHouseLabel = new JLabel("Total Number of Houses Listed:");
-		housePanel.add(totalHouseLabel);
+    totalHouseLabel = new JLabel("Total Number of Properties Listed:");
+    housePanel.add(totalHouseLabel);
 
-		numTotalLabel = new JLabel("");
-		housePanel.add(numTotalLabel);
+    numTotalLabel = new JLabel(""); // total houses set to nothing
+    housePanel.add(numTotalLabel);
 
-		rentedHouseLabel = new JLabel("Total Number of Houses Listed:");
-		housePanel.add(rentedHouseLabel);
+    rentedHouseLabel = new JLabel("Total Number of Rented Properties Listed:");
+    housePanel.add(rentedHouseLabel);
 
-		numRentedLabel = new JLabel("");
-		housePanel.add(numRentedLabel);
+    numRentedLabel = new JLabel(""); // rented houses set to nothing
+    housePanel.add(numRentedLabel);
 
-		activeHouseLabel = new JLabel("Total Number of Houses Listed:");
-		housePanel.add(activeHouseLabel);
+    activeHouseLabel = new JLabel("Total Number of Active Properties Listed:");
+    housePanel.add(activeHouseLabel);
 
-		numActiveLabel = new JLabel("");
-		housePanel.add(numActiveLabel);
+    numActiveLabel = new JLabel(""); // active houses set to nothing
+    housePanel.add(numActiveLabel);
 
-		Manager myManager = new Manager();
-//
-		String total = Integer.toString(myManager.totalProperties());
-		String rented = Integer.toString(myManager.totalProperties("Rented"));
-		String active = Integer.toString(myManager.totalProperties("Active"));
+    Manager myManager = new Manager();
 
-		numTotalLabel.setText(total);
-		numRentedLabel.setText(rented);
-		numActiveLabel.setText(active);
+    String total =
+        Integer.toString(myManager.totalProperties()); // get total properties
+    String rented = Integer.toString(
+        myManager.totalProperties("Rented")); // get total rented properties
+    String active = Integer.toString(
+        myManager.totalProperties("Active")); // get total active properties
 
-		rentedHousePanel = new JPanel();
-		rentedHousePanel.setBorder(new TitledBorder(new EtchedBorder(), "List of Houses Rented This Period"));
-		rentedHousePanel.setBounds(50, 100, 700, 400);
+    numTotalLabel.setText(total);   // display total properties
+    numRentedLabel.setText(rented); // display total rented properties
+    numActiveLabel.setText(active); // display total active properties
 
-		display = new JTextArea(22, 52);
-		display.setEditable(false); // set textArea non-editable
-		String landlordColumn = "Landlord Name \t";
-		String idColumn = "Property ID \t";
-		String addressColumn = "Address \n \n ";
+    // panel that is going to show the rented properties
+    // with some details
+    rentedHousePanel = new JPanel();
+    rentedHousePanel.setBorder(new TitledBorder(
+        new EtchedBorder(), "List of Houses Rented This Period"));
+    rentedHousePanel.setBounds(50, 100, 700, 400);
 
-		display.append(landlordColumn);
-		display.append(idColumn);
-		display.append(addressColumn);
+    // an area to display the rented properties information
+    display = new JTextArea(22, 52);
+    display.setEditable(false); // set textArea non-editable
+    String landlordColumn = "Landlord Name \t";
+    String idColumn = "Property ID \t";
+    String addressColumn = "Address \n \n ";
 
-		
-		// display.append(myText);
-		// display.append(text2);
-		// display.append(myText);
-		// display.append(myText);
-		// display.append(myText);display.append(myText);display.append(myText);display.append(myText);display.append(myText);display.append(myText);display.append(myText);display.append(myText);display.append(myText);display.append(myText);
-		
-		// will have while loop that pulls from db and displays on gui
+    display.append(landlordColumn);
+    display.append(idColumn);
+    display.append(addressColumn);
 
-		// call the function to get rented properties from database and store into rentedProperties
-		rentedProperties = myManager.searchProperties("Rented");
+    // ArrayList of properties that are rented this period
+    rentedProperties = myManager.searchProperties("Rented");
 
-		for (int i = 0; i<rentedProperties.size(); i++ ){
-			String currLandlord = rentedProperties.get(i).getLandlord().getName() + " \t \t";
-			String currID = Integer.toString(rentedProperties.get(i).getID())+ "\t";
-			String currAddress = rentedProperties.get(i).getAddress() + "\n \n ";
+    // loop that runs through the rented properties to get components
+    for (int i = 0; i < rentedProperties.size(); i++) {
+      // get landlord, property id, and address of the rented properties
+      String currLandlord = rentedProperties.get(i).getLandlord().getName() +
+                            " \t \t"; // get landlord
+      String currID = Integer.toString(rentedProperties.get(i).getID()) +
+                      "\t"; // get property ID
+      String currAddress =
+          rentedProperties.get(i).getAddress() + "\n \n "; // get address
 
-		display.append(currLandlord);
-		display.append(currID);
-		display.append(currAddress);
+      display.append(currLandlord); // display the landlord
+      display.append(currID);       // display the ID
+      display.append(currAddress);  // display the address
+    }
 
-		}
-		
-		
+    // scroll bar for display
+    scroll = new JScrollPane(display);
+    scroll.setVerticalScrollBarPolicy(
+        ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
+    // Add Textarea to rented house panel
+    rentedHousePanel.add(scroll);
 
-		scroll = new JScrollPane(display);
-		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+    // frame for periodic summary form
+    frame.add(housePanel);
+    frame.add(rentedHousePanel);
+    frame.setDefaultCloseOperation(
+        JFrame.DISPOSE_ON_CLOSE); // exiting window will close window
+    frame.setSize(800, 600);      // setting size of window
+    frame.setLayout(null);        // no layout
+    frame.setTitle("Rental Property Management System");
 
-		// Add Textarea in to middle panel
-		rentedHousePanel.add(scroll);
-
-		frame.add(housePanel);
-		frame.add(rentedHousePanel);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exiting window will close window
-		frame.setSize(800, 600); // setting size of window
-		frame.setLayout(null); // no layout
-		frame.setTitle("Rental Property Management System");
-
-		frame.setVisible(true);
-
-	}
-
+    frame.setVisible(true);
+  }
 }

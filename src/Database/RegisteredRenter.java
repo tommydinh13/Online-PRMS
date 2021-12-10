@@ -124,6 +124,17 @@ public class RegisteredRenter implements Observer{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        db.initializeConnection();
+        try (Statement stmt = db.getConnection().createStatement();) {
+            String insertSql = "DELETE FROM Search_Criteria WHERE " 
+            + "renter=" + idNum + ";";
+            
+            stmt.executeUpdate(insertSql);
+            db.closeConn();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     public ArrayList<Property> performSearch() {
         ArrayList<Property> properties = new ArrayList<Property>();
@@ -214,6 +225,25 @@ public class RegisteredRenter implements Observer{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public boolean checkCriteria() {
+        boolean exists = false;
+
+        db.initializeConnection();
+        try {
+            String search = "SELECT * FROM Search_Criteria WHERE renter=" + idNum + ";";
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery(search);
+            
+            if (results.next()) {
+                exists = true;
+            }
+            db.closeConn();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return exists;
     }
     public void updateNotify(Property prop) {
         ArrayList<Property> searched = performSearch();

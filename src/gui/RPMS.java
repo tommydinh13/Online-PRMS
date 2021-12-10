@@ -2,7 +2,8 @@ package gui;
 
 public class RPMS {
 	public static void main(String[] args) {
-
+		// this is where the program starts
+		// starts by opening a loginForm
 		LoginForm loginPage = new LoginForm();
 
 	}
