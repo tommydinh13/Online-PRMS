@@ -40,6 +40,7 @@ public class RegisteredRenter implements Observer{
             if (results.next()) {
                 idNum = Integer.parseInt(results.getString(1));
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -59,6 +60,7 @@ public class RegisteredRenter implements Observer{
                 email = results.getString("email");
                 password = results.getString("password");
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -92,6 +94,7 @@ public class RegisteredRenter implements Observer{
             if (results.next()) {
                 notify = results.getString("notify");
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -138,6 +141,7 @@ public class RegisteredRenter implements Observer{
                 PropertyDatabaseController pd = new PropertyDatabaseController();
                 properties = pd.performSearch(hTypes, Integer.parseInt(results.getString("bath_min")), Integer.parseInt(results.getString("bath_max")), Integer.parseInt(results.getString("bed_min")), Integer.parseInt(results.getString("bath_max")), furnish, cityQuad, Double.parseDouble(results.getString("price_min")), Double.parseDouble(results.getString("price_max")));
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -178,6 +182,7 @@ public class RegisteredRenter implements Observer{
             if (results.next()) {
                 exists = true;
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }

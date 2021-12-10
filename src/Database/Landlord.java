@@ -5,8 +5,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import com.mysql.cj.result.SqlDateValueFactory;
-
 public class Landlord {
     private Property property;
     private String name;
@@ -195,6 +193,7 @@ public class Landlord {
                 em.setID(idNum);
                 emails.add(em);
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }
