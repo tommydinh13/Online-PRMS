@@ -11,6 +11,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Database.Manager;
+
 public class ManagerForm implements ActionListener {
 
   JFrame frame = new JFrame();
@@ -99,11 +101,16 @@ public class ManagerForm implements ActionListener {
           JOptionPane.OK_CANCEL_OPTION);
 
       if (result == JOptionPane.OK_OPTION) {
+        int period = Integer.parseInt(periodField.getText());
+        double fee = Double.parseDouble(feeField.getText());
+        Manager myManager= new Manager();
+        myManager.enterPropertyFee(period, fee);
 
         // create property fee object that passes through
         // periodField.getText() and feeField.getText()
         // constructor for property fee should update database
       }
+      
     }
 
     else if (e.getSource() == perSumButton) {

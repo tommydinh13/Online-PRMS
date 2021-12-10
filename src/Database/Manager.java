@@ -209,4 +209,17 @@ public class Manager {
             e.printStackTrace();
         }
     }
+    public void enterPropertyFee(int period, Double fee) {
+        db.initializeConnection();
+        // Entering in the property fee data into the database
+        try (Statement stmt = db.getConnection().createStatement();) {
+            String insertSql = "INSERT INTO PropertyFee (period, fee) VALUES (" 
+            + Integer.toString(period) + ", " + Double.toString(fee) + ");";
+
+            stmt.executeUpdate(insertSql);
+            db.closeConn();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

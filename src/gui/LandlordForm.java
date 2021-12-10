@@ -80,7 +80,6 @@ public class LandlordForm implements ActionListener {
     }
 
     else if (e.getSource() == payFeeButton) {
-      // if pay fee button pressed, PayForm is created
 
       PayForm pay = new PayForm(idLL);
     } else if (e.getSource() == logoutButton) {
