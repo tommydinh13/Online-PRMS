@@ -2,8 +2,6 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -81,9 +79,9 @@ public class RegisterPropertyForm implements ActionListener {
 		furnishLabel.setBounds(30, 180, 150, 20); // where the label will go on the panel (x,y,width,height)
 		frame.add(furnishLabel);
 
-		String[] furnish = { "Furnished", "Unfurnised" };
-		furnishComboBox = new JComboBox(furnish);
-		furnishComboBox.setBounds(160, 180, 150, 25);
+		String[] furnish = { "Furnished", "Unfurnised" };	// string array for options
+		furnishComboBox = new JComboBox(furnish);	// create combobox with the furnish options
+		furnishComboBox.setBounds(160, 180, 150, 25);	
 		furnishComboBox.addActionListener(this);
 		frame.add(furnishComboBox);
 
@@ -91,13 +89,13 @@ public class RegisterPropertyForm implements ActionListener {
 		quadrantLabel.setBounds(30, 220, 150, 20); // where the label will go on the panel (x,y,width,height)
 		frame.add(quadrantLabel);
 
-		String[] quadrant = { "NE", "NW", "SE", "SW" };
-		quadrantComboBox = new JComboBox(quadrant);
+		String[] quadrant = { "NE", "NW", "SE", "SW" };	// string array for options
+		quadrantComboBox = new JComboBox(quadrant);	// create combobox with the furnish options
 		quadrantComboBox.setBounds(160, 220, 80, 25);
 		quadrantComboBox.addActionListener(this);
 		frame.add(quadrantComboBox);
 
-				priceLabel = new JLabel("Price (per month)"); // label that goes beside textbox to tell user what to enter
+		priceLabel = new JLabel("Price (per month)"); // label that goes beside textbox to tell user what to enter
 		priceLabel.setBounds(30, 260, 150, 20); // where the label will go on the panel (x,y,width,height)
 		frame.add(priceLabel);
 
@@ -106,13 +104,15 @@ public class RegisterPropertyForm implements ActionListener {
 		priceText.addActionListener(this);
 		frame.add(priceText);
 
+		// button for submit
 		submitButton = new JButton("Submit");
 		submitButton.setBounds(175, 300, 150, 30);
 		submitButton.setFocusable(false);
 		submitButton.addActionListener(this);
 		frame.add(submitButton);
 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exiting window will close window
+		// frame for RegisterPropertyForm
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // exiting window will close window
 		frame.setSize(400, 400); // setting size of window
 		frame.setLayout(null); // no layout
 		frame.setTitle("Rental Property Management System");
@@ -124,31 +124,33 @@ public class RegisterPropertyForm implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == submitButton) {
-			String address = addressText.getText();
-			String ht = houseTypeComboBox.getSelectedItem().toString();
-			int numBath = Integer.parseInt(bathText.getText());
-			int numRoom = Integer.parseInt(bedText.getText());
-			String furnish = furnishComboBox.getSelectedItem().toString();
-			String quadrant = quadrantComboBox.getSelectedItem().toString();
-			Double price = Double.parseDouble(priceText.getText());
+			String address = addressText.getText();	// get address user input
+			String ht = houseTypeComboBox.getSelectedItem().toString();	// get housetype user input
+			int numBath = Integer.parseInt(bathText.getText());	// get bath num user input
+			int numRoom = Integer.parseInt(bedText.getText());	// get bed num user input
+			String furnish = furnishComboBox.getSelectedItem().toString();	// get furnish state user input
+			String quadrant = quadrantComboBox.getSelectedItem().toString();	// get quadrant user input
+			Double price = Double.parseDouble(priceText.getText());	// get price user input
 			
+			// create a new property with the user inputs
 			Property newProp = new Property(address, ht, numBath, numRoom, furnish, quadrant, price);
 //			int check = newProp.check();
 
 			// if (check) {
-				landlord.registerProperty(newProp);
+				landlord.registerProperty(newProp);	// register property
 				int answer = JOptionPane.showOptionDialog(null, "Pay Property Fee for this New Property?", "Pay Property Fee",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, 0);
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, 0);	// ask landlord if they want to pay the fee
 				if(answer == 0) {
 					// yes answer changes listing to active
-					newProp.setSOL("Active");
+					newProp.setSOL("Active");	// make property active
 					PropertyList myList = new PropertyList();
 					myList.addProperty(newProp);
 					System.out.println(answer);
+					System.out.println(newProp.getID());
 
 				}else if(answer == 1){
 					// no answer change listing to cancelled
-					newProp.setSOL("Cancelled");
+					newProp.setSOL("Cancelled");	// make property cancelled
 					System.out.println(answer);
 				}
 				

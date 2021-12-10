@@ -14,8 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.ListCellRenderer;
-
 
 public class SearchCriteriaForm implements ActionListener {
 
@@ -68,10 +66,11 @@ public class SearchCriteriaForm implements ActionListener {
   private static JLabel priceLabel;
   private static JComboBox minPriceComboBox;
   private static JComboBox maxPriceComboBox;
-  private String[] minPriceRange = {"MIN",   "200.00", "400.00",
-                                    "600.00", "800.00", "1000.00", "1400.00", "1800.00", "2200.00", "2600.00"};
-  private String[] maxPriceRange = {"200.00", "800.00", "1400.00", "2000.00",
-                                    "2600.00", "2600.00+"};
+  private String[] minPriceRange = {"MIN",     "200.00",  "400.00",  "600.00",
+                                    "800.00",  "1000.00", "1400.00", "1800.00",
+                                    "2200.00", "2600.00"};
+  private String[] maxPriceRange = {"200.00",  "800.00",  "1400.00",
+                                    "2000.00", "2600.00", "2600.00+"};
 
   // SERACH BUTTON FOR REGULAR RENTER
   private static JButton searchButton;
@@ -80,18 +79,22 @@ public class SearchCriteriaForm implements ActionListener {
   private static JButton searchButton2;
 
   // comboBox for min and max bath/bed
-  private String[] min = {"MIN","1" ,"2", "3", "4", "5", "6", "7", "8", "9", "10", "11"};
-  private String[] max = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11+"};
+  private String[] min = {"MIN", "1", "2", "3", "4",  "5",
+                          "6",   "7", "8", "9", "10", "11"};
+  private String[] max = {"1", "2", "3", "4",  "5",  "6",
+                          "7", "8", "9", "10", "11+"};
 
   private static int renterID;
 
   SearchCriteriaForm() {
 
     // ********* TITLE *********
-    titlePanel = new JPanel();  // create title panel
-    titlePanel.setBounds(0, 0, 700, 50);  // setting bounds for panel
-    titleLabel = new JLabel("Please Fill in Search Criteria");  // creating the label for the title
-    titleLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 20));  // setting font for title
+    titlePanel = new JPanel();           // create title panel
+    titlePanel.setBounds(0, 0, 700, 50); // setting bounds for panel
+    titleLabel = new JLabel(
+        "Please Fill in Search Criteria"); // creating the label for the title
+    titleLabel.setFont(
+        new Font("Helvetica Neue", Font.BOLD, 20)); // setting font for title
     titlePanel.add(titleLabel); // add the label to the panel
 
     // ******** HOUSE TYPE *********
@@ -103,10 +106,12 @@ public class SearchCriteriaForm implements ActionListener {
 
     // check box for house type( num of boxs for num of types)
     // making checkbox for apartment
-    apartmentCheckBox = new JCheckBox();  // creating checkbox
+    apartmentCheckBox = new JCheckBox();    // creating checkbox
     apartmentCheckBox.setText("Apartment"); // name of checkbox
-    apartmentCheckBox.addActionListener(this); // give checkbox ability to make an action
-    htPanel.add(apartmentCheckBox); // add the checkbox to the panel for housetypes
+    apartmentCheckBox.addActionListener(
+        this); // give checkbox ability to make an action
+    htPanel.add(
+        apartmentCheckBox); // add the checkbox to the panel for housetypes
 
     // same steps for all checkboxes
     // making checkbox for bungalow
@@ -132,7 +137,7 @@ public class SearchCriteriaForm implements ActionListener {
     townhouseCheckBox.setText("Townhouse");
     townhouseCheckBox.addActionListener(this);
     htPanel.add(townhouseCheckBox);
-    htPanel.add(Box.createHorizontalStrut(30));
+    htPanel.add(Box.createHorizontalStrut(30)); // add a gap on the panel
 
     // ******** BATHROOM **********
 
@@ -145,142 +150,130 @@ public class SearchCriteriaForm implements ActionListener {
 
     // comboBox for min for
     minBathComboBox = new JComboBox(min);
-    // minBathComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
-    // minBathComboBox.setSelectedIndex(-1);
-    // minBathComboBox.setPrototypeDisplayValue("MIN");
-    // minBathComboBox.addActionListener(this);
     bathPanel.add(minBathComboBox);
-    bathPanel.add(Box.createHorizontalStrut(20));
+    bathPanel.add(Box.createHorizontalStrut(20)); // add a gap on the panel
 
     // comboBox for max
     maxBathComboBox = new JComboBox(max);
-    // maxBathComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
     maxBathComboBox.setSelectedIndex(10);
-    // maxBathComboBox.setPrototypeDisplayValue("MAX");
     minBathComboBox.addActionListener(this);
     bathPanel.add(maxBathComboBox);
-    bathPanel.add(Box.createHorizontalStrut(190));
+    bathPanel.add(Box.createHorizontalStrut(190)); // add a gap on the panel
 
     // ******** BEDROOM **********
-
+    // panel for bed
     bedPanel = new JPanel();
-    // bedPanel.setBackground(Color.red);
     bedPanel.setBounds(0, 150, 700, 50);
+    // label for bed
     bedLabel = new JLabel("Number of Bedrooms: ");
     bedLabel.setFont(new Font("Courier", Font.PLAIN, 20));
     bedPanel.add(bedLabel);
 
     // bed comboBox for min for
     minBedComboBox = new JComboBox(min);
-    // minBedComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
-    // minBedComboBox.setSelectedIndex(-1);
-    // minBedComboBox.setPrototypeDisplayValue("MIN");
     minBedComboBox.addActionListener(this);
     bedPanel.add(minBedComboBox);
-    bedPanel.add(Box.createHorizontalStrut(20));
+    bedPanel.add(Box.createHorizontalStrut(20)); // add a gap on the panel
 
     // bed comboBox for max
     maxBedComboBox = new JComboBox(max);
-    // maxBedComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
     maxBedComboBox.setSelectedIndex(10);
-    // maxBedComboBox.setPrototypeDisplayValue("MAX");
     maxBedComboBox.addActionListener(this);
     bedPanel.add(maxBedComboBox);
-    bedPanel.add(Box.createHorizontalStrut(200));
+    bedPanel.add(Box.createHorizontalStrut(200)); // add a gap on the panel
 
     // ******** FURNISH **********
     furnishPanel = new JPanel();
-    // furnishPanel.setBackground(Color.green);
     furnishPanel.setBounds(0, 200, 700, 50);
+    // label for furnish
     furnishLabel = new JLabel("Furnish State: ");
     furnishLabel.setFont(new Font("Courier", Font.PLAIN, 20));
     furnishPanel.add(furnishLabel);
 
-    //		furnishedComboBox = new JComboBox(furnish);
-    //		furnishPanel.add(furnishedComboBox);
-
+    // creating furnished checkbox
     furnishedCheckBox = new JCheckBox();
     furnishedCheckBox.setText("Furnished");
     furnishPanel.add(furnishedCheckBox);
     furnishedCheckBox.addActionListener(this);
 
-    furnishPanel.add(Box.createHorizontalStrut(30));
+    furnishPanel.add(Box.createHorizontalStrut(30)); // add a gap on the panel
 
+    // creating unfurnished checkbox
     unfurnishedCheckBox = new JCheckBox();
     unfurnishedCheckBox.setText("Unfurnished");
     furnishPanel.add(unfurnishedCheckBox);
     unfurnishedCheckBox.addActionListener(this);
 
-    furnishPanel.add(Box.createHorizontalStrut(190));
+    furnishPanel.add(Box.createHorizontalStrut(190)); // add a gap on the panel
 
     // ******** QUADRANT **********
     quadrantPanel = new JPanel();
-    // quadrantPanel.setBackground(Color.orange);
     quadrantPanel.setBounds(0, 250, 700, 50);
     quadrantLabel = new JLabel("City Quadrant: ");
     quadrantLabel.setFont(new Font("Courier", Font.PLAIN, 20));
     quadrantPanel.add(quadrantLabel);
 
-    //		quadrantComboBox = new JComboBox(quadrants);
-    //		quadrantPanel.add(quadrantComboBox);
-    //		quadrantPanel.add(Box.createHorizontalStrut(100));
-
+    // checkbox for ne
     neCheckBox = new JCheckBox();
     neCheckBox.setText("NE");
     quadrantPanel.add(neCheckBox);
     neCheckBox.addActionListener(this);
-    quadrantPanel.add(Box.createHorizontalStrut(10));
+    quadrantPanel.add(Box.createHorizontalStrut(10)); // add a gap on the panel
 
+    // checkbox for nw
     nwCheckBox = new JCheckBox();
     nwCheckBox.setText("NW");
     quadrantPanel.add(nwCheckBox);
     nwCheckBox.addActionListener(this);
-    quadrantPanel.add(Box.createHorizontalStrut(10));
+    quadrantPanel.add(Box.createHorizontalStrut(10)); // add a gap on the panel
 
+    // checkbox for se
     seCheckBox = new JCheckBox();
     seCheckBox.setText("SE");
     quadrantPanel.add(seCheckBox);
     seCheckBox.addActionListener(this);
-    quadrantPanel.add(Box.createHorizontalStrut(10));
+    quadrantPanel.add(Box.createHorizontalStrut(10)); // add a gap on the panel
 
+    // checkbox for sw
     swCheckBox = new JCheckBox();
     swCheckBox.setText("SW");
     quadrantPanel.add(swCheckBox);
     swCheckBox.addActionListener(this);
-    quadrantPanel.add(Box.createHorizontalStrut(170));
+    quadrantPanel.add(Box.createHorizontalStrut(170)); // add a gap on the panel
 
     // ******** PRICE **********
     pricePanel = new JPanel();
-    // pricePanel.setBackground(Color.red);
     pricePanel.setBounds(0, 300, 700, 50);
     priceLabel = new JLabel("Rent Price per Month($CAD): ");
     priceLabel.setFont(new Font("Courier", Font.PLAIN, 20));
     pricePanel.add(priceLabel);
 
-    minPriceComboBox = new JComboBox(minPriceRange);
-    // minPriceComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
-    // minPriceComboBox.setSelectedIndex(-1);
+    // minimum combobox for price
+    minPriceComboBox =
+        new JComboBox(minPriceRange); // takes in minpricerange array
     minPriceComboBox.addActionListener(this);
     pricePanel.add(minPriceComboBox);
-    pricePanel.add(Box.createHorizontalStrut(20));
+    pricePanel.add(Box.createHorizontalStrut(20)); // add a gap on the panel
 
-    maxPriceComboBox = new JComboBox(maxPriceRange);
-    // maxPriceComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
+    // max combobox for price
+    maxPriceComboBox =
+        new JComboBox(maxPriceRange); // takes in maxpricerange array
     maxPriceComboBox.setSelectedIndex(5);
     maxPriceComboBox.addActionListener(this);
     pricePanel.add(maxPriceComboBox);
-    pricePanel.add(Box.createHorizontalStrut(20));
+    pricePanel.add(Box.createHorizontalStrut(20)); // add a gap on the panel
 
     // ********* SUBMIT BUTTON ***********
 
+    // button for search
     searchButton = new JButton("Search");
     searchButton.setFont(new Font("Dialog", Font.BOLD, 30));
     searchButton.setBounds(350, 400, 150, 50);
     searchButton.setFocusable(false);
     searchButton.addActionListener(this);
     frame.add(searchButton);
-    // login page button
 
+    // frame for search criteria form
     frame.add(titlePanel);
     frame.add(htPanel);
     frame.add(bathPanel);
@@ -289,8 +282,8 @@ public class SearchCriteriaForm implements ActionListener {
     frame.add(quadrantPanel);
     frame.add(pricePanel);
     frame.setDefaultCloseOperation(
-        JFrame.EXIT_ON_CLOSE); // exiting window will close window
-    frame.setSize(700, 600);   // setting size of window
+        JFrame.DISPOSE_ON_CLOSE); // exiting window will close window
+    frame.setSize(700, 600);      // setting size of window
     frame.setLayout(null);
     frame.setTitle("Rental Property Management System");
 
@@ -299,17 +292,18 @@ public class SearchCriteriaForm implements ActionListener {
 
   SearchCriteriaForm(int id) {
     renterID = id;
+
     // ********* TITLE *********
-    titlePanel = new JPanel();
-    // titlePanel.setBackground(Color.green);
-    titlePanel.setBounds(0, 0, 700, 50);
-    titleLabel = new JLabel("Please Fill in Search Criteria");
-    titleLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 20));
-    titlePanel.add(titleLabel);
+    titlePanel = new JPanel();           // create title panel
+    titlePanel.setBounds(0, 0, 700, 50); // setting bounds for panel
+    titleLabel = new JLabel(
+        "Please Fill in Search Criteria"); // creating the label for the title
+    titleLabel.setFont(
+        new Font("Helvetica Neue", Font.BOLD, 20)); // setting font for title
+    titlePanel.add(titleLabel); // add the label to the panel
 
     // ******** HOUSE TYPE *********
-    htPanel = new JPanel();
-    // htPanel.setBackground(Color.blue);
+    htPanel = new JPanel(); //
     htPanel.setBounds(0, 50, 700, 50);
     htLabel = new JLabel("House Type: ");
     htLabel.setFont(new Font("Courier", Font.PLAIN, 20));
@@ -317,11 +311,14 @@ public class SearchCriteriaForm implements ActionListener {
 
     // check box for house type( num of boxs for num of types)
     // making checkbox for apartment
-    apartmentCheckBox = new JCheckBox();
-    apartmentCheckBox.setText("Apartment");
-    apartmentCheckBox.addActionListener(this);
-    htPanel.add(apartmentCheckBox);
+    apartmentCheckBox = new JCheckBox();    // creating checkbox
+    apartmentCheckBox.setText("Apartment"); // name of checkbox
+    apartmentCheckBox.addActionListener(
+        this); // give checkbox ability to make an action
+    htPanel.add(
+        apartmentCheckBox); // add the checkbox to the panel for housetypes
 
+    // same steps for all checkboxes
     // making checkbox for bungalow
     bungalowCheckBox = new JCheckBox();
     bungalowCheckBox.setText("Bungalow");
@@ -345,7 +342,7 @@ public class SearchCriteriaForm implements ActionListener {
     townhouseCheckBox.setText("Townhouse");
     townhouseCheckBox.addActionListener(this);
     htPanel.add(townhouseCheckBox);
-    htPanel.add(Box.createHorizontalStrut(30));
+    htPanel.add(Box.createHorizontalStrut(30)); // add a gap on the panel
 
     // ******** BATHROOM **********
 
@@ -358,142 +355,131 @@ public class SearchCriteriaForm implements ActionListener {
 
     // comboBox for min for
     minBathComboBox = new JComboBox(min);
-    // minBathComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
-    // minBathComboBox.setSelectedIndex(-1);
-    // minBathComboBox.setPrototypeDisplayValue("MIN");
-    minBathComboBox.addActionListener(this);
     bathPanel.add(minBathComboBox);
-    bathPanel.add(Box.createHorizontalStrut(20));
+    bathPanel.add(Box.createHorizontalStrut(20)); // add a gap on the panel
 
     // comboBox for max
     maxBathComboBox = new JComboBox(max);
-    // maxBathComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
     maxBathComboBox.setSelectedIndex(10);
-    // maxBathComboBox.setPrototypeDisplayValue("MAX");
     minBathComboBox.addActionListener(this);
     bathPanel.add(maxBathComboBox);
-    bathPanel.add(Box.createHorizontalStrut(190));
+    bathPanel.add(Box.createHorizontalStrut(190)); // add a gap on the panel
 
     // ******** BEDROOM **********
-
+    // panel for bed
     bedPanel = new JPanel();
-    // bedPanel.setBackground(Color.red);
     bedPanel.setBounds(0, 150, 700, 50);
+    // label for bed
     bedLabel = new JLabel("Number of Bedrooms: ");
     bedLabel.setFont(new Font("Courier", Font.PLAIN, 20));
     bedPanel.add(bedLabel);
 
     // bed comboBox for min for
     minBedComboBox = new JComboBox(min);
-    // minBedComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
-    // minBedComboBox.setSelectedIndex(-1);
-    // minBedComboBox.setPrototypeDisplayValue("MIN");
     minBedComboBox.addActionListener(this);
     bedPanel.add(minBedComboBox);
-    bedPanel.add(Box.createHorizontalStrut(20));
+    bedPanel.add(Box.createHorizontalStrut(20)); // add a gap on the panel
 
     // bed comboBox for max
     maxBedComboBox = new JComboBox(max);
-    // maxBedComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
     maxBedComboBox.setSelectedIndex(10);
-    // maxBedComboBox.setPrototypeDisplayValue("MAX");
     maxBedComboBox.addActionListener(this);
     bedPanel.add(maxBedComboBox);
-    bedPanel.add(Box.createHorizontalStrut(200));
+    bedPanel.add(Box.createHorizontalStrut(200)); // add a gap on the panel
 
     // ******** FURNISH **********
     furnishPanel = new JPanel();
-    // furnishPanel.setBackground(Color.green);
     furnishPanel.setBounds(0, 200, 700, 50);
+    // label for furnish
     furnishLabel = new JLabel("Furnish State: ");
     furnishLabel.setFont(new Font("Courier", Font.PLAIN, 20));
     furnishPanel.add(furnishLabel);
 
-    //		furnishedComboBox = new JComboBox(furnish);
-    //		furnishPanel.add(furnishedComboBox);
-
+    // creating furnished checkbox
     furnishedCheckBox = new JCheckBox();
     furnishedCheckBox.setText("Furnished");
     furnishPanel.add(furnishedCheckBox);
     furnishedCheckBox.addActionListener(this);
 
-    furnishPanel.add(Box.createHorizontalStrut(30));
+    furnishPanel.add(Box.createHorizontalStrut(30)); // add a gap on the panel
 
+    // creating unfurnished checkbox
     unfurnishedCheckBox = new JCheckBox();
     unfurnishedCheckBox.setText("Unfurnished");
     furnishPanel.add(unfurnishedCheckBox);
     unfurnishedCheckBox.addActionListener(this);
 
-    furnishPanel.add(Box.createHorizontalStrut(190));
+    furnishPanel.add(Box.createHorizontalStrut(190)); // add a gap on the panel
 
     // ******** QUADRANT **********
     quadrantPanel = new JPanel();
-    // quadrantPanel.setBackground(Color.orange);
     quadrantPanel.setBounds(0, 250, 700, 50);
     quadrantLabel = new JLabel("City Quadrant: ");
     quadrantLabel.setFont(new Font("Courier", Font.PLAIN, 20));
     quadrantPanel.add(quadrantLabel);
 
-    //		quadrantComboBox = new JComboBox(quadrants);
-    //		quadrantPanel.add(quadrantComboBox);
-    //		quadrantPanel.add(Box.createHorizontalStrut(100));
-
+    // checkbox for ne
     neCheckBox = new JCheckBox();
     neCheckBox.setText("NE");
     quadrantPanel.add(neCheckBox);
     neCheckBox.addActionListener(this);
-    quadrantPanel.add(Box.createHorizontalStrut(10));
+    quadrantPanel.add(Box.createHorizontalStrut(10)); // add a gap on the panel
 
+    // checkbox for nw
     nwCheckBox = new JCheckBox();
     nwCheckBox.setText("NW");
     quadrantPanel.add(nwCheckBox);
     nwCheckBox.addActionListener(this);
-    quadrantPanel.add(Box.createHorizontalStrut(10));
+    quadrantPanel.add(Box.createHorizontalStrut(10)); // add a gap on the panel
 
+    // checkbox for se
     seCheckBox = new JCheckBox();
     seCheckBox.setText("SE");
     quadrantPanel.add(seCheckBox);
     seCheckBox.addActionListener(this);
-    quadrantPanel.add(Box.createHorizontalStrut(10));
+    quadrantPanel.add(Box.createHorizontalStrut(10)); // add a gap on the panel
 
+    // checkbox for sw
     swCheckBox = new JCheckBox();
     swCheckBox.setText("SW");
     quadrantPanel.add(swCheckBox);
     swCheckBox.addActionListener(this);
-    quadrantPanel.add(Box.createHorizontalStrut(170));
+    quadrantPanel.add(Box.createHorizontalStrut(170)); // add a gap on the panel
 
     // ******** PRICE **********
     pricePanel = new JPanel();
-    // pricePanel.setBackground(Color.red);
     pricePanel.setBounds(0, 300, 700, 50);
     priceLabel = new JLabel("Rent Price per Month($CAD): ");
     priceLabel.setFont(new Font("Courier", Font.PLAIN, 20));
     pricePanel.add(priceLabel);
 
-    minPriceComboBox = new JComboBox(minPriceRange);
-    // minPriceComboBox.setRenderer(new MyComboBoxRenderer("MIN"));
-    // minPriceComboBox.setSelectedIndex(-1);
+    // minimum combobox for price
+    minPriceComboBox =
+        new JComboBox(minPriceRange); // takes in minpricerange array
     minPriceComboBox.addActionListener(this);
     pricePanel.add(minPriceComboBox);
-    pricePanel.add(Box.createHorizontalStrut(20));
+    pricePanel.add(Box.createHorizontalStrut(20)); // add a gap on the panel
 
-    maxPriceComboBox = new JComboBox(maxPriceRange);
-    // maxPriceComboBox.setRenderer(new MyComboBoxRenderer("MAX"));
+    // max combobox for price
+    maxPriceComboBox =
+        new JComboBox(maxPriceRange); // takes in maxpricerange array
     maxPriceComboBox.setSelectedIndex(5);
     maxPriceComboBox.addActionListener(this);
     pricePanel.add(maxPriceComboBox);
-    pricePanel.add(Box.createHorizontalStrut(20));
+    pricePanel.add(Box.createHorizontalStrut(20)); // add a gap on the panel
 
     // ********* SUBMIT BUTTON ***********
-
+    // button for search
     searchButton2 = new JButton("Search");
     searchButton2.setFont(new Font("Dialog", Font.BOLD, 30));
     searchButton2.setBounds(350, 400, 150, 50);
     searchButton2.setFocusable(false);
     searchButton2.addActionListener(this);
     frame.add(searchButton2);
-    // login page button
 
+    // PREVIOUS SEARCH BUTTON GOES HERE
+
+    // frame for search criteria form
     frame.add(titlePanel);
     frame.add(htPanel);
     frame.add(bathPanel);
@@ -512,45 +498,33 @@ public class SearchCriteriaForm implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    // two cases where it is a registered renter or regular
-    // if registered, should pass in its id so registered can be notified
-    // regular does not need to pass in anything
+    // min and max array for local
+    // -1 represents 11+
+    int[] localmin = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+    int[] localmax = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, -1};
 
-    // CheckBox.isSelected() to get bool value of selected
+    double[] localMinRange = {0,       200.00,  400.00,  600.00,  800.00,
+                              1000.00, 1400.00, 1800.00, 2200.00, 2600.00};
+    double[] localMaxRange = {200.00,  800.00,  1400.00,
+                              2000.00, 2600.00, -1}; // -1 reprensents 2600.00+
 
-       int[] localmin = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
-   int[] localmax = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, -1};
+    // getting index of selected combobox
+    int minBathIndex = minBathComboBox.getSelectedIndex();
+    int maxBathIndex = maxBathComboBox.getSelectedIndex();
+    int minBedIndex = minBedComboBox.getSelectedIndex();
+    int maxBedIndex = maxBedComboBox.getSelectedIndex();
+    int minPriceIndex = minPriceComboBox.getSelectedIndex();
+    int maxPriceIndex = maxPriceComboBox.getSelectedIndex();
 
-      double[] localMinRange = {0,   200.00, 400.00,
-                                    600.00, 800.00, 1000.00, 1400.00, 1800.00, 2200.00,2600.00};
-  double[] localMaxRange = {200.00, 800.00, 1400.00, 2000.00,
-                                    2600.00, -1};
-
-  int minBathIndex =minBathComboBox.getSelectedIndex();
-  int maxBathIndex =maxBathComboBox.getSelectedIndex();
-  int minBedIndex =minBedComboBox.getSelectedIndex();
-  int maxBedIndex =maxBedComboBox.getSelectedIndex();
-  int minPriceIndex =minPriceComboBox.getSelectedIndex();
-  int maxPriceIndex =maxPriceComboBox.getSelectedIndex();
-
+    // using index that user picked and coordinate with local min and max to
+    // pass through to display property
     int minBath = localmin[minBathIndex];
     int maxBath = localmax[maxBathIndex];
     int minBed = localmin[minBedIndex];
     int maxBed = localmax[maxBedIndex];
     double minPrice = localMinRange[minPriceIndex];
     double maxPrice = localMaxRange[maxPriceIndex];
-
-
-    // int minBath =
-    //     Integer.parseInt(minBathComboBox.getSelectedItem().toString());
-    // int maxBath =
-    //     Integer.parseInt(maxBathComboBox.getSelectedItem().toString());
-    // int minBed = Integer.parseInt(minBedComboBox.getSelectedItem().toString());
-    // int maxBed = Integer.parseInt(maxBedComboBox.getSelectedItem().toString());
-    // double minPrice =
-    //     Double.parseDouble(minPriceComboBox.getSelectedItem().toString());
-    // double maxPrice =
-    //     Double.parseDouble(maxPriceComboBox.getSelectedItem().toString());
+    // boolean array to store which checkboxes were selected
     boolean[] htBool = {apartmentCheckBox.isSelected(),
                         bungalowCheckBox.isSelected(),
                         condoCheckBox.isSelected(), duplexCheckBox.isSelected(),
@@ -563,47 +537,61 @@ public class SearchCriteriaForm implements ActionListener {
     if (e.getSource() == searchButton) {
       // method to get selected ht and put into string array
       String[] possible = new String[htBool.length];
-      int counter = 0;
+      int counter = 0; // will keep track of how big array is suppose to be
+      // loop that goes through housetype bool array
       for (int i = 0; i < htBool.length; i++) {
 
+        // if element is true (selected)
         if (htBool[i]) {
-          possible[counter] = types[i];
+          possible[counter] =
+              types[i]; // set possible to the house type that was selected
           counter++;
         }
       }
-      String[] htSelected = new String[counter];
+      // make a string[] that is the actual house type selected
+      String[] htSelected =
+          new String[counter]; // length will be how many times bool showed true
       for (int i = 0; i < htSelected.length; i++) {
-        htSelected[i] = possible[i];
+        htSelected[i] = possible[i]; // selected will take from the possible
       }
 
       // clear array for furniture
       possible = new String[furBool.length];
       counter = 0;
+      // loop that goes through furniture bool array
       for (int i = 0; i < furBool.length; i++) {
+        // if element is true (selected)
         if (furBool[i]) {
-          possible[counter] = furnish[i];
+          possible[counter] = furnish[i]; // set possible to the furniture state
+                                          // that was selected
           counter++;
         }
       }
-
-      String[] furSelected = new String[counter];
+      // make a string[] that is the actual furniture state selected
+      String[] furSelected =
+          new String[counter]; // length will be how many times bool showed true
       for (int i = 0; i < furSelected.length; i++) {
-        furSelected[i] = possible[i];
+        furSelected[i] = possible[i]; // selected will take from the possible
       }
 
       // clear array for quadrant
       possible = new String[quadBool.length];
       counter = 0;
+      // loop that goes through quadrant bool array
       for (int i = 0; i < quadBool.length; i++) {
+        // if element is true (selected)
         if (quadBool[i]) {
-          possible[counter] = quadrants[i];
-          ;
+          possible[counter] =
+              quadrants[i]; // set possible to the furniture state
+          // that was selected
+
           counter++;
         }
       }
+      // make a string[] that is the actual quadrants selected
       String[] quadSelected = new String[counter];
       for (int i = 0; i < quadSelected.length; i++) {
-        quadSelected[i] = possible[i];
+        quadSelected[i] = possible[i]; // selected will take from the possible
       }
 
       PropertyDatabaseController propertyDB = new PropertyDatabaseController();
@@ -617,73 +605,69 @@ public class SearchCriteriaForm implements ActionListener {
     else if (e.getSource() == searchButton2) {
       // method to get selected ht and put into string array
       String[] possible = new String[htBool.length];
-      int counter = 0;
+      int counter = 0; // will keep track of how big array is suppose to be
+      // loop that goes through housetype bool array
       for (int i = 0; i < htBool.length; i++) {
 
+        // if element is true (selected)
         if (htBool[i]) {
-          possible[counter] = types[i];
+          possible[counter] =
+              types[i]; // set possible to the house type that was selected
           counter++;
         }
       }
-      String[] htSelected = new String[counter];
+      // make a string[] that is the actual house type selected
+      String[] htSelected =
+          new String[counter]; // length will be how many times bool showed true
       for (int i = 0; i < htSelected.length; i++) {
-        htSelected[i] = possible[i];
+        htSelected[i] = possible[i]; // selected will take from the possible
       }
 
       // clear array for furniture
       possible = new String[furBool.length];
       counter = 0;
+      // loop that goes through furniture bool array
       for (int i = 0; i < furBool.length; i++) {
+        // if element is true (selected)
         if (furBool[i]) {
-          possible[counter] = furnish[i];
+          possible[counter] = furnish[i]; // set possible to the furniture state
+                                          // that was selected
           counter++;
         }
       }
-
-      String[] furSelected = new String[counter];
+      // make a string[] that is the actual furniture state selected
+      String[] furSelected =
+          new String[counter]; // length will be how many times bool showed true
       for (int i = 0; i < furSelected.length; i++) {
-        furSelected[i] = possible[i];
+        furSelected[i] = possible[i]; // selected will take from the possible
       }
 
       // clear array for quadrant
       possible = new String[quadBool.length];
       counter = 0;
+      // loop that goes through quadrant bool array
       for (int i = 0; i < quadBool.length; i++) {
+        // if element is true (selected)
         if (quadBool[i]) {
-          possible[counter] = quadrants[i];
-          ;
+          possible[counter] =
+              quadrants[i]; // set possible to the furniture state
+          // that was selected
+
           counter++;
         }
       }
+      // make a string[] that is the actual quadrants selected
       String[] quadSelected = new String[counter];
       for (int i = 0; i < quadSelected.length; i++) {
-        quadSelected[i] = possible[i];
+        quadSelected[i] = possible[i]; // selected will take from the possible
       }
 
       RegisteredRenter renterSearch;
       renterSearch = new RegisteredRenter(renterID);
       renterSearch.saveCriteria(htSelected, minBath, maxBath, minBed, maxBed,
-                                furSelected, quadSelected, minPrice,
-                                maxPrice);
+                                furSelected, quadSelected, minPrice, maxPrice);
       PropertiesDisplayForm list =
           new PropertiesDisplayForm(renterSearch.performSearch());
-    }
-  }
-
-  class MyComboBoxRenderer extends JLabel implements ListCellRenderer {
-    private String _title;
-
-    public MyComboBoxRenderer(String title) { _title = title; }
-
-    @Override
-    public Component getListCellRendererComponent(JList list, Object value,
-                                                  int index, boolean isSelected,
-                                                  boolean hasFocus) {
-      if (index == -1 && value == null)
-        setText(_title);
-      else
-        setText(value.toString());
-      return this;
     }
   }
 }

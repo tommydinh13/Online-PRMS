@@ -11,6 +11,11 @@ public class PropertyList implements Subject{
     public PropertyList(){
         observers = new ArrayList<Observer>();
 		properties  = new ArrayList <Property>();
+
+		PropertyDatabaseController pdc = new PropertyDatabaseController();
+		ArrayList<RegisteredRenter> ros = pdc.getRenters();
+		for (int i = 0; i < ros.size(); i++) {observers.add(ros.get(i));}
+		System.out.println(ros.size());
     }
 
     public void setObservers(ArrayList<Observer> obs){
@@ -25,6 +30,7 @@ public class PropertyList implements Subject{
     public void addProperty(Property p){
         properties = new ArrayList<Property>();
 		properties.add(p);
+		property = p;
         notifyObservers();
     }
 
