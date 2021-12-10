@@ -17,22 +17,28 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class DisplayEmail implements ActionListener {
 
+public class DisplayEmail implements ActionListener {
+  // frame
   JFrame frame = new JFrame();
+
+  // email address components
   private static JPanel eaPanel;
   private static JLabel eaLabel;
   private static JTextField eaText;
 
+  // email subject components
   private static JPanel subjectPanel;
   private static JLabel subjectLabel;
   private static JTextField subjectText;
 
+  // email body components
   private static JPanel bodyPanel;
   private static JLabel bodyLabel;
   private static JTextArea display;
   private static JScrollPane scroll;
 
+  // delete email button
   private static JButton deleteButton;
 
   private static int emailID;
@@ -46,53 +52,58 @@ public class DisplayEmail implements ActionListener {
     landlordID = lID;
     email = new Email(emailID);
 
-    // System.out.println(emailID);
-
+    //  email address panel
     eaPanel = new JPanel();
     eaPanel.setBounds(0, 50, 700, 50);
 
+    // label that displays "From" for email address
     eaLabel = new JLabel("From:");
     eaPanel.add(eaLabel);
 
+    // who the email will be from
     eaText = new JTextField(50);
     eaText.setEditable(false);
     eaText.setText(email.getRenter());
     eaPanel.add(eaText);
 
+    // panel for subject
     subjectPanel = new JPanel();
-    //		subjectPanel.setBackground(Color.red);
     subjectPanel.setBounds(0, 100, 700, 50);
 
-    subjectLabel = new JLabel("Subject:"); // label that goes beside textbox to
-                                           // tell user what to enter
+    // label for subject
+    subjectLabel = new JLabel("Subject:");
     subjectPanel.add(subjectLabel);
 
-    subjectText = new JTextField(50); // creating box that lets user enter chars
-                                      // that takes in length argument
+    // text that will display the subject of the email
+    subjectText = new JTextField(50);
     subjectText.setEditable(false);
     subjectText.setText(email.getSubject());
     subjectPanel.add(subjectText);
 
+    // creating body panel
     bodyPanel = new JPanel();
-    //		bodyPanel.setBackground(Color.blue);
     bodyPanel.setBounds(0, 175, 700, 400);
     bodyPanel.setBorder(new TitledBorder(new EtchedBorder(),
                                          "List of Houses Rented This Period"));
 
-    display = new JTextArea(22, 53);
-    display.setEditable(false);
-    display.append(email.getBody());
+    // display is for the body of the email
+    display = new JTextArea(22, 53); // size of display box
+    display.setEditable(false);      // user cannot type in box
+    display.append(email.getBody()); // get body of email and add to display
+    // scroll bar for displaying body
     scroll = new JScrollPane(display);
     scroll.setVerticalScrollBarPolicy(
         ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
     bodyPanel.add(scroll);
 
+    // delete button
     deleteButton = new JButton("Delete");
     deleteButton.setBounds(500, 575, 110, 30);
     deleteButton.setFocusable(false);
     deleteButton.addActionListener(this);
     frame.add(deleteButton);
 
+    // frame for DisplayEmail
     frame.add(eaPanel);
     frame.add(subjectPanel);
     frame.add(bodyPanel);
@@ -107,7 +118,9 @@ public class DisplayEmail implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-
+    // when deleteButton is clicked,
+    // the email should be deleted from database
+    // and will call InboxForm again to show updated information
     if (e.getSource() == deleteButton) {
       mylandlord = new Landlord(landlordID);
       mylandlord.deleteEmail(emailID);

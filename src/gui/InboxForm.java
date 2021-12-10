@@ -16,7 +16,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-
+// inbox is meant to be used for landlord when checking their Emails
+// gives them a brief outline of what the email is about
 public class InboxForm implements ActionListener {
   JFrame frame = new JFrame();
   private static JPanel bodyPanel;
@@ -33,6 +34,7 @@ public class InboxForm implements ActionListener {
     landlordID = id;
     myLandlord = new Landlord(id);
 
+    // panel for the inbox
     bodyPanel = new JPanel();
     bodyPanel.setBorder(new TitledBorder(new EtchedBorder(), "Inbox"));
     bodyPanel.setBounds(50, 50, 700, 400);
@@ -53,44 +55,50 @@ public class InboxForm implements ActionListener {
 
     // create an arraylist of emails
     ArrayList<Email> emails = myLandlord.viewInbox();
+    // loop that runs through the landlord's emails
     for (int i = 0; i < emails.size(); i++) {
-
+      // get emailID, propID, sender of email, and subject of email
+      // put these values into strings
       String emailID = Integer.toString(emails.get(i).getID()) + " \t ";
       String propID = Integer.toString(emails.get(i).getProperty()) + " \t ";
       String from = emails.get(i).getRenter() + " \t\t";
       String subject = emails.get(i).getSubject() + " \n\n";
 
+      // adding these values for a specific email to the inbox
       display.append(emailID);
       display.append(propID);
       display.append(from);
       display.append(subject);
     }
 
+    // a button to view a chosen email
     viewButton = new JButton("View Email");
     viewButton.setBounds(600, 475, 100, 50);
     viewButton.addActionListener(this);
 
+    // frame for InboxForm
     frame.add(bodyPanel);
     frame.add(viewButton);
     frame.setDefaultCloseOperation(
-        JFrame.EXIT_ON_CLOSE); // exiting window will close window
-    frame.setSize(800, 600);   // setting size of window
-    frame.setLayout(null);     // no layout
+        JFrame.DISPOSE_ON_CLOSE); // exiting window will close window
+    frame.setSize(800, 600);      // setting size of window
+    frame.setLayout(null);        // no layout
     frame.setTitle("Rental Property Management System");
-
     frame.setVisible(true);
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
 
+    // view button is used to view the specified email
     if (e.getSource() == viewButton) {
       // pop up window that user inputs email id
-      // need a check to make sure that email id entered was in the landlord
-      // email db
+      // user enters the email id that they want to open
       int emailID = Integer.parseInt(
-      JOptionPane.showInputDialog("Please Enter Email ID:"));
-      System.out.println(emailID);
+          JOptionPane.showInputDialog("Please Enter Email ID:"));
+
+      // create a DisplayEmail object that recieves the landlordID and the
+      // emailID
       DisplayEmail viewEmail = new DisplayEmail(emailID, landlordID);
       frame.dispose();
     }
