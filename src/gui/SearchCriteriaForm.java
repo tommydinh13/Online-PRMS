@@ -513,7 +513,7 @@ public class SearchCriteriaForm implements ActionListener {
     frame.add(quadrantPanel);
     frame.add(pricePanel);
     frame.setDefaultCloseOperation(
-        JFrame.EXIT_ON_CLOSE); // exiting window will close window
+        JFrame.DISPOSE_ON_CLOSE); // exiting window will close window
     frame.setSize(700, 600);   // setting size of window
     frame.setLayout(null);
     frame.setTitle("Rental Property Management System");

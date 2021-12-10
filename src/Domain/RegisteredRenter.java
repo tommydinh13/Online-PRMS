@@ -32,7 +32,7 @@ public class RegisteredRenter implements Observer{
     private SQLConnection db; // Connection to the database.
     
     // Constructors
-    public RegisteredRenter(String n, String p, String em) {
+    public RegisteredRenter(String n, String em, String p) {
         // Creating a renter instance based on the passed in data values.
         name = n;
         password = p;
