@@ -72,6 +72,7 @@ public class PropertyDatabaseController {
                 prop.setLandlord(l);
                 properties.add(prop);
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -92,6 +93,7 @@ public class PropertyDatabaseController {
                 RegisteredRenter r = new RegisteredRenter(Integer.parseInt(results.getString("rID")));
                 rrs.add(r);
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }

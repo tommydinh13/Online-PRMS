@@ -35,7 +35,7 @@ public class RegisterPropertyForm implements ActionListener {
 
 	private static Landlord landlord;
 
-	RegisterPropertyForm(int id) throws SQLException {
+	RegisterPropertyForm(int id) {
 		landlord = new Landlord(id);
 
 		addressLabel = new JLabel("Address"); // label that goes beside textbox to tell user what to enter
@@ -87,7 +87,6 @@ public class RegisterPropertyForm implements ActionListener {
 		furnishComboBox.addActionListener(this);
 		frame.add(furnishComboBox);
 
-
 		quadrantLabel = new JLabel("City Quadrant"); // label that goes beside textbox to tell user what to enter
 		quadrantLabel.setBounds(30, 220, 150, 20); // where the label will go on the panel (x,y,width,height)
 		frame.add(quadrantLabel);
@@ -137,11 +136,7 @@ public class RegisterPropertyForm implements ActionListener {
 //			int check = newProp.check();
 
 			// if (check) {
-				try {
-					landlord.registerProperty(newProp);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+				landlord.registerProperty(newProp);
 				int answer = JOptionPane.showOptionDialog(null, "Pay Property Fee for this New Property?", "Pay Property Fee",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, 0);
 				if(answer == 0) {

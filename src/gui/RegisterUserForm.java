@@ -213,19 +213,10 @@ public class RegisterUserForm implements ActionListener {
 					Manager myManager = new Manager(fname + " " + lname, email, password);
 				}
 				else if(user == "Landlord"){
-					try {
-						Landlord myLandlord = new Landlord(fname + " " + lname, email, password);
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
-
+					Landlord myLandlord = new Landlord(fname + " " + lname, email, password);
 				}
 				else if(user == "Registered Renter"){
-					try {
-						RegisteredRenter myRenter = new RegisteredRenter(fname + " " + lname, email, password);
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
+					RegisteredRenter myRenter = new RegisteredRenter(fname + " " + lname, email, password);
 				}
 
 				signupButton.setVisible(false); // remove signup button

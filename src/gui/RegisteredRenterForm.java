@@ -4,7 +4,6 @@ import java.awt.Image;
 import Database.RegisteredRenter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,7 +20,7 @@ public class RegisteredRenterForm implements ActionListener {
 	private static RegisteredRenter renter;
   private static int renterID;
 
-	RegisteredRenterForm(int id) throws SQLException {
+	RegisteredRenterForm(int id) {
 		renter = new RegisteredRenter(id);
     	renterID = id;
 
@@ -80,11 +79,7 @@ public class RegisteredRenterForm implements ActionListener {
      LoginForm login = new LoginForm();
    }
    else if(e.getSource() == notifButton){
-	   try {
 		renter = new RegisteredRenter(renterID);
-	} catch (SQLException e1) {
-		e1.printStackTrace();
-	}
 	   if(renter.getNotify() == "YES"){
 		   JOptionPane.showConfirmDialog(null, "There are new listing(s) matching your Search Criteria!", "Notification", JOptionPane.INFORMATION_MESSAGE);
 		   renter.setNotify();

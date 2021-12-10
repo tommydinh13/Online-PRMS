@@ -6,7 +6,6 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -662,16 +661,12 @@ public class SearchCriteriaForm implements ActionListener {
       }
 
       RegisteredRenter renterSearch;
-      try {
-        renterSearch = new RegisteredRenter(renterID);
-        renterSearch.saveCriteria(htSelected, minBath, maxBath, minBed, maxBed,
-                                  furSelected, quadSelected, minPrice,
-                                  maxPrice);
-        PropertiesDisplayForm list =
-            new PropertiesDisplayForm(renterSearch.performSearch());
-      } catch (SQLException e1) {
-        e1.printStackTrace();
-      }
+      renterSearch = new RegisteredRenter(renterID);
+      renterSearch.saveCriteria(htSelected, minBath, maxBath, minBed, maxBed,
+                                furSelected, quadSelected, minPrice,
+                                maxPrice);
+      PropertiesDisplayForm list =
+          new PropertiesDisplayForm(renterSearch.performSearch());
     }
   }
 

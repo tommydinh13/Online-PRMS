@@ -32,7 +32,7 @@ public class PeriodicSummaryForm {
 
 	private ArrayList<Property> rentedProperties;
 
-	PeriodicSummaryForm() throws SQLException {
+	PeriodicSummaryForm() {
 
 		housePanel = new JPanel();
 //		housePanel.setBackground(Color.red);

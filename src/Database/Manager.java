@@ -13,7 +13,7 @@ public class Manager {
     private SQLConnection db;
     
     // Constructors
-    public Manager() throws SQLException {
+    public Manager() {
         db = new SQLConnection();
     }
     public Manager(String n, String em, String p) {
@@ -34,19 +34,23 @@ public class Manager {
             e.printStackTrace();
         }
     }
-    public Manager(int id) throws SQLException {
+    public Manager(int id) {
         db = new SQLConnection();
 
         db.initializeConnection();
-        Statement myStmt = db.getConnection().createStatement();
-        ResultSet results = myStmt.executeQuery("SELECT * FROM Managers WHERE mID ='" 
-        + id + "';");
-        
-        if (results.next()) {
-            int idNum = id;
-            name = results.getString("name");
-            email = results.getString("email");
-            password = results.getString("password");
+        try {
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery("SELECT * FROM Managers WHERE mID ='" 
+            + id + "';");
+            
+            if (results.next()) {
+                name = results.getString("name");
+                email = results.getString("email");
+                password = results.getString("password");
+            }
+            db.closeConn();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -76,6 +80,7 @@ public class Manager {
                 l.setID(idNum);
                 landlords.add(l);
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -96,6 +101,7 @@ public class Manager {
                 rr.setID(idNum);
                 renters.add(rr);
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -118,6 +124,7 @@ public class Manager {
                 prop.setLandlord(l);
                 properties.add(prop);
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -140,6 +147,7 @@ public class Manager {
                 prop.setLandlord(l);
                 properties.add(prop);
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -156,6 +164,7 @@ public class Manager {
             while (results.next()) {
                 count++;
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -172,6 +181,7 @@ public class Manager {
             while (results.next()) {
                 count++;
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }

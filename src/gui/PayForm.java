@@ -48,14 +48,9 @@ public class PayForm implements ActionListener {
     PayForm(int id){
         landlordID = id;
         Landlord myLandlord;
-        try {
-            myLandlord = new Landlord(id);
-            cancelledProperty = myLandlord.searchProperties("Cancelled");
-           suspendedProperty = myLandlord.searchProperties("Suspended");
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        myLandlord = new Landlord(id);
+        cancelledProperty = myLandlord.searchProperties("Cancelled");
+        suspendedProperty = myLandlord.searchProperties("Suspended");
         landlordID = id;
 
            // ********* TITLE ************
@@ -148,12 +143,8 @@ public class PayForm implements ActionListener {
 
       if(e.getSource() == payButton){
           Landlord payLandlord;
-        try {
-            payLandlord = new Landlord (landlordID);
-            payLandlord.changeSOL(propID, "Active");
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        }
+          payLandlord = new Landlord (landlordID);
+          payLandlord.changeSOL(propID, "Active");
 
           // display success
       }

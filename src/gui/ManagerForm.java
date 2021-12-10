@@ -62,11 +62,7 @@ public class ManagerForm implements ActionListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == sofButton) {
-      try {
-        SOLForm myForm = new SOLForm();
-      } catch (SQLException e1) {
-        e1.printStackTrace();
-      }
+      SOLForm myForm = new SOLForm();
     }
 
     else if (e.getSource() == propFeeButton) {
@@ -96,11 +92,7 @@ public class ManagerForm implements ActionListener {
     }
 
     else if (e.getSource() == perSumButton) {
-      try {
-        PeriodicSummaryForm form = new PeriodicSummaryForm();
-      } catch (SQLException e1) {
-        e1.printStackTrace();
-      }
+      PeriodicSummaryForm form = new PeriodicSummaryForm();
     }
 
     else if (e.getSource() == searchButton) {
@@ -115,26 +107,13 @@ public class ManagerForm implements ActionListener {
       // System.out.println(choice);
       if (choice == 2) {
         frame.dispose();
-        try {
-          DatabaseForm myform = new DatabaseForm(choice);
-        } catch (SQLException e1) {
-          e1.printStackTrace();
-        }
+        DatabaseForm myform = new DatabaseForm(choice);
       } else if (choice == 1) {
         frame.dispose();
-        try {
-          DatabaseForm myform = new DatabaseForm(choice);
-        } catch (SQLException e1) {
-          e1.printStackTrace();
-        }
-
+        DatabaseForm myform = new DatabaseForm(choice);
       } else if (choice == 0) {
         frame.dispose();
-        try {
-          DatabaseForm myform = new DatabaseForm(choice);
-        } catch (SQLException e1) {
-          e1.printStackTrace();
-        }
+        DatabaseForm myform = new DatabaseForm(choice);
       }
 
       // want one form that brings up info of category

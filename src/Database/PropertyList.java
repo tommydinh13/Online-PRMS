@@ -1,6 +1,5 @@
 package Database;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PropertyList implements Subject{
@@ -28,17 +27,6 @@ public class PropertyList implements Subject{
 		properties.add(p);
         notifyObservers();
     }
-
-    public void updateRenter(Property r) 
-	{
-		for (int i = 0; i < properties.size(); i++) {
-			if (properties.get(i) == r) {
-				properties.remove(i);
-				break;
-			}
-		}
-		addProperty(r);
-	}
 
 	public void remove(Observer observer) {
 		for (int i = 0; i < observers.size(); i++) {
