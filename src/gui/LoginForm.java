@@ -166,11 +166,7 @@ public class LoginForm implements ActionListener {
       // goto renter form
       else if (check > 0 && role.equals("Registered Renter")) {
         frame.dispose();
-        try {
-          RegisteredRenterForm renter = new RegisteredRenterForm(check);
-        } catch (SQLException e1) {
-          e1.printStackTrace();
-        }
+        RegisteredRenterForm renter = new RegisteredRenterForm(check);
       }
       //			else{
       //				// return error saying wrong User Type

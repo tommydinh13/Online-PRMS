@@ -43,6 +43,7 @@ public class Email {
                 subject = results.getString("subject");
                 body = results.getString("body");
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -63,6 +64,7 @@ public class Email {
                 int l = Integer.parseInt(results.getString("landlord"));
                 landlord = l;
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -113,6 +115,7 @@ public class Email {
                 int l = Integer.parseInt(results.getString("landlord"));
                 landlord = l;
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }

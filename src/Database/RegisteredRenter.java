@@ -13,7 +13,7 @@ public class RegisteredRenter implements Observer{
     private SQLConnection db;
     
     // Constructors
-    public RegisteredRenter(String n, String p, String em) throws SQLException {
+    public RegisteredRenter(String n, String p, String em) {
         name = n;
         password = p;
         email = em;
@@ -32,27 +32,37 @@ public class RegisteredRenter implements Observer{
         }
 
         db.initializeConnection();
-        Statement myStmt = db.getConnection().createStatement();
-        ResultSet results = myStmt.executeQuery("SELECT * FROM Renters WHERE name ='" 
-        + name + "' AND password ='" + password + "' AND email ='" + email + "';");
-        
-        if (results.next()) {
-            idNum = Integer.parseInt(results.getString(1));
+        try {
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery("SELECT * FROM Renters WHERE name ='" 
+            + name + "' AND password ='" + password + "' AND email ='" + email + "';");
+            
+            if (results.next()) {
+                idNum = Integer.parseInt(results.getString(1));
+            }
+            db.closeConn();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
-    public RegisteredRenter(int id) throws SQLException {
+    public RegisteredRenter(int id) {
         db = new SQLConnection();
 
         db.initializeConnection();
-        Statement myStmt = db.getConnection().createStatement();
-        ResultSet results = myStmt.executeQuery("SELECT * FROM Renters WHERE rID ='" 
-        + id + "';");
-        
-        if (results.next()) {
-            idNum = id;
-            name = results.getString("name");
-            email = results.getString("email");
-            password = results.getString("password");
+        try {
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery("SELECT * FROM Renters WHERE rID ='" 
+            + id + "';");
+            
+            if (results.next()) {
+                idNum = id;
+                name = results.getString("name");
+                email = results.getString("email");
+                password = results.getString("password");
+            }
+            db.closeConn();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -84,6 +94,7 @@ public class RegisteredRenter implements Observer{
             if (results.next()) {
                 notify = results.getString("notify");
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -130,6 +141,7 @@ public class RegisteredRenter implements Observer{
                 PropertyDatabaseController pd = new PropertyDatabaseController();
                 properties = pd.performSearch(hTypes, Integer.parseInt(results.getString("bath_min")), Integer.parseInt(results.getString("bath_max")), Integer.parseInt(results.getString("bed_min")), Integer.parseInt(results.getString("bath_max")), furnish, cityQuad, Double.parseDouble(results.getString("price_min")), Double.parseDouble(results.getString("price_max")));
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -170,6 +182,7 @@ public class RegisteredRenter implements Observer{
             if (results.next()) {
                 exists = true;
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }

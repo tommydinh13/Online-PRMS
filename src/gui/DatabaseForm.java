@@ -32,7 +32,7 @@ public class DatabaseForm {
     private String listRole;
 
     
-    DatabaseForm(int num) throws SQLException{
+    DatabaseForm(int num) {
         
         Manager myManager = new Manager();
 

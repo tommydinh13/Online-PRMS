@@ -52,7 +52,7 @@ public class SOLForm implements ActionListener {
 
 
 	// for manager
-	SOLForm() throws SQLException {
+	SOLForm() {
 		
 		Manager myManager = new Manager();
 		activeProperty = myManager.searchProperties("Active");
@@ -123,7 +123,7 @@ public class SOLForm implements ActionListener {
 		frame.setVisible(true);
 	}
 
-	SOLForm(int id) throws SQLException {
+	SOLForm(int id) {
 	
 	 Landlord myLandlord = new Landlord(id);
 	 landlordID = id;
@@ -206,48 +206,24 @@ public class SOLForm implements ActionListener {
 		// for manager
 		if (e.getSource() == applyButton) {
 			Manager myManager;
-			try {
-				myManager = new Manager();
-				myManager.changeSOL(propID, myState);
-				frame.dispose();
-				SOLForm updated = new SOLForm();
-				 
-
-				
-			
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			myManager = new Manager();
+			myManager.changeSOL(propID, myState);
+			frame.dispose();
+			SOLForm updated = new SOLForm();
 			// have to call a check to make sure that id entered is within the list
 			// if true, change the state
-			
-		
-
-
-
-
 		}
 
 		else if(e.getSource() == applyButton2){
 			Landlord myLandlord;
 
-			try {
-				myLandlord= new Landlord(landlordID);
+			myLandlord= new Landlord(landlordID);
 
-							// have to call a check to make sure that id entered is within the list
-				// if true, change the state
-				
-				myLandlord.changeSOL(propID, myState);
-				//display success messge 
-
- 
-
-			} catch (SQLException er) {
-				er.printStackTrace();
-			}
-
-
+			// have to call a check to make sure that id entered is within the list
+			// if true, change the state
+			
+			myLandlord.changeSOL(propID, myState);
+			//display success messge 
 
 		}
 

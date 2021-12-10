@@ -64,19 +64,11 @@ public class LandlordForm implements ActionListener {
   public void actionPerformed(ActionEvent e) {
 
     if (e.getSource() == sofButton) {
-      try {
-        SOLForm myForm = new SOLForm(idLL);
-      } catch (SQLException e1) {
-        e1.printStackTrace();
-      }
+      SOLForm myForm = new SOLForm(idLL);
     }
 
        else if (e.getSource() == regisButton) {
-         try {
-           RegisterPropertyForm newProperty = new RegisterPropertyForm(idLL);
-         } catch (SQLException e1) {
-           e1.printStackTrace();
-         }
+          RegisterPropertyForm newProperty = new RegisterPropertyForm(idLL);
        }
     
        else if (e.getSource() == payFeeButton) {
@@ -93,11 +85,7 @@ public class LandlordForm implements ActionListener {
        }
 
     if (e.getSource() == inboxButton) {
-      try {
-        InboxForm myInbox = new InboxForm(idLL);
-      } catch (SQLException e1) {
-        e1.printStackTrace();
-      }
+      InboxForm myInbox = new InboxForm(idLL);
     }
   }
 }
