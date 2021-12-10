@@ -113,21 +113,6 @@ public class Landlord {
             e.printStackTrace();
         }
     }
-    public void enterPropertyFee(PropertyFee pfData) {
-        db = new SQLConnection();
-
-        db.initializeConnection();
-        // Entering in the property fee data into the database
-        try (Statement stmt = db.getConnection().createStatement();) {
-            String insertSql = "INSERT INTO PropertyFee (property, landlord, period_start, property_end) VALUES (" 
-            + property.getID() + ", '" + idNum + "', '" + pfData.getPeriod() + "', '" + pfData.getPeriodStart() + "', '" + pfData.getPeriodEnd() + "');";
-
-            stmt.executeUpdate(insertSql);
-            db.closeConn();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
     public ArrayList<Property> searchProperties(String sol){
         ArrayList<Property> properties = new ArrayList<Property>();
 
