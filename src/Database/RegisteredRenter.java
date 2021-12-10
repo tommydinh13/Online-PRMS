@@ -13,7 +13,7 @@ public class RegisteredRenter implements Observer{
     private SQLConnection db;
     
     // Constructors
-    public RegisteredRenter(String n, String p, String em) throws SQLException {
+    public RegisteredRenter(String n, String p, String em) {
         name = n;
         password = p;
         email = em;
@@ -32,27 +32,35 @@ public class RegisteredRenter implements Observer{
         }
 
         db.initializeConnection();
-        Statement myStmt = db.getConnection().createStatement();
-        ResultSet results = myStmt.executeQuery("SELECT * FROM Renters WHERE name ='" 
-        + name + "' AND password ='" + password + "' AND email ='" + email + "';");
-        
-        if (results.next()) {
-            idNum = Integer.parseInt(results.getString(1));
+        try {
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery("SELECT * FROM Renters WHERE name ='" 
+            + name + "' AND password ='" + password + "' AND email ='" + email + "';");
+            
+            if (results.next()) {
+                idNum = Integer.parseInt(results.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
-    public RegisteredRenter(int id) throws SQLException {
+    public RegisteredRenter(int id) {
         db = new SQLConnection();
 
         db.initializeConnection();
-        Statement myStmt = db.getConnection().createStatement();
-        ResultSet results = myStmt.executeQuery("SELECT * FROM Renters WHERE rID ='" 
-        + id + "';");
-        
-        if (results.next()) {
-            idNum = id;
-            name = results.getString("name");
-            email = results.getString("email");
-            password = results.getString("password");
+        try {
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery("SELECT * FROM Renters WHERE rID ='" 
+            + id + "';");
+            
+            if (results.next()) {
+                idNum = id;
+                name = results.getString("name");
+                email = results.getString("email");
+                password = results.getString("password");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

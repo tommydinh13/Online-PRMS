@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.mysql.cj.result.SqlDateValueFactory;
+
 public class Landlord {
     private Property property;
     private String name;
@@ -14,7 +16,7 @@ public class Landlord {
     private SQLConnection db;
 
     // Constructors
-    public Landlord(String n, String em, String ps) throws SQLException {
+    public Landlord(String n, String em, String ps) {
         name = n;
         password = ps;
         email = em;
@@ -33,27 +35,37 @@ public class Landlord {
         }
 
         db.initializeConnection();
-        Statement myStmt = db.getConnection().createStatement();
-        ResultSet results = myStmt.executeQuery("SELECT * FROM Landlords WHERE name ='" 
-        + name + "' AND password ='" + password + "' AND email ='" + email + "';");
-        
-        if (results.next()) {
-            idNum = Integer.parseInt(results.getString(1));
+        try {
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery("SELECT * FROM Landlords WHERE name ='" 
+            + name + "' AND password ='" + password + "' AND email ='" + email + "';");
+            
+            if (results.next()) {
+                idNum = Integer.parseInt(results.getString(1));
+            }
+            db.closeConn();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
-    public Landlord(int id) throws SQLException {
+    public Landlord(int id) {
         db = new SQLConnection();
 
         db.initializeConnection();
-        Statement myStmt = db.getConnection().createStatement();
-        ResultSet results = myStmt.executeQuery("SELECT * FROM Landlords WHERE lID ='" 
-        + id + "';");
-        
-        if (results.next()) {
-            idNum = id;
-            name = results.getString("name");
-            email = results.getString("email");
-            password = results.getString("password");
+        try {
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery("SELECT * FROM Landlords WHERE lID ='" 
+            + id + "';");
+            
+            if (results.next()) {
+                idNum = id;
+                name = results.getString("name");
+                email = results.getString("email");
+                password = results.getString("password");
+            }
+            db.closeConn();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -75,7 +87,7 @@ public class Landlord {
     }
     
     // Method Functions
-    public void registerProperty(Property pData) throws SQLException {
+    public void registerProperty(Property pData) {
         property = pData;
         db = new SQLConnection();
 
@@ -92,10 +104,15 @@ public class Landlord {
         }
 
         db.initializeConnection();
-        Statement myStmt = db.getConnection().createStatement();
-        ResultSet results = myStmt.executeQuery("SELECT * FROM Properties WHERE address ='" + property.getAddress() + "';");
-        if (results.next()) {
-            property.setID(Integer.parseInt(results.getString("pID")));
+        try {
+            Statement myStmt = db.getConnection().createStatement();
+            ResultSet results = myStmt.executeQuery("SELECT * FROM Properties WHERE address ='" + property.getAddress() + "';");
+            if (results.next()) {
+                property.setID(Integer.parseInt(results.getString("pID")));
+            }
+            db.closeConn();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
     public void enterPropertyFee(PropertyFee pfData) {
@@ -128,6 +145,7 @@ public class Landlord {
                 prop.setLandlord(this);
                 properties.add(prop);
             }
+            db.closeConn();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -29,7 +29,7 @@ public class InboxForm implements ActionListener {
   private static int landlordID;
   private Landlord myLandlord;
 
-  InboxForm(int id) throws SQLException {
+  InboxForm(int id) {
     landlordID = id;
     myLandlord = new Landlord(id);
 
@@ -89,7 +89,7 @@ public class InboxForm implements ActionListener {
       // need a check to make sure that email id entered was in the landlord
       // email db
       int emailID = Integer.parseInt(
-          JOptionPane.showInputDialog("Please Enter Email ID:"));
+      JOptionPane.showInputDialog("Please Enter Email ID:"));
       System.out.println(emailID);
       DisplayEmail viewEmail = new DisplayEmail(emailID, landlordID);
       frame.dispose();
