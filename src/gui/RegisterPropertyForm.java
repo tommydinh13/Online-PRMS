@@ -148,7 +148,7 @@ public class RegisterPropertyForm implements ActionListener {
 					// yes answer changes listing to active
 					newProp.setSOL("Active");
 					PropertyList myList = new PropertyList();
-					// PropertyList.addProperty(newProp);
+					myList.addProperty(newProp);
 					System.out.println(answer);
 
 				}else if(answer == 1){

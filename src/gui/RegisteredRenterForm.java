@@ -23,7 +23,7 @@ public class RegisteredRenterForm implements ActionListener {
 
 	RegisteredRenterForm(int id) throws SQLException {
 		renter = new RegisteredRenter(id);
-    renterID = id;
+    	renterID = id;
 
 		searchButton = new JButton("Search Properties");
 		searchButton.setBounds(80, 150, 200, 40);

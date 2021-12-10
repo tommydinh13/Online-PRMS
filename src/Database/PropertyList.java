@@ -5,20 +5,27 @@ import java.util.ArrayList;
 
 public class PropertyList implements Subject{
     
-    private ArrayList<Observer> observers;
     public ArrayList<Property> properties;
+	public ArrayList<Observer> observers;
 	public Property property;
 
     public PropertyList(){
         observers = new ArrayList<Observer>();
+		properties  = new ArrayList <Property>();
     }
 
     public void setObservers(ArrayList<Observer> obs){
         observers = obs;
+		notifyObservers();
     }
 
+	public ArrayList<Observer> getObservers(){
+		return observers;
+	}
+
     public void addProperty(Property p){
-        properties.add(p);
+        properties = new ArrayList<Property>();
+		properties.add(p);
         notifyObservers();
     }
 
