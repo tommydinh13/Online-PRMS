@@ -1,6 +1,22 @@
+/**
+ * @author Kundai Dziwa <a href="mailto:kundai.dziwa@ucalgary.ca">
+ *         kundai.dziwa@ucalgary.ca</a>
+ *
+*@author Tommy Dinh <a href="mailto:tommy.dinh@ucalgary.ca">
+ *         tommy.dinh@ucalgary.ca</a>
+ * 
+*@author Tien Dat Johny Do <a href ="tiendat.do@ucalgary.ca">
+ *        tiendat.do@ucalgary.ca</a>
+ * 
+ *@author Stalin D Cunha<a href="mailto:stalin.dcunha@ucalgary.ca">
+ *         stalin.dcunha@ucalgary.ca</a>
+ * 
+ * @version 1.1
+ * @since 1.0
+ */ 
 package gui;
 
-import Database.Property;
+import Domain.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -101,7 +117,7 @@ public class PropertiesDisplayForm implements ActionListener {
     frame.add(contactButton);
     frame.setDefaultCloseOperation(
         JFrame.DISPOSE_ON_CLOSE); // exiting window will close window
-    frame.setSize(850, 600);      // setting size of window
+    frame.setSize(850, 700);      // setting size of window
     frame.setLayout(null);        // no layout
     frame.setTitle("Rental Property Management System");
 
@@ -111,6 +127,8 @@ public class PropertiesDisplayForm implements ActionListener {
   public void actionPerformed(ActionEvent e) {
 
     if ((e.getSource() == detailButton) || (e.getSource() == contactButton)) {
+
+      
       // if one of these buttons are clicked
       // create a new email that takes in the property id that the user inputs
       String insert = JOptionPane.showInputDialog("Please Enter Property ID:");
@@ -118,4 +136,29 @@ public class PropertiesDisplayForm implements ActionListener {
       EmailForm myEmail = new EmailForm(insert);
     }
   }
+
+  /*https://stackoverflow.com/questions/237159/whats-the-best-way-to-check-if-a-string-represents-an-integer-in-java*/
+  public static boolean isInteger(String str) {
+    if (str == null) {
+        return false;
+    }
+    int length = str.length();
+    if (length == 0) {
+        return false;
+    }
+    int i = 0;
+    if (str.charAt(0) == '-') {
+        if (length == 1) {
+            return false;
+        }
+        i = 1;
+    }
+    for (; i < length; i++) {
+        char c = str.charAt(i);
+        if (c < '0' || c > '9') {
+            return false;
+        }
+    }
+    return true;
+}
 }

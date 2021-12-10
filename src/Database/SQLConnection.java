@@ -1,3 +1,20 @@
+/**
+ *@author Kundai Dziwa <a href="mailto:kundai.dziwa@ucalgary.ca">
+ *         kundai.dziwa@ucalgary.ca</a>
+ *
+ *@author Tommy Dinh <a href="mailto:tommy.dinh@ucalgary.ca">
+ *         tommy.dinh@ucalgary.ca</a>
+ * 
+ *@author Tien Dat Johny Do <ahref ="tiendat.do@ucalgary.ca">
+ *        tiendat.do@ucalgary.ca</a>
+ * 
+ *@author Stalin D Cunha<a href="mailto:stalin.dcunha@ucalgary.ca">
+ *         stalin.dcunha@ucalgary.ca</a>
+ * 
+ * @version 1.1
+ * @since 1.0
+ */
+
 package Database;
 
 import java.sql.Connection;
@@ -5,9 +22,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class SQLConnection {
-    private final String DBURL;
-    private final String USERNAME;
-    private final String PASSWORD;
+    private final String DBURL; // Databse name
+    private final String USERNAME;  // Server connection username
+    private final String PASSWORD;  // Server connection password 
     private Connection dbConnect;
 
     // Constructors
@@ -48,6 +65,7 @@ public class SQLConnection {
 
     // Methods
     public void initializeConnection() {
+        // Initializing a connection based off of the specified and set database details
         try{
             dbConnect = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
         } catch (SQLException e){
@@ -55,6 +73,7 @@ public class SQLConnection {
         }
     }
     public void closeConn() {
+        // Closing the connection that was previously made.
         try {
             dbConnect.close();
         } catch (SQLException e) {

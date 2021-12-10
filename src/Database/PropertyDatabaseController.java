@@ -1,10 +1,3 @@
-package Database;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-
 /**
  *@author Kundai Dziwa <a href="mailto:kundai.dziwa@ucalgary.ca">
  *         kundai.dziwa@ucalgary.ca</a>
@@ -20,7 +13,16 @@ import java.util.ArrayList;
  * 
  * @version 1.1
  * @since 1.0
- */ 
+ */
+
+package Database;
+
+import Domain.*;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 public class PropertyDatabaseController {
     private SQLConnection db; 

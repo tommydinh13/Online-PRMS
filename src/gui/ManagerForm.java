@@ -1,5 +1,22 @@
+/**
+ * @author Kundai Dziwa <a href="mailto:kundai.dziwa@ucalgary.ca">
+ *         kundai.dziwa@ucalgary.ca</a>
+ *
+*@author Tommy Dinh <a href="mailto:tommy.dinh@ucalgary.ca">
+ *         tommy.dinh@ucalgary.ca</a>
+ * 
+*@author Tien Dat Johny Do <a href ="tiendat.do@ucalgary.ca">
+ *        tiendat.do@ucalgary.ca</a>
+ * 
+ *@author Stalin D Cunha<a href="mailto:stalin.dcunha@ucalgary.ca">
+ *         stalin.dcunha@ucalgary.ca</a>
+ * 
+ * @version 1.1
+ * @since 1.0
+ */ 
 package gui;
 
+import Domain.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Box;
@@ -9,8 +26,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import Database.Manager;
 
 public class ManagerForm implements ActionListener {
 
@@ -100,10 +115,18 @@ public class ManagerForm implements ActionListener {
           JOptionPane.OK_CANCEL_OPTION);
 
       if (result == JOptionPane.OK_OPTION) {
-        int period = Integer.parseInt(periodField.getText());
+        if(!isInteger(periodField.getText().toString())){
+          						        JOptionPane.showMessageDialog(
+            null, "Fee must be an Integer!",
+            "Fee Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+                  int period = Integer.parseInt(periodField.getText());
         double fee = Double.parseDouble(feeField.getText());
         Manager myManager= new Manager();
         myManager.enterPropertyFee(period, fee);
+
+        }
+
 
         // create property fee object that passes through
         // periodField.getText() and feeField.getText()
@@ -127,13 +150,13 @@ public class ManagerForm implements ActionListener {
 
       // pass in
       if (choice == 2) {
-        frame.dispose();
+       
         DatabaseForm myform = new DatabaseForm(choice);
       } else if (choice == 1) {
-        frame.dispose();
+        
         DatabaseForm myform = new DatabaseForm(choice);
       } else if (choice == 0) {
-        frame.dispose();
+        
         DatabaseForm myform = new DatabaseForm(choice);
       }
 
@@ -143,4 +166,28 @@ public class ManagerForm implements ActionListener {
       LoginForm login = new LoginForm();
     }
   }
+/*https://stackoverflow.com/questions/237159/whats-the-best-way-to-check-if-a-string-represents-an-integer-in-java*/
+  public static boolean isInteger(String str) {
+    if (str == null) {
+        return false;
+    }
+    int length = str.length();
+    if (length == 0) {
+        return false;
+    }
+    int i = 0;
+    if (str.charAt(0) == '-') {
+        if (length == 1) {
+            return false;
+        }
+        i = 1;
+    }
+    for (; i < length; i++) {
+        char c = str.charAt(i);
+        if (c < '0' || c > '9') {
+            return false;
+        }
+    }
+    return true;
+}
 }

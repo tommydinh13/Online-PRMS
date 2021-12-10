@@ -1,7 +1,21 @@
+/**
+ * @author Kundai Dziwa <a href="mailto:kundai.dziwa@ucalgary.ca">
+ *         kundai.dziwa@ucalgary.ca</a>
+ *
+*@author Tommy Dinh <a href="mailto:tommy.dinh@ucalgary.ca">
+ *         tommy.dinh@ucalgary.ca</a>
+ * 
+*@author Tien Dat Johny Do <a href ="tiendat.do@ucalgary.ca">
+ *        tiendat.do@ucalgary.ca</a>
+ * 
+ *@author Stalin D Cunha<a href="mailto:stalin.dcunha@ucalgary.ca">
+ *         stalin.dcunha@ucalgary.ca</a>
+ * 
+ * @version 1.1
+ * @since 1.0
+ */ 
 package gui;
-
-import Database.Email;
-import Database.Landlord;
+import Domain.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -93,13 +107,49 @@ public class InboxForm implements ActionListener {
     if (e.getSource() == viewButton) {
       // pop up window that user inputs email id
       // user enters the email id that they want to open
-      int emailID = Integer.parseInt(
-          JOptionPane.showInputDialog("Please Enter Email ID:"));
+      String emailID = 
+          JOptionPane.showInputDialog("Please Enter Email ID:");
+          
+          if(!isInteger(emailID)){
+              JOptionPane.showMessageDialog(
+            null, "Email ID must be an Integer!",
+            "ID Error", JOptionPane.ERROR_MESSAGE);
+          }else {
+       // create a DisplayEmail object that recieves the landlordID and the
+            // emailID
+            int eid = Integer.parseInt(emailID);
+            DisplayEmail viewEmail = new DisplayEmail(eid, landlordID);
+            frame.dispose();
+          }
 
-      // create a DisplayEmail object that recieves the landlordID and the
-      // emailID
-      DisplayEmail viewEmail = new DisplayEmail(emailID, landlordID);
-      frame.dispose();
+
+
+
     }
   }
+
+  /*https://stackoverflow.com/questions/237159/whats-the-best-way-to-check-if-a-string-represents-an-integer-in-java*/
+  public static boolean isInteger(String str) {
+    if (str == null) {
+        return false;
+    }
+    int length = str.length();
+    if (length == 0) {
+        return false;
+    }
+    int i = 0;
+    if (str.charAt(0) == '-') {
+        if (length == 1) {
+            return false;
+        }
+        i = 1;
+    }
+    for (; i < length; i++) {
+        char c = str.charAt(i);
+        if (c < '0' || c > '9') {
+            return false;
+        }
+    }
+    return true;
+}
 }

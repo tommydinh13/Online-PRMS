@@ -1,9 +1,3 @@
-package Database;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 /**
  *@author Kundai Dziwa <a href="mailto:kundai.dziwa@ucalgary.ca">
  *         kundai.dziwa@ucalgary.ca</a>
@@ -19,7 +13,13 @@ import java.sql.Statement;
  * 
  * @version 1.1
  * @since 1.0
- */ 
+ */
+
+package Database;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement; 
 
 public class UserController {
     private SQLConnection db;
