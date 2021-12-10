@@ -1,8 +1,8 @@
 package gui;
 
+import Database.Email;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,108 +15,134 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import Database.Email;
 
+// this class is the for the user to construct an email
 public class EmailForm implements ActionListener {
-	JFrame frame = new JFrame();
-	private static JPanel titlePanel;
-	private static JLabel titleLabel;
-	private static JPanel subjectPanel;
-	private static JLabel subjectLabel;
-	private static JTextField subjectText;
-	private static JPanel bodyPanel;
-	private static JLabel bodyLabel;
-	private static JTextArea display;
-	private static JScrollPane scroll;
-	private static JButton sendButton;
+  // frame
+  JFrame frame = new JFrame();
 
-	private static JPanel eaPanel;
-	private static JLabel eaLabel;
-	private static JTextField eaText;
+  // title
+  private static JPanel titlePanel;
+  private static JLabel titleLabel;
 
-	private static int propID;
+  // email subject
+  private static JPanel subjectPanel;
+  private static JLabel subjectLabel;
+  private static JTextField subjectText;
 
-	EmailForm(String id) {
+  // email body
+  private static JPanel bodyPanel;
+  private static JLabel bodyLabel;
+  private static JTextArea display;
+  private static JScrollPane scroll;
 
-		propID = Integer.parseInt(id);
+  // button to send email
+  private static JButton sendButton;
 
-		// takes in property id to get landlord email and send email
+  // email address
+  private static JPanel eaPanel;
+  private static JLabel eaLabel;
+  private static JTextField eaText;
 
-		titlePanel = new JPanel();
-//		titlePanel.setBackground(Color.green);
-		titlePanel.setBounds(0, 0, 700, 50);
+  private static int propID;
 
-		titleLabel = new JLabel("Email Form"); // label that goes beside textbox to tell user what to enter
-		titlePanel.add(titleLabel);
+  EmailForm(String id) {
 
-		// *********** EMAIL ADDRESSS ***************/
-		eaPanel = new JPanel();
-		eaPanel.setBounds(0, 50, 700, 50);
+    propID = Integer.parseInt(id);
 
-		eaLabel = new JLabel("From:");
-		eaPanel.add(eaLabel);
+    // takes in property id to get landlord email and send email
 
-		eaText = new JTextField(50);
-		eaPanel.add(eaText);
+    titlePanel = new JPanel();
+    //		titlePanel.setBackground(Color.green);
+    titlePanel.setBounds(0, 0, 700, 50);
 
-		subjectPanel = new JPanel();
-//		subjectPanel.setBackground(Color.red);
-		subjectPanel.setBounds(0, 100, 700, 50);
+    titleLabel = new JLabel("Email Form"); // label that goes beside textbox to
+                                           // tell user what to enter
+    titlePanel.add(titleLabel);
 
-		subjectLabel = new JLabel("Subject:"); // label that goes beside textbox to tell user what to enter
-		subjectPanel.add(subjectLabel);
+    // *********** EMAIL ADDRESSS ***************/
+    eaPanel = new JPanel();
+    eaPanel.setBounds(0, 50, 700, 50);
+    // Label that says "From"
+    eaLabel = new JLabel("From:");
+    eaPanel.add(eaLabel);
+    // space for user to enter their email address
+    eaText = new JTextField(50);
+    eaPanel.add(eaText);
 
-		subjectText = new JTextField(50); // creating box that lets user enter chars that takes in length argument
-		subjectPanel.add(subjectText);
+    // *********** EMAIL SUBJECT ***************/
+    subjectPanel = new JPanel();
+    subjectPanel.setBounds(0, 100, 700, 50);
+    // label for subject
+    subjectLabel = new JLabel("Subject:");
+    subjectPanel.add(subjectLabel);
+    // space for user to enter the subject of the email
+    subjectText = new JTextField(50);
+    subjectPanel.add(subjectText);
+    // *********** EMAIL BODY ***************/
+    bodyPanel = new JPanel();
+    bodyPanel.setBounds(0, 175, 700,
+                        400); // boundaries of panel on the frame
+                              // format of the panel (different looking border)
+    bodyPanel.setBorder(new TitledBorder(new EtchedBorder(),
+                                         "List of Houses Rented This Period"));
 
-		bodyPanel = new JPanel();
-//		bodyPanel.setBackground(Color.blue);
-		bodyPanel.setBounds(0, 175, 700, 400);
-		bodyPanel.setBorder(new TitledBorder(new EtchedBorder(), "List of Houses Rented This Period"));
+    // space for user to send the body portion of their email
+    display = new JTextArea(22, 53); // size of space
+    display.setEditable(true);       // user is able to type in the space
 
-		display = new JTextArea(22, 53);
-		display.setEditable(true); // set textArea non-editable
-		scroll = new JScrollPane(display);
-		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		bodyPanel.add(scroll);
+    // scroll bar component for display
+    scroll = new JScrollPane(display);
+    scroll.setVerticalScrollBarPolicy(
+        ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+    bodyPanel.add(scroll);
 
-		sendButton = new JButton("Send");
-		sendButton.setBounds(500, 575, 110, 30);
-		sendButton.setFocusable(false);
-		sendButton.addActionListener(this);
-		frame.add(sendButton);
+    // *********** SEND BUTTON ***************/
+    sendButton = new JButton("Send");        // create and have button say send
+    sendButton.setBounds(500, 575, 110, 30); // boundaries
+    sendButton.setFocusable(false);
+    sendButton.addActionListener(this);
+    frame.add(sendButton);
 
-		frame.add(titlePanel);
-		frame.add(eaPanel);
-		frame.add(subjectPanel);
-		frame.add(bodyPanel);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exiting window will close window
-		frame.setSize(720, 700); // setting size of window
-		frame.setLayout(null); // no layout
-		frame.setTitle("Rental Property Management System");
+    // *********** FRAME ***************/
+    // adding panels to the frame
+    frame.add(titlePanel);
+    frame.add(eaPanel);
+    frame.add(subjectPanel);
+    frame.add(bodyPanel);
+    frame.setDefaultCloseOperation(
+        JFrame.DISPOSE_ON_CLOSE); // exiting window will close window
+    frame.setSize(720, 700);      // setting size of window
+    frame.setLayout(null);        // no layout
+    frame.setTitle("Rental Property Management System");
 
-		frame.setVisible(true);
+    frame.setVisible(true);
+  }
 
-	}
+  @Override
+  public void actionPerformed(ActionEvent e) {
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
+    if (e.getSource() == sendButton) {
+      // if thhe user clicks sendButton
+      //	get the texts that the user inputted to
+      // email address, subject, and body
+      // these values are passed to create an Email object
+      // that creates a draft of the email then sends the email to db/landlord
+      // must do a check if strings are null
+      String email = eaText.getText();
+      String subject = subjectText.getText();
+      String body = display.getText();
 
-		if (e.getSource() == sendButton) {
-			// must do a check if strings are null 
-			String email = eaText.getText();
-			String subject = subjectText.getText();
-			String body = display.getText();
+      // INSTEAD OF PRINTING JUST SEND TO METHODS
+      Email newEmail = new Email();
+      newEmail.draft(propID, email, subject, body);
+      newEmail.sendEmail();
 
-			// INSTEAD OF PRINTING JUST SEND TO METHODS
-			Email newEmail = new Email();
-			newEmail.draft(propID, email, subject, body);
-			newEmail.sendEmail();
-			JOptionPane.showMessageDialog(null, "Message has been sent!", "Succesful Message", JOptionPane.PLAIN_MESSAGE);
-			frame.dispose();
-
-		}
-
-	}
-
+      // success message
+      JOptionPane.showMessageDialog(null, "Message has been sent!",
+                                    "Successful Message",
+                                    JOptionPane.PLAIN_MESSAGE);
+      frame.dispose(); // close this window
+    }
+  }
 }

@@ -1,9 +1,9 @@
 package gui;
 
+import Database.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import Database.*;
 
 // https://beginnersbook.com/2015/07/java-swing-tutorial/
 public class LoginForm implements ActionListener {
@@ -29,8 +28,13 @@ public class LoginForm implements ActionListener {
   private static JComboBox userComboBox;
   private static JComboBox roleComboBox;
 
+  // login form is the first form in this program.
+  // this window should let the user either login,
+  // create an account, or search for properties
+
   LoginForm() {
 
+    // button to login
     loginButton = new JButton("Login");
     loginButton.setBounds(150, 80, 110, 30);
     loginButton.setFocusable(false);
@@ -38,24 +42,29 @@ public class LoginForm implements ActionListener {
     frame.add(loginButton);
 
     // selecting user role
+    // string array that are the options for the combobox
     String[] users = {"Manager", "Landlord", "Registered Renter"};
+    // combobox is a drop down list that contains the different types of users
     userComboBox = new JComboBox(users);
     userComboBox.setBounds(275, 50, 105, 25);
     userComboBox.addActionListener(this);
     frame.add(userComboBox);
 
+    // button to register a new user
     registerButton = new JButton("Register");
     registerButton.setBounds(150, 120, 110, 30);
     registerButton.setFocusable(false);
     registerButton.addActionListener(this);
     frame.add(registerButton);
 
+    // button to search for properties
     searchPropButton = new JButton("Search For Properties");
     searchPropButton.setBounds(65, 200, 200, 40);
     searchPropButton.setFocusable(false);
     searchPropButton.addActionListener(this);
     frame.add(searchPropButton);
 
+    // frame for LoginForm
     frame.setDefaultCloseOperation(
         JFrame.EXIT_ON_CLOSE); // exiting window will close window
     frame.setSize(400, 400);   // setting size of window
@@ -90,17 +99,6 @@ public class LoginForm implements ActionListener {
     frame.setVisible(true);
   }
 
-  // dont need this funtion but confirm with group
-  // check to see if passwords match
-  public boolean checkUser(String username, String password, String role) {
-
-    // this functions checks to see if username is in databse, if it is, the
-    // password in the
-    // database must match the password entered
-
-    return false;
-  }
-
   @Override
   public void actionPerformed(ActionEvent e) {
     String email = emailText.getText();
@@ -119,37 +117,31 @@ public class LoginForm implements ActionListener {
       RegisterUserForm registerUser = new RegisterUserForm();
     }
 
-    // THIS IS ONLY FOR TOMMY TESTING. COMMENT OUT WHEN WORKING WITH GROUP
-    //		else if (e.getSource() == loginButton) {
-    //			frame.dispose();
-    //			LandlordForm test = new LandlordForm(5);
-    //
-    //		}
-
     else if (e.getSource() == loginButton) {
-      //			// need another if statement that checks the
-      //login and password after login
-      //			// button
-      //			// to ensure user is in database and go to
-      //respected page
-      //
+      // if user selects loginButton
+      // create userController that will be used to check
+      // if the values that user input match with db so then
+      // login would be successful
 
       UserController loginCheck = new UserController();
       int check = 0;
       try {
+        // method to check if user exists in database with inputs given
+        // check will return the user ID
         check = loginCheck.checkUser(email, password, role);
       } catch (SQLException e1) {
         e1.printStackTrace();
       }
-      //
+
+      // check == 0 means that user was not in db with inputs given
       if (check == 0) {
         //				// error message saying not registered
         JOptionPane.showMessageDialog(null, "Incorrect Email or Password",
                                       "Login Error", JOptionPane.ERROR_MESSAGE);
       }
-      //
-      //			//role == landlord
-      //			// if landlord exist
+
+      // if check says inputs were valid, and the selected type
+      // was manager, create a managerform
       if (check > 0 && role.equals("Manager")) {
         frame.dispose();
         ManagerForm manager = new ManagerForm();
@@ -168,9 +160,6 @@ public class LoginForm implements ActionListener {
         frame.dispose();
         RegisteredRenterForm renter = new RegisteredRenterForm(check);
       }
-      //			else{
-      //				// return error saying wrong User Type
-      //		}
     }
   }
 }
