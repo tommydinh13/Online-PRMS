@@ -132,7 +132,7 @@ public class SOLForm implements ActionListener {
 		frame.add(titlePanel);
 		frame.add(buttonPanel);
 		frame.add(displayPanel);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exiting window will close window
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // exiting window will close window
 		frame.setSize(800, 600); // setting size of window
 		frame.setLayout(null); // no layout
 		frame.setTitle("Rental Property Management System");

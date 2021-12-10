@@ -101,7 +101,7 @@ public class EmailForm implements ActionListener {
                         400); // boundaries of panel on the frame
                               // format of the panel (different looking border)
     bodyPanel.setBorder(new TitledBorder(new EtchedBorder(),
-                                         "List of Houses Rented This Period"));
+                                         "Body"));
 
     // space for user to send the body portion of their email
     display = new JTextArea(22, 53); // size of space
