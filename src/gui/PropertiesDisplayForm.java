@@ -74,7 +74,7 @@ public class PropertiesDisplayForm implements ActionListener {
     for (int i = 0; i < myList.size(); i++) {
 
       String id = Integer.toString(myList.get(i).getID()) + " \t \t"; // get id
-      String address = myList.get(i).getAddress() + " \t"; // get address
+      String address = myList.get(i).getAddress()+ "\t"; // get address
       String ht = myList.get(i).getHouseType() + " \t \t"; // get housetype
       String bath = Integer.toString(myList.get(i).getBathrooms()) +
                     " \t \t"; // get bath num

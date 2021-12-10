@@ -81,7 +81,7 @@ public class DatabaseForm {
     // create titles for columns that fit property databse
     if (num == 2) {
       display.append("ID\t\t");
-      display.append("Address\t\t");
+      display.append("Address\t\t\t");
       display.append("House Type\t\t");
       display.append("Bath\t\t");
       display.append("Bed\t\t");
