@@ -98,7 +98,7 @@ public class DisplayEmail implements ActionListener {
     bodyPanel = new JPanel();
     bodyPanel.setBounds(0, 175, 700, 400);
     bodyPanel.setBorder(new TitledBorder(new EtchedBorder(),
-                                         "List of Houses Rented This Period"));
+                                         "Body"));
 
     // display is for the body of the email
     display = new JTextArea(22, 53); // size of display box

@@ -55,12 +55,13 @@ CREATE TABLE `RPMSdb`.`Search_Criteria` (
 
 CREATE TABLE `RPMSdb`.`Properties` (
   `pID` INT NOT NULL AUTO_INCREMENT,
+  `address` VARCHAR(45) NOT NULL,
   `p_type` VARCHAR(45) NOT NULL,
   `bathrooms` INT NOT NULL,
   `bedrooms` INT NOT NULL,
   `furnished` VARCHAR(45) NOT NULL,
   `city_quadrant` VARCHAR(3) NOT NULL,
-  `price_min` DOUBLE NOT NULL,
+  `price` DOUBLE NOT NULL,
   `state_of_listing` VARCHAR(45),
   `landlord` INT NOT NULL,
   PRIMARY KEY (`pID`),
