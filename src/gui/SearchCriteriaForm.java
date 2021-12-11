@@ -528,7 +528,7 @@ public class SearchCriteriaForm implements ActionListener {
     int[] localmin = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
     int[] localmax = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, -1};
 
-    double[] localMinRange = {0,       200.00,  400.00,  600.00,  800.00,
+    double[] localMinRange = {0, 200.00,  400.00,  600.00,  800.00,
                               1000.00, 1400.00, 1800.00, 2200.00, 2600.00};
     double[] localMaxRange = {200.00,  800.00,  1400.00,
                               2000.00, 2600.00, -1}; // -1 reprensents 2600.00+

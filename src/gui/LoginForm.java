@@ -122,7 +122,6 @@ public class LoginForm implements ActionListener {
                       .toString(); // get the value of the combo box
     int id = 0;
     if (e.getSource() == searchPropButton) {
-      frame.dispose();
       SearchCriteriaForm mySearchCriteria = new SearchCriteriaForm();
 
     }

@@ -11,7 +11,7 @@
  *@author Stalin D Cunha<a href="mailto:stalin.dcunha@ucalgary.ca">
  *         stalin.dcunha@ucalgary.ca</a>
  * 
- * @version 1.1
+ * @version 1.9
  * @since 1.0
  */ 
 package gui;
@@ -54,7 +54,3 @@ public class RPMS {
 	}
 
 }
-
-// some@email.com pass12	- Landlord
-// jd@mail.com p123		- rrenter
-// example@email.com pass123	- Manager
