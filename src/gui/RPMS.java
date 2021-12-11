@@ -23,9 +23,9 @@ import Database.PropertyDatabaseController;
 
 public class RPMS {
 	public static void main(String[] args) {
-		String dbs = "127.0.0.1"; // Command line argument input 1
-		String user = "KundaiTD"; // Command line argument input 2
-		String pass = "manage316"; // Command line argument input 3
+		String dbs = args[0]; // Command line argument input 1
+		String user = args[1]; // Command line argument input 2
+		String pass = args[2]; // Command line argument input 3
 		try {
             FileWriter writer = new FileWriter("serverInfo.txt", false);
             writer.write("jdbc:mysql://"+dbs+"/RPMSdb");

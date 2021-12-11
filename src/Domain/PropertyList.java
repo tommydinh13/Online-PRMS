@@ -80,14 +80,6 @@ public class PropertyList implements Subject{
 		for (Observer o: observers)
 			o.update(property);
 	}
-
-	//Test Main Funtion
-	public static void main(String[] args)
-	{
-		PropertyList list = new PropertyList();
-		list.notifyObservers();
-	}
-
 }	
 
 
