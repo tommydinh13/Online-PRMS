@@ -43,8 +43,8 @@ public class RegisteredRenter implements Observer{
         try (Statement stmt = db.getConnection().createStatement();) {
             // Insertion query that first checks to see if the Renter exists.
             // If not then insert into the database.
-            String insertSql = "INSERT INTO Renters(name, password, email) " 
-            + "SELECT * FROM ( SELECT '" + name + "' AS name, '" + password + "' AS password, '" + email + "' AS email) AS temp "
+            String insertSql = "INSERT INTO Renters(name, password, email, notify) " 
+            + "SELECT * FROM ( SELECT '" + name + "' AS name, '" + password + "' AS password, '" + email + "' AS email, 'NO' AS notify) AS temp "
             + "WHERE NOT EXISTS (SELECT name FROM Renters WHERE name = '" + name + "') LIMIT 1;";
 
             stmt.executeUpdate(insertSql);

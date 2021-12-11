@@ -17,14 +17,17 @@
 
 package Database;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class SQLConnection {
-    private final String DBURL; // Databse name
-    private final String USERNAME;  // Server connection username
-    private final String PASSWORD;  // Server connection password 
+    private String DBURL; // Databse name
+    private String USERNAME;  // Server connection username
+    private String PASSWORD;  // Server connection password 
     private Connection dbConnect;
 
     // Constructors
@@ -34,16 +37,45 @@ public class SQLConnection {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        DBURL = "jdbc:mysql://127.0.0.1/RPMS";
-        USERNAME = "KundaiTD";
-        PASSWORD = "manage316";
+
+        BufferedReader reader;
+		try {
+			reader = new BufferedReader(new FileReader(
+					"serverInfo.txt"));
+			String line = reader.readLine();
+            DBURL = line;
+			line = reader.readLine();
+            USERNAME = line;
+            line = reader.readLine();
+            PASSWORD = line;
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     public SQLConnection(String dburl) {
-        DBURL = dburl;
-        USERNAME = "KundaiTD";
-        PASSWORD = "manage316";
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        BufferedReader reader;
+		try {
+			reader = new BufferedReader(new FileReader("serverInfo.txt"));
+			String line = reader.readLine();
+            DBURL = "jdbc:mysql://"+dburl;
+			line = reader.readLine();
+            USERNAME = line;
+            line = reader.readLine();
+            PASSWORD = line;
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     public SQLConnection(String dburl, String username, String password) {
+        
         DBURL = dburl;
         USERNAME = username;
         PASSWORD = password;
