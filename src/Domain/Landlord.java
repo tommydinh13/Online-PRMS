@@ -113,7 +113,6 @@ public class Landlord {
     public void registerProperty(Property pData) {
         // Registering a new property/ 
         property = pData;   // The new property which a landlord wants to register.
-        db = new SQLConnection();
 
         db.initializeConnection();
         // Entering the property data into the database

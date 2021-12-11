@@ -7,10 +7,10 @@ INSERT INTO Landlords (name, password, email) VALUES ("Anind Lorry", "pass98", "
 INSERT INTO Landlords (name, password, email) VALUES ("Newla Loris", "pass9", "nl@landmail.com");
 INSERT INTO Landlords (name, password, email) VALUES ("Jeff Ronald", "pass000", "jr@landmail.com");
 
-INSERT INTO Renters (name, password, email, notified) VALUES ("Kool Erday", "gothru1", "em@ail.com", "NO");
-INSERT INTO Renters (name, password, email, notified) VALUES ("Anew Ren", "gothru12", "ter@email.com", "NO");
-INSERT INTO Renters (name, password, email, notified) VALUES ("Som Nam", "gothru123", "ee@mail.com", "NO");
-INSERT INTO Renters (name, password, email, notified) VALUES ("Demetri Nowins", "gothru000", "dmn@mail.com", "NO");
+INSERT INTO Renters (name, password, email, notify) VALUES ("Kool Erday", "gothru1", "em@ail.com", "NO");
+INSERT INTO Renters (name, password, email, notify) VALUES ("Anew Ren", "gothru12", "ter@email.com", "NO");
+INSERT INTO Renters (name, password, email, notify) VALUES ("Som Nam", "gothru123", "ee@mail.com", "NO");
+INSERT INTO Renters (name, password, email, notify) VALUES ("Demetri Nowins", "gothru000", "dmn@mail.com", "NO");
 
 INSERT INTO Properties (address, p_type, bathrooms, bedrooms, furnished, city_quadrant, price, state_of_listing, landlord)
 VALUES ('56 Triangle st', 'Condo', 2, 3, 'Furnished', 'NE', 650.00, 'Suspended', 1513);
